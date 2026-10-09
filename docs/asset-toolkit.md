@@ -1,0 +1,120 @@
+# Rauken asset-production toolkit
+
+**Domain:** Agent-facing software inventory, offline generation, optimization, validation and reproducibility. **Status:** Production tooling plan — independent of engine and species design.
+
+## Mission
+
+Create a scriptable **Windows-first digital natural-history workshop**. Agents should be able to research, generate, inspect, optimize, import and benchmark an organism through stable tool contracts—without depending on manual GUI clicking for every asset. Source masters remain editable; runtime assets are derived and reproducible.
+
+Prioritize **free/open source and no paid recurring API rates**. Paid/legacy tools may be evaluated but not made hard dependencies without approval.
+
+## Tool inventory
+
+### Essential
+- **Blender + Python/bpy**: anatomical master meshes, sculpting, procedural Geometry Nodes, branch/fern generators, rigs, bake passes, headless renders and exports.
+- **Python/PowerShell**: orchestration; scientific geometry/data tools, manifests, batch export, QA and reporting.
+- **Visual Studio C++ build tools and .NET** if chosen engine requires it.
+- **Flax and/or Wicked** source/build tooling for renderer tests.
+- **Git and Git LFS**: text specs and scripts in ordinary Git; version heavyweight source assets deliberately, with provenance.
+- **meshoptimizer / gltfpack**: optimize and simplify static meshes and process glTF with rig/animation checks.
+- **AMD Compressonator**: BC texture compression with proper format selection (e.g., BC5 normals, BC7 color where suitable).
+- **RenderDoc, PresentMon, Tracy and native profilers**: visual/frametime validation.
+
+### Strong optional candidates
+- **PlantFactory** (discontinued but free perpetual from Bentley) for procedural trees/plants **only if export and agent automation work reliably**. Its PlantCatalog assets have distinct redistributing/resale limitations.
+- **Material Maker** for procedural PBR bark, foliage, stone and animal skin material prototypes.
+- **Krita / GIMP** for mask painting, texture corrections, composites and photo processing.
+- **Inkscape** for vector diagrams and user-interface artwork.
+- **QGIS / GDAL** for terrain GIS data and drainage inspection.
+- **Gaea** for terrain experiment reference where licensing/export tiers permit.
+- **ImageMagick, FFmpeg** for deterministic image/video postprocessing and render comparisons.
+- **glTF Transform, Khronos validators, KTX-Software** where target engine and data formats support them.
+
+Do not confuse asset visualization software (VUE/PlantFactory) with a runtime game engine.
+
+## Proposed command-line tool contract
+
+A self-contained 'Rauken Asset Toolkit' should eventually expose operations such as:
+- research_species
+- generate_plant
+- generate_plant_variants
+- build_creature
+- rig_creature
+- bake_materials
+- generate_lods
+- render_turntable
+- render_growth_stages
+- validate_asset
+- benchmark_asset
+- publish_asset
+
+These are **planned interfaces**, not claims that tools are implemented. Implement them as documented CLI wrappers with deterministic seed and input config. Outputs should be standard JSON status, asset paths, logs, hashes and metrics. Consistent exit codes and actionable errors are more important than a fancy UI.
+
+Example conceptual invocation: generate plant from a YAML species definition, seed 42 and juvenile growth stage, then produce canonical source geometry, optimized exports, neutral render, validation report and metadata. Do not create this CLI during the planning-only repo setup.
+
+## Canonical pipeline
+
+1. **Source/research:** anatomical and botanical literature, labeled living comparators, reference images, usage rights and uncertainty tier.
+2. **Parameterization:** species design file (morphology, development, materials, variation, functional interaction points).
+3. **High-resolution generation:** Blender / applicable procedural authoring; preserve native source and authored rigs.
+4. **Texture/material creation:** scientifically motivated roughness, color, normal, thickness; baking of multiscale structure; avoid baking directional lighting into albedo.
+5. **Variants/stages:** seeded individual variations, age proportions, dead/damaged forms and plant phenology where necessary.
+6. **Optimization:** geometry reduction and impostors, texture packing/compression, skeleton/update LOD, collision proxy, streaming memory cost.
+7. **Interchange:** glTF/GLB where practical, engine-specific conversions only downstream; retain source versions and importer settings.
+8. **Quality assurance:** geometry, normals, UVs, skeletal rig and morph targets, surface artifacts, shadow/alpha checks, visual renders and frame-time cost.
+9. **Publish:** versioned, validated runtime assets referenced by manifest; generate reproducible build receipt.
+
+## Data and provenance
+
+Every produced asset should have:
+- Stable logical ID, species/morphology ID, source version, generation seed, age/stage and individual variant.
+- Tool versions, input hashes, licensed references and source/baked file relationships.
+- Anatomical/growth parameters and ecological affordance metadata (e.g., edible foliage targets, plant contact bounds).
+- Mesh/texture/memory/LOD counts and measured benchmark profile.
+- Validation outcome; preview images and automation logs.
+- License provenance and redistribution notes (especially PlantCatalog and downloaded references).
+
+Avoid proprietary binary-only source state where agent-controlled serialization is feasible. Keep Blender project files for high-detail editing and declarative configs for reproducibility.
+
+## Special plant production
+
+Create branch-aware trees, true rachis/pinna ferns, segmented horsetails, stiff cycads, broadleaf shrubs, moss/lichen surfaces and fruiting fungi as different morphology generators sharing a common export contract. Batch plant instances spatially. For interactive shrubs, retain usable branch/leaf resource targets; for tiny grasses use ecological density patches rather than many individually scripted game objects.
+
+A plant family should yield morphological variants with identifiable species traits; don't randomize so widely that forms stop resembling one lineage.
+
+## Special creature production
+
+A rigged anatomical source for the flagship titanosaur with stage-dependent proportions; osteoderm and bristle zones attached to skeleton, underlying scale patterns, pose wrinkle regions, material masks, multiple growth stages and animation contacts. Export validated neutral poses, gait loops, grazing/drinking and head/neck ranges. No animation budget estimates based solely on triangle count.
+
+## Visual review
+
+Automate turntables at fixed angles, closeup skin/frond crops, moving-camera tests, neutral light and sun/overcast/wet lighting, near-to-far LOD comparisons. Review anatomy against actual research references; generated pictures are mood boards, not paleontological proof. Capture before/after images when optimizing.
+
+## Acceptance and failure handling
+
+- Deterministic repeatability from manifest + seed.
+- Valid materials/normals/UVs; no inverted/torn meshes.
+- Skinning, skeleton hierarchy, bone weights, morph targets and collision correct at all stages.
+- LOD preserves silhouette at relevant screen coverage; measure shimmer/ghosting in motion.
+- Generated geometry has measured GPU/CPU/memory cost on GTX 1080; report, don't infer.
+- Asset generator can fail gracefully with logs; partial exports not published.
+- Every external image, scan, library asset and tool license recorded.
+- Pipeline can run unattended from a Windows PowerShell entrypoint.
+
+## Initial tool-building experiment
+
+Build the six reference plants from [Flora](flora.md) and the sauropod anatomical proxy from [Creatures](creatures.md). Run generation, bake, import, turntables, LOD, and benchmark. This is an **asset/rendering experiment**, not a playable game.
+
+## Vendor/source leads
+
+- Blender: https://www.blender.org/
+- PlantFactory/VUE: https://www.bentley.com/products/e-on-software/
+- Material Maker: https://materialmaker.org/
+- meshoptimizer: https://meshoptimizer.org/
+- glTF Transform: https://gltf-transform.dev/
+- Compressonator: https://github.com/GPUOpen-Tools/compressonator
+- Poly Haven CC0: https://polyhaven.com/
+- Smithsonian Open Access: https://www.si.edu/openaccess
+- PresentMon: https://github.com/GameTechDev/PresentMon
+- RenderDoc: https://renderdoc.org/
+- Tracy: https://github.com/wolfpld/tracy
