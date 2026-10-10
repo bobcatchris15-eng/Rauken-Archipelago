@@ -73,9 +73,27 @@ Individual retention and simulation fidelity are different axes: an active small
 
 [HeroView](hero-view.md) contains the control/camera detail and acceptance cases.
 
+## Resolution is not a single distance-based level
+
+Apply three **independent design considerations** to each domain process:
+- **Causal retention:** which effects must remain true, even when no individual is instantiated? Examples: population/cohort totals, forage depletion, an old tree's lost limb, persistent flood damage.
+- **Temporal evaluation:** when does that process next have to be reconciled, or how much time may be aggregated? Regional browsing may integrate by week; local collisions must resolve immediately.
+- **Representation:** what geometric, behavioral or physical detail is currently needed? A distant herd can be only a cohort ledger; a nearby transient animal can be richly animated.
+
+Proximity influences **deadlines and visual detail**, not whether significant resource accounting exists. Do **not** implement a general-purpose causal-importance predictor or three-axis runtime LOD manager. Define domain-specific invariants and work queues: immediate contact, population/resource settlements, environmental interval integration, chunk prewarm, and graphics creation. Most scheduling can use a small number of priority/deadline classes.
+
+## Four cross-domain contracts before implementation
+
+1. **Counts and resources:** FaunaSim's demographic cohorts, active reservations and retained individuals balance. FaunaSim's aggregate browsing causes finite FloraSim resource debits through InteractionsCore; aggregate input/output need not conserve exact biological energy.
+2. **Chronological environment:** RaukenSim provides time-ordered environmental intervals plus discrete damaging events. Averages alone are insufficient. Records may be compacted once all dependent state has safely passed them.
+3. **Bounded catch-up:** Every region and durable organism/patch tracks evaluation time and version. SimCore amortizes reconciliation ahead of both Smalltrotter and the full HeroView tether; render work cannot trigger an unbounded biological replay.
+4. **Stable structural edits:** Significant tree/shrub segment IDs survive growth and asset regeneration. InteractionsCore commits a precisely addressed finite change; FloraSim stores the resulting structural state, not every historic bite.
+
+These are **contracts across existing modules, not new standalone subsystems**. See [FaunaSim](fauna-sim.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md) and [Spatial activation](spatial-activation.md).
+
 ## Time and update rates
 
-SimCore owns global world-time progression (which may be accelerated through uneventful/rest periods). RaukenSim derives sun, seasons and weather from that timeline. Species-specific developmental pacing can make juvenile growth meaningfully noticeable without forcing animation/reflex speed to match accelerated years; HeroSim and FaunaSim use the same underlying BeastCore developmental laws.
+SimCore owns global world-time progression (which may be accelerated through uneventful/rest periods). RaukenSim derives sun, seasons and weather from that timeline. Species-specific developmental pacing can make juvenile growth meaningfully noticeable without forcing animation/reflex speed to match accelerated years; HeroSim and FaunaSim use the same underlying BeastCore developmental laws. **Four meanings of time:** realtime physical controls/contacts; shared SimCore world/calendar time; physiology integrated over world intervals plus actual activity/event costs; and species life-history development derived from world time and condition. Physiology and development aren't independent hidden clocks.
 
 - Direct physical response, collision, pain/startle: prompt real-time/event-driven.
 - Local animal orientation and movement: active high-rate as needed.
@@ -99,7 +117,7 @@ The renderer can animate foliage wind and wetness each frame while biological st
 1. Adult trees maintain stable shape and accumulated damage after arbitrary chunk cycling.
 2. An active animal is already resting/browsing before Smalltrotter or the bounded camera sees it; the renderer's visibility does not generate it.
 3. No remote island-wide individual wildlife registry. Long-term retained adults are eligible **only after actual local instantiation**.
-4. Retiring and reinstantiating cohorts does not multiply animals or erase finite forage use.
+4. Retiring and reinstantiating cohorts preserves demographic accounting (abstract + active reservations + retained), resource debits and age-class transitions; statistical expectations may be approximate, but bookkeeping must not fabricate animals.
 5. HeroView may observe unseen predators; **HeroSim does not learn of them** until Smalltrotter's own senses detect them.
 6. From a front-facing orbit camera, W moves Smalltrotter toward camera; moving sideways across the view leads to camera translation, not forced heading recenter.
 7. A locally detached camera can inspect a nearby hill but is physically bounded from remote-island flight.
@@ -107,7 +125,7 @@ The renderer can animate foliage wind and wetness each frame while biological st
 9. A comfortable, recently fed large predator may simply watch a juvenile sauropod and return to resting.
 10. A flood affects movement/plant conditions/rendering consistently, then recedes with familiar terrain intact.
 11. Changes to time scale keep developmental/physiological accounting consistent across HeroSim and FaunaSim.
-12. Test modules headlessly with fixed seeds, region cycling and interaction logs.
+12. Test modules headlessly with fixed seeds, region cycling and interaction logs, including rain/drought ordering, bounded reconciliation cost, stable tree segment IDs and equivalent player/NPC developmental curves.
 
 ## Related specifications
 

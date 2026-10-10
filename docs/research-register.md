@@ -40,6 +40,19 @@ Adopt logical in-process modules: **SimCore** schedules, **RaukenState** persist
 
 Do not tick plants based on render visibility. Nearby animals need active multirate updates (immediate pain/startle; slower hunger/thirst/growth) while offscreen fauna may be aggregated. Choose time-pacing formulas after playable experiments, preserving comparable rules for player and NPC animals. This architecture does not mandate separate executables, network APIs or specific tick frequencies.
 
+## Adversarial architecture review refinements — 2026-10-09
+
+**No new runtime domains approved.** Preserve the established named component boundaries and ecology-first, presentation-driven scope. Tighten existing contracts rather than constructing a universal simulation framework.
+
+1. **FaunaSim:** persistent regional age/population ledger; abstract/active/retained reservations conserve accounting counts across activation/retirement. Cohort-level food demand causes finite, persistent FloraSim forage depletion through InteractionsCore; no individual biographies or exact remote trophic accounting required.
+2. **RaukenSim:** chronological compact environmental intervals and exceptional event records (drought duration, heat exposure, saturation, flood maxima and sequence), not simply aggregate rainfall/temperature means.
+3. **SimCore/spatial activation:** biological reconciliation, local active simulation and presentation are separate readiness tiers; bounded queue jobs, version/cursor checks and camera-tether prewarm. Don't synchronously catch up whole chunks on a camera turn.
+4. **Fidelity:** preserve domain consequences independently of temporal cadence and graphical detail. **Do not** build a generalized causal-importance scoring framework.
+5. **FloraSim/asset tooling:** significant plants use stable structural segment addresses; InteractionsCore finite/idempotent mutations; save compact current scars/structure rather than every bite. No per-leaf IDs.
+6. **Time:** one world-time source, responsive realtime motion/reflexes, BeastCore physiology over world intervals plus actual activity costs, shared species developmental rules with acknowledged gameplay compression. Exact factors pending tests.
+
+**Open experiments:** repeated region cycling and demographic balance; equal-rainfall/different-sequence biological outcome; old-chunk camera reveal latency; deterministic branch-damage regeneration; identical player/NPC life-history inputs under accelerated world time. Avoid false precision from exact ecological bookkeeping where the model is deliberately statistical.
+
 ## Sources to read and verify
 
 These are starting leads to be checked for bibliographic accuracy, licensing and what each actually supports. They are **not** proof that fictional features existed.

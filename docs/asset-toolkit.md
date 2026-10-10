@@ -121,6 +121,12 @@ Build the six reference plants from [Flora](flora.md) and the sauropod anatomica
 - RenderDoc: https://renderdoc.org/
 - Tracy: https://github.com/wolfpld/tracy
 
+## Stable biological appearance inputs
+
+For conspicuous long-lived plants, use stable **organism and anatomical segment IDs** rather than regenerate arbitrary branches from an updated random seed on each load. The authoritative FloraSim structure contains persistent branch/foliage resource addresses and a compact saved set of pruning/browsing/scar states; the asset generator resolves each address to reproducible mesh regions, attachment anchors and growth parameters.
+
+Acceptance: apply a bite to a particular branch, unload the chunk, advance environmental intervals and regrowth, rebuild from saved state; the **same branch** shows altered foliage or a lasting scar, neighboring branches remain recognizably unchanged. Dense low cover can use patch-level browsing masks rather than durable per-leaf identities.
+
 ## Camera and activation diagnostics
 
 Asset tests should support active biological chunks prepared before camera visibility, with stable tree-state reconstruction, lightweight creature rest/browse/gaze animations and a HeroView capture path showing body-relative steering, screen-space follow/pan and bounded near-hill camera flight. This is an experimental authoring/render benchmark, **not** a required playable vertical slice. See [Spatial activation](spatial-activation.md).

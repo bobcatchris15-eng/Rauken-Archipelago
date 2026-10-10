@@ -33,6 +33,27 @@ Regions define species/age-cohort occupancy and suitability using geology, clima
 - Short-lived disturbance/occupancy/cooldown of a locality may prevent immediate replacement when Smalltrotter turns away.
 - Avoid minute-by-minute virtual population biographies offscreen; a coarse ecological accounting is sufficient for changing numbers, energy pressure and seasonal habitats.
 
+## Durable population ledger — not individual biographies
+
+**The region/species/age cohort is the durable demographic unit.** Distinguish:
+- **Abstract available** cohort count or statistical density.
+- **Active reserved** local instantiated animals, counted as members of the same cohort.
+- **Retained reserved** eligible **previously instantiated** mature giants, still drawn from—not added on top of—the cohort.
+
+For discrete animals, an accounting invariant is **total = abstract + active + retained** within a region/species/cohort, accounting for any transfers in flight. Only births, deaths, immigration and emigration change a region's total; age transitions move members between cohorts. A moved animal debits one region and credits another once. Large populations of tiny creatures may instead use density/expected abundance with explicit rounding/sampling rules.
+
+Use stable operation IDs or region version checks on activation/retirement so overlapping prewarm/release operations cannot double-reserve. **Repeated crossings of a chunk boundary must not repeatedly generate new animals.** Keep short activation grace time, active-set hysteresis and coarse local occupancy/disturbance/cooldown, not lifelong individual memory.
+
+An individual can disappear forever as a named object while **its demographic and ecological contributions remain**. Preserve cohort totals/age structure, approximate reproductive and mortality outcomes, and regional foraging/occupancy pressure. Precision of rates is a tunable ecological approximation; exact headcounts are not required for insects.
+
+### Aggregate resource consequences
+
+For each habitat/cohort interval, derive bounded **forage demand by plant resource class**, water requirements and coarse browsing pressure. InteractionsCore applies batched, finite debits to FloraSim patch/organism resources, with actual granted amount returned to FaunaSim. No invisible herd may consume unavailable biomass twice, and consumption must affect what Smalltrotter later encounters.
+
+A cohort's feeding and energy state can use approximate budgets; we do **not** reconstruct specific remote bites, routes, gut histories, matter cycles or every death. Mass removed from vegetation is not equal to body mass gained. If a region lacks enough forage, model a coarse consequence (e.g. poorer condition, dispersal pressure, lower reproduction or mortality risk), not magical replacement food.
+
+Test demographic/resource invariants after repeated enter/leave, offscreen season advancement and retained-giant reactivation.
+
 ## What an active animal needs
 
 - Species and current age/stage; geometry/appearance seed.

@@ -35,6 +35,24 @@ The renderer may ask for batches of the already-derived state without making ind
 
 Plants must not re-randomize shape during a chunk reload: stable seeds and saved structural changes preserve identity. In particular, a tree with a broken branch keeps the missing branch as it grows around that loss.
 
+## Stable anatomical addressing for significant plants
+
+**Persistent organism ID is not enough** when a particular branch is bitten or broken. For durable trees, conspicuous shrubs and other structurally important plants, use **stable anatomical addresses**: organism ID + immutable segment/branch ID + tissue/resource category. Branch IDs must be generated deterministically or assigned durably; never use mutable array positions, which shift as growth adds branches.
+
+FloraSim owns the structural graph/compact generative parameterization and amounts of accessible tissue. RaukenState persists stable seed, last-evaluated time, current structure, scars/pruning/tombstones and material state as needed. The **asset generator** reconstructs the same physical segment at the same location/pose from that biological record.
+
+An interaction is a typed, idempotent command (target/address, tissue type, requested quantity, actor and operation ID). InteractionsCore validates location/reach and available tissue with the appropriate owners, commits the **actual granted** biomass/injury exactly once and returns the outcome to animal digestion/behavior. FloraSim retains the **resulting structural state** and segment/resource version, not an ever-growing diary of bites; future regrowth may replace foliage but must not mysteriously restore a severed limb.
+
+Do **not** give every leaf, fern frond or grass blade a persistent ID. Dense cover may use patch IDs, coarse browsing masks and aggregate resource budgets. Tree topology resolution is species/visual-significance dependent, not universally maximal.
+
+## Ordered growth and bounded catch-up
+
+FloraSim consumes RaukenSim's **chronologically ordered regional intervals** and exceptional events, integrating drought/flood/heat effects in sequence rather than using seasonal means alone. Each individual or patch maintains a last-evaluated timestamp and state version to support deterministic resumable advancement.
+
+For an old inactive chunk, calculate inexpensive patch-level summaries first, then advance significant plant individuals in **budgeted batches** ahead of camera observation. No renderer movement may force unbounded synchronous replay. Catch-up jobs can be subdivided with a cursor; late results are discarded or reconciled if the plant version advanced due to a newer bite or storm. High-detail geometry only builds after the state it represents is valid at the requested time.
+
+A lower-detail presentation is acceptable if detail isn't ready; a **factually contradictory** stale representation is not. Preserve committed visible damage/depletion via structural deltas or temporarily omit unreconciled high-detail detail rather than resurrecting destroyed vegetation. Test the visual result under rapid ridge-overlook camera movement and years of deferred growth.
+
 ## Food and interaction model
 
 Each edible part has anatomical location/reach, current biomass, water, fiber/chemical defenses and nutritional properties. BeastCore provides consumer physiology via HeroSim/FaunaSim, FloraSim validates resource quantity, InteractionsCore commits transfer once and returns true intake to animal owners. Feeding removes visible tissue where appropriate.

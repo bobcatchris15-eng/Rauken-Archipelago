@@ -42,12 +42,27 @@ The expensive simulations to **avoid**: per-frame hydrodynamics across the archi
 
 Provide interval summaries: temperature/rain accumulation, drought duration, degree-hours in suitable conditions, flood exposure and major event timestamps. Use coarse spatial grids and deterministic event seeds. Save/checkpoint history in RaukenState. Unobserved weather still advances on the world clock; plant growth can catch up later.
 
+## Ordered interval-and-event history contract
+
+**A precipitation sum is not a plant-growth history.** Two regions can receive the same total rain but differ sharply if one has an extended drought then a flood. RaukenSim must preserve enough **sequence** for downstream simulation, without recording every weather frame.
+
+Represent regional history chronologically as compact intervals:
+- Interval start/end, season/solar phase and starting relevant wetness/thermal condition.
+- Rainfall total and intensity class; representative temperature with minima/maxima and accumulated growing degree-time.
+- Heat/cold threshold exposure, soil moisture stress and **longest uninterrupted dry/wet spells**, saturation duration.
+- Approximate peak wind/flood depth/current, duration above damaging thresholds and any persistent hazard flags.
+- Distinct timestamped exceptional events, e.g. storm damage, inundation onset/peak/recession, rare windthrow or fire if present.
+
+**Split intervals whenever chronology changes the answer**—especially drought onset/break, flooding, seasonal transitions and damage thresholds. A single interval cannot replace drought-then-flood with averaged conditions. Evaluate long histories **in order**, using coarse analytic integration within stable stretches and precise handling at event boundaries. Species/soil threshold logic lives in FloraSim; RaukenSim supplies sufficient measurements/events, not a separate history per plant.
+
+Keep the history as shared **region or climate-cell** records in RaukenState, plus event IDs to prevent double application. Use snapshots/checkpoints and a per-consumer reconciliation watermark (or equivalent safe reference bound) before compaction: never delete an event an unevaluated tree/patch still needs. Exact interval length, number of fields and retention policy must be benchmarked against reconstruction fidelity and save size.
+
 ## Test cases
 
 1. Windward Rainridge wet, sheltered lee drier, without hard biome seams.
 2. Spring-fed Main Island ravine supports wetter habitat than adjacent ridge despite similar rainfall.
 3. Storm raises water on established floodplain; land and stream return close to previous state afterward.
-4. FloraSim can advance 100 days using compact history without replaying every weather tick.
+4. FloraSim can advance 100 days using **ordered** compact intervals/events without replaying every weather tick; equal rainfall totals but different drought/flood sequences yield different outcomes.
 5. Quiescent years do not rearrange gullies/stream courses.
 6. Renderer, HeroSim and FloraSim agree about the same rain and soil-moisture episode.
 

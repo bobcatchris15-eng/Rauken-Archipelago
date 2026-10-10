@@ -43,6 +43,14 @@ HeroSim and FaunaSim must use the same underlying formulas and species definitio
 
 A key tuning question remains: how much growth compression comes from global clock acceleration versus a shared species developmental curve? Record options with test results rather than selecting durations prematurely.
 
+## Time semantics shared with FaunaSim
+
+**Do not implement four independent clocks.** SimCore owns the only advancing **world/calendar clock**; realtime drives immediate physical input, movement, collision and reflex response. Physiological state is *integrated across world time* plus discrete activity/resource events, using BeastCore for both HeroSim and FaunaSim. Developmental progression is a **species life-history calculation** from elapsed world time, nutrition/condition and age class, not a secret HeroSim-only clock.
+
+At elevated world-time speed, avoid applying the multiplier twice: an actual kilometer walked incurs an activity-dependent movement cost **once**, while resting metabolism follows elapsed biological/world time under the chosen abstraction. Growth cannot be infinitely free; use an explicit *approximate* nutrition/condition limiter and consistent cohort-scale NPC approximation. Do not claim exact mass-energy conservation or biologically literal multi-month growth if playtesting compresses early development.
+
+A moderate world-time accelerator plus shared nonlinear juvenile developmental pacing is a **candidate**, not a selected numerical mapping. Safe rest time-skips use bounded environmental/physiological steps, interrupting on dangerous events. Test the same species as player and NPC under identical world-time/event input, including movement cost, temperature, eating and growth, and compare outcomes within defined tolerances.
+
 ## Environment and interaction contracts
 
 - RaukenSim: sample current local conditions relevant to heat, rain, wind, water safety, shelter and flooding.

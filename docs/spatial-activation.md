@@ -31,6 +31,23 @@ When possible, prioritize available resources: **HeroSim and physical contact fi
 
 A camera can't outrun fauna activation at a ridge crest without some quality fallback; prefetch/budget ahead of time, and if necessary show distant static proxies instead of suddenly generating an entire herd inside the view.
 
+## Bounded reconciliation and readiness
+
+Prewarming is a **work queue with a budget**, not an instruction to instantiate an entire valley synchronously. Track region biological timestamp, region/content version, last committed event cursor and per-stage readiness:
+
+1. **Dormant:** generated maps, persistent ecological records and cohort/resource summaries only.
+2. **Reconciled:** FloraSim/FaunaSim aggregate consequences advanced to a known world-time checkpoint.
+3. **Locally active:** appropriate organisms and immediate behaviors loaded where interactions/senses may occur.
+4. **Presented:** requested camera geometry, animation and audio resources ready at specific LOD.
+
+Readiness levels may overlap and are not mandatory one-way lifecycle states. Rendering may draw low-detail distant scenery well outside active fauna simulation, but never fabricate an active animal in an unreconciled region merely because the camera rotated.
+
+**Work policy:** SimCore prioritizes bodily collision/perception and urgent local interactions, then regions approaching Smalltrotter or the reachable HeroView camera envelope, then background ecological catch-up and decorative preparation. Bound reconciliation jobs by measured CPU work/step and total queued memory. Amortize large plant cohorts, old damage journals and fauna activation over multiple jobs; maintain region version/timestamp so stale job results cannot overwrite newer changes.
+
+Activation hysteresis and predicting camera motion help, but the camera may reach a ridge before high-detail work finishes. Have a graceful fallback: display a **consistent cheaper snapshot/proxy** if available, with committed damage/depletion respected, and refine as soon as ready. No forced synchronous multi-year catch-up on camera turning and no visible creature popping into existence in the current frustum. Tether distance and work margins must be tuned together.
+
+**Causal work is not distance-only:** even dormant regional populations periodically or lazily settle consequential forage consumption, demographic changes and environmental histories. Individual movement/animation is unnecessary for those settlements. Avoid a general-purpose importance-scoring engine; simple domain queues and deadlines are enough.
+
 ## FloraSim region instantiation
 
 On simulation-region activation, FloraSim reconstructs **the botanical state that should exist there now** from:

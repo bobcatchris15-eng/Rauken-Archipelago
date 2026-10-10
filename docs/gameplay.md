@@ -67,6 +67,12 @@ Prefer **diegetic-first, optional contextual HUD**:
 
 Playtest whether players can distinguish *hungry* from *digesting but low stomach fullness*, or *warm* from *heat stressed*. Don't conceal vital state so thoroughly that deaths feel arbitrary.
 
+## Development and time compression — deliberate tradeoff
+
+World/calendar time may accelerate while **physical input, collisions and startle remain realtime-responsive**. BeastCore integrates metabolism across relevant world-time intervals, also adding actual movement/intake costs and avoiding double-charging travel during acceleration. Development is shared species-level nonlinear progression constrained by approximate nutritional condition, *not* an independent secret growth clock for Smalltrotter. No exact real-world mass-balance claim is made for deliberately compressed early growth.
+
+Choose numerical time acceleration and juvenile-development curves **after observing play**, not from abstract realism alone. Too much acceleration makes hunger, weather and seasons rush past; too much independent growth risks implausibly cheap body mass. HeroSim and equivalent wild juveniles obey comparable rules, though distant FaunaSim cohorts integrate them statistically.
+
 ## Growth and long play
 
 Life stages are overlapping continuous processes, not XP thresholds:
