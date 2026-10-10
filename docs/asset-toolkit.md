@@ -21,7 +21,7 @@ Prioritize **free/open source and no paid recurring API rates**. Paid/legacy too
 - **RenderDoc, PresentMon, Tracy and native profilers**: visual/frametime validation.
 
 ### Strong optional candidates
-- **PlantFactory** (discontinued perpetual Bentley edition) for procedural trees/plants **when a real installed exporter works**. Probe actual automation, preserve source and branch pivot metadata; PlantCatalog-derived assets have distinct licensing/resale constraints. Blender remains mandatory fallback.
+- **PlantFactory** (discontinued perpetual Bentley edition) for procedural trees/plants **with an agent-built automation adapter even when no supplied CLI exists**. Evaluate native plugin/scripting support or Windows UI Automation for parameter editing and batch exports, preserve source and branch pivot metadata; PlantCatalog-derived assets have distinct licensing/resale constraints. Blender remains mandatory fallback.
 - **Material Maker** or Blender-node recipes for procedural PBR bark, foliage, stone, moss, fungi and skin materials. Include editable roughness, albedo, tangent-space normals, AO and leaf thickness/transmission intent.
 - **Krita / GIMP**, optionally **ArmorPaint**, for mask painting, texture corrections, composites and photo processing.
 - **Inkscape** for vector diagrams and user-interface artwork.
