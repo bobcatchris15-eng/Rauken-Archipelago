@@ -4,13 +4,13 @@
 
 ## Core loop
 
-1. Enter the world as a juvenile recently beyond (or dispersing from) the protection/familiarity of its birth group.
-2. Walk, run, look, investigate, approach, avoid, rest and deliberately choose routes.
+1. Hatch as an otherwise ordinary individual of the selected Hero Beast species, inside an established wild population and its species-specific nesting/social circumstances.
+2. Directly steer or select deliberate intentions when desired; otherwise watch HeroSim live the animal's normal life.
 3. Let instinctive routines exploit appropriate nearby affordances: feeding when hungry and within reach of suitable plants, drinking when thirsty beside accessible freshwater, grooming and posture adjustments during downtime.
 4. Experience physiological consequences over credible time, not arcade hunger countdowns.
 5. Learn a home range, exploit familiar resources, confront weather and terrain, encounter other animals and grow.
 6. Remain free to leave: new valleys and marine crossings are feasible but risky.
-7. Mature, possibly breed, age and die; allow another life afterward without supernatural inheritance of learned knowledge.
+7. Mature, optionally court/mate/nest/tend young, age and die; hatch a new animal in the same continuing world with no inherited player progress.
 
 No mandatory quests, inventories, technology trees, crafting, collectible checklists or map-reveal towers.
 
@@ -20,19 +20,19 @@ No mandatory quests, inventories, technology trees, crafting, collectible checkl
 
 A locally detached camera can fly **over a nearby hill** while Smalltrotter continues living, but stays within a **soft/hard tether** anchored to her; it cannot travel to another island. In camera-control input mode, ground selection requests a destination and HeroSim decides how to travel there, using only her senses for new hazards. Camera sightings do **not** grant her omniscience.
 
-Intent types: **direct body-relative steering**, **persistent destination**, **uncommanded autonomy**. Normal hunger/thirst cannot hijack WASD and should not discard a destination; severe fear/pain can interrupt more readily in destination travel than direct control. Direct movement normally cancels old destinations. See [HeroView](hero-view.md).
+Intent types: **direct body-relative steering**, **persistent destination**, **occasional player-invoked contextual response**, **uncommanded full autonomy**. Normal hunger/thirst cannot hijack WASD and should not discard a destination; severe fear/pain can interrupt more readily in destination travel than direct control. Direct movement normally cancels old destinations. See [HeroView](hero-view.md).
 
 ## Control contract
 
-**Explicit player controls:** movement direction and speed, camera/attention, deliberate interactions with other animals, voluntary rest/shelter, investigation and flight, optional social or breeding actions.
+**Explicit player controls:** movement direction and speed, camera/attention, optional destinations and deliberately invoked contextual intentions for investigation, social contact, threat, predation, nesting or withdrawal. The contextual response interface does **not** appear automatically around ordinary resources.
 
-**Autonomous routines:** browsing, swallowing and chewing-like animation appropriate to anatomy; drinking; attention shifts; breathing; small balance and grooming movements; posture microadjustments. They must not wrest locomotion away from the player.
+**Autonomous routines:** opportunistic browsing **while walking**, chewing, drinking, gaze and attention shifts, breathing, small prey-snatching, social calls/contact, sniffing, grooming, balance and posture adjustments. Compatible body regions may act concurrently with locomotion. With no commands, HeroSim initiates ordinary travel, foraging, social responses, rest, flight and risk assessment. Direct steering overrides voluntary navigation, not feasible reflexes or anatomy.
 
 Interaction algorithm (conceptual):
 - Current internal state establishes possible drives.
 - Sensory/environmental query provides physically reachable food/water/rest affordances.
 - Species and learned preferences score candidates.
-- A low-cost local action begins only if compatible with player action and safety context.
+- A low-cost local action begins only if compatible with player action and safety context, potentially while feet/body continue moving under player steering.
 - Movement, danger, deliberate interaction or loss of access interrupts naturally.
 - Actual calories/water/biomass are changed by the ecological model; animation only represents the event.
 
@@ -40,7 +40,23 @@ Never eat undrinkable saltwater because it is water; do not vacuum biomass throu
 
 ## Simulation contract
 
-**HeroSim** owns the player's condition and player-intention arbitration using shared **BeastCore** metabolic/sensory models also used by **FaunaSim**. **RaukenSim** provides weather/water, **FloraSim** finite food, **InteractionsCore** transfer results, **RaukenState** persistence and **SimCore** world time. Acute startle/pain and movement remain immediately responsive; thermal, hydration, digestion and developmental processes can be sampled at different slower rates.
+**HeroSim** owns the player's condition and player-intention arbitration using shared **BeastCore** metabolic/sensory models also used by **FaunaSim**. **StalthosSim** provides weather/water, **FloraSim** finite food, **InteractionsCore** transfer results, **StalthosState** persistence and **SimCore** world time. Acute startle/pain and movement remain immediately responsive; thermal, hydration, digestion and developmental processes can be sampled at different slower rates.
+
+## Contextual intentions and documentary observation
+
+Routine eating, drinking, looking about, calling and locomotion-compatible behavior **never need an interaction prompt**. The player may optionally open a small slow-time response chooser to express a specific intention that is not already emerging organically: inspect *that* unusual object, greet *this* companion, interpose against *that* predator, select *this* nest site, or commit to stalking prey. Offered options derive from actual senses, species anatomy and situation; the chooser never pops up by itself. Its selection produces a **HeroSim intent**, not a guaranteed animation, attack, social outcome or magically reachable target. SimCore owns the slowdown of the immediate world and resumes shared time without desynchronizing wildlife.
+
+With neither active steering nor a maintained player intent, **HeroSim governs the entire animal**. It may forage, roam beyond the current clearing, react socially, avoid hazards, reproduce or die. There is no arbitrary idle-radius leash. Direct steering immediately recovers control, subject to real physical limits and brief genuine involuntary responses.
+
+When the player also leaves the camera alone, **HeroView gradually enters documentary composition**: gentle body-centered orbit/follow, coherent continuous physical camera motion and well-framed portrait, social or environmental shots. It need not spin constantly or cut to unrelated action; direct camera input immediately interrupts. Alarms can briefly focus attention without inventing sensed information. Documentary observation is the real simulation, not a risk-free spectator variant. A useful acceptance target is thirty minutes of engaging animal behavior with no player commands.
+
+## Reproduction, early care and successive lives
+
+- Reproduction is part of the game, not a peripheral optional statistic menu. Species-appropriate courtship, mating, nest preparation, laying, care/incubation and hatching are interactive or observable.
+- Target **thirty minutes or less for a focused nesting-to-hatching episode**, using accelerated or interruptible rest through the **single SimCore world time** and credible regional consequences. Not thirty minutes for every offspring to grow up: post-hatch dependence can last through substantial normal play.
+- Parenting is **species-specific**: Smalltrotter young are largely on their own; Brackenback youngsters loosely congregate amid protective unrelated adults; Reedcrest peers form a synchronized nesting-ground kindergarten; Thistletail cares briefly then disperses; Longstride has the longest parental dependence, with youngsters following and learning from a parent.
+- No breeding-stat minigame, genetic optimization, required clutch success, compulsory offspring care or lineage-based advancement.
+- Death is an ordinary animal death. A new session in the **same persistent world** hatches a generic new member of a chosen local species population. Surviving nests, companions, dependent young, corpses and previously instantiated retained wildlife obey ordinary persistence/cohort rules and biological advancement. The new Hero Beast inherits none of the prior animal's relationships or special knowledge.
 
 ## Physiological model
 
@@ -84,7 +100,7 @@ Life stages are overlapping continuous processes, not XP thresholds:
 
 Changes in mass and body proportions affect gait, clearance, climbing, water depth tolerance, heat retention and browser reach. Some spaces accessible to juveniles cease to be usable by adults.
 
-Parental protection is species-dependent and not assumed long for sauropods: begin near a familiar nursery/group if prolonged parental care is not scientifically defensible for a fictional interpretation.
+Early life begins at hatching; parental protection and developmental acceleration differ by species. A Longstride begins under a caring parent, Brackenback among communal young, Reedcrest among neighboring synchronized nests, Thistletail with a brief attendant parent and Smalltrotter near largely independent hatchlings.
 
 ## Navigation and exploration
 
@@ -106,10 +122,17 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 - Favor meaningful days, seasonal shifts and generational lifespan rather than arcade timing.
 - **Fluid time:** visible juvenile growth should emerge within a reasonably short play session. SimCore can accelerate world time/rest and shared species developmental curves may compress early growth; exact pacing remains under test.
 - Real-time controls and acute sensory reactions cannot slow down just because world/developmental time advances faster. Comparable NPC juveniles must have compatible BeastCore growth rules.
-- World and botanical state, wildlife population cohorts and the hero's life remain coherent after death. **Most wildlife is not a durable named individual**; only eligible previously-instantiated mature giant animals may retain identity.
-- Consider starting a later life as a descendant only if birth and inheritance systems justify it.
+- World and botanical state, nests, corpses, cohorts and eligible previously instantiated wildlife continue across player deaths. Most wildlife is not a durable individual, but relevant bonded peers, dependent offspring and selected notable giants may retain compact identity that advances coarsely or later expires.
+- New player lives are **ordinary hatchlings from existing species populations**, not designated descendants, reincarnations or recipients of inherited traits.
 
 ## Initial usability tests
+
+- Can Smalltrotter pluck reachable foliage while the player keeps moving without invoking UI or stopping her feet?
+- Does a fully autonomous Hero Beast continue believable travel, feeding and relationships under passive documentary observation?
+- Does a deliberately opened response wheel produce an intent, not a scripted guaranteed outcome, and otherwise stay entirely out of the way?
+- Can a player hatch, experience appropriate parental behavior, tend a nest within a short accelerated episode and remain with dependent young afterward?
+- Does another player life find a continuing world without resurrecting, duplicating or protecting earlier individuals?
+
 
 - Can a new player find food/water and remain alive without tooltips?
 - Does autonomous browsing feel organic and interruptible?
@@ -121,4 +144,4 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 
 ## Out of scope for this domain
 
-Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). Persistence and ownership belong in [Simulation architecture](simulation-architecture.md); specifics in [HeroSim](hero-sim.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md) and [FaunaSim](fauna-sim.md). Appearance belongs in [Visual direction](visual-direction.md); human-facing control/camera design belongs in [HeroView](hero-view.md).
+Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). Persistence and ownership belong in [Simulation architecture](simulation-architecture.md); specifics in [HeroSim](hero-sim.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md) and [FaunaSim](fauna-sim.md). Appearance belongs in [Visual direction](visual-direction.md); human-facing control/camera design belongs in [HeroView](hero-view.md).
