@@ -82,7 +82,7 @@ Create branch-aware trees, true rachis/pinna ferns, segmented horsetails, stiff 
 
 A plant family should yield morphological variants with identifiable species traits; don't randomize so widely that forms stop resembling one lineage.
 
-The asset generator must reconstruct a tree from **FloraSim** and **StalthosState** state (stable ID, seed, age, growth, branch damage, foliage/fruit stage) without altering recognizable branches on chunk reload. The renderer receives state snapshots and InteractionsCore change events, never drives biological ticking.
+The asset generator should reconstruct recognizable prominent trees from stable seeds plus compact appearance and **saved conspicuous damage**; no exact identity for every ordinary branch or leaf is required. The renderer receives state snapshots and InteractionsCore change events, never drives biological ticking.
 
 ## Special creature production
 
@@ -123,10 +123,11 @@ Build the six reference plants from [Flora](flora.md) and the sauropod anatomica
 
 ## Stable biological appearance inputs
 
-For conspicuous long-lived plants, use stable **organism and anatomical segment IDs** rather than regenerate arbitrary branches from an updated random seed on each load. The authoritative FloraSim structure contains persistent branch/foliage resource addresses and a compact saved set of pruning/browsing/scar states; the asset generator resolves each address to reproducible mesh regions, attachment anchors and growth parameters.
+**Produce a stable visual result with the smallest source description that works.** For most plants and animals, retain identity/seed, morphology variant, age/stage and seasonal appearance parameters. A browsed patch can use a local foliage-density mask or damaged variant, not immutable addresses for all branches and bites.
 
-Acceptance: apply a bite to a particular branch, unload the chunk, advance environmental intervals and regrowth, rebuild from saved state; the **same branch** shows altered foliage or a lasting scar, neighboring branches remain recognizably unchanged. Dense low cover can use patch-level browsing masks rather than durable per-leaf identities.
+For a **conspicuous or frequently observed tree**, save missing-limb/death/fall exceptions or optional stable segment IDs so recognizable damage persists. Fine anatomical segment graphs are justified only by a demonstrated close-camera benefit; ordinary branches and leaves need none.
 
+**Acceptance:** browse a recognizable shrub, leave and return to plausible depletion/recovery; topple a landmark tree and reload to find it still fallen. No exact branch-resource accounting, climate-interval replay or invisible historic damage reconstruction. Dense cover uses seeded/patched display variants.
 ## Camera and activation diagnostics
 
 Asset tests should support active biological chunks prepared before camera visibility, with stable tree-state reconstruction, lightweight creature rest/browse/gaze animations and a HeroView capture path showing body-relative steering, screen-space follow/pan and bounded near-hill camera flight. This is an experimental authoring/render benchmark, **not** a required playable vertical slice. See [Spatial activation](spatial-activation.md).
