@@ -20,6 +20,16 @@ The world should not visibly contradict itself: creatures must not pop into exis
 
 If a complex mechanism adds no measurable visual, behavioral or gameplay improvement against a cheap approximation, **do not build it**. Scientific and ecological research is guidance for appearance and plausible behavior, not a requirement for numerical biological fidelity.
 
+## Runtime cost doctrine — every frame is for the facade
+
+**Performance is an aesthetic enabling constraint.** Minimize per-frame CPU/GPU work that does not directly improve the image, sound, interaction or responsiveness the player currently experiences. In particular, no per-object ecology polling, full-scene collision sweeps, hidden-individual behavior trees, world-wide animation, climate integration or routine save/database traffic on the render path. Ordinary background state advances on events, coarse timers, camera-region preparation or elapsed-time reconstruction.
+
+Reserve immediate work for the Hero Beast, responsive nearby physical contacts, current camera/audio presentation and visible local wildlife. Stage animals beyond the possible camera reveal before they're seen, but do **not** run them all at full behavior/animation/physics fidelity. Distant regions use static graphics, approximate abundance and saved conspicuous exceptions.
+
+Spend *offline* computation freely where it improves reusable asset quality: mesh/material generation, baking, LOD/impostor creation, terrain composition, reference-driven variation and diagnostics. On the GPU, measure and optimize the actual visual costs—foliage overdraw, shadows, lighting, draw submission, skinning, streaming—rather than compromising near-view appearance by assumption. Prefer batching, instancing, cache reuse, cheap distant substitutes and update-on-change. Never equate "no per-frame simulation" with "no rendered motion": visually essential animation still runs, using its most economical representation.
+
+The GTX 1080 / first-gen Ryzen 1080p, 30 FPS floor remains a **measured full-scene objective**. Each proposed recurring workload must justify its observed benefit and be profiled alongside dense botanical scenery, weather, hero locomotion and nearby wildlife. Do not buy hidden ecological fidelity with frame time.
+
 ## Biodiversity is an authored spectacle, not an ecology budget
 
 Prefer **fifty convincingly different non-hero wildlife actors** over sixteen deeply and quantitatively simulated animal species. Prefer **around two hundred recognizably different plant silhouettes, branching systems and leaf/frond designs** over a handful of highly detailed botanical simulators. These are **expandable creative starting ambitions, not caps, mandatory completion gates or a reason to reject an animal or plant the user specifically wants**.
