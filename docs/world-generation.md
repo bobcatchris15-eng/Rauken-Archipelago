@@ -8,6 +8,14 @@ Generate credible *relationships* between rock, drainage, coast, vegetation and 
 
 **Explicit aesthetic mandate:** The Stalthosian Archipelago favors dense, evocative terrain, sheltered mossy ravines and inlets, dramatic outcrops and irregular drowned uplands over strict average-frequency geological realism. Judge the balance inside a traversable environment rather than settling it from paper dimensions.
 
+## Composition-first rule (supersedes geological reenactment)
+
+**Accepted:** the landscape's primary purpose is believable, dramatic exploration. The geological pipeline below is a **toolbox of optional authoring operations**, not a required physically modeled chronology. Choose whichever mix of procedural landform building, limited erosion, hand/agent composition, rock meshes and stable biome masks most efficiently produces strong ridge silhouettes, valleys, cliffs, ravines, sinkholes, arches, coastal inlets and credible basic drainage.
+
+Do not spend weeks solving ancient plate histories, sediments, aquifers or erosion merely to justify present-day terrain. A visual/terrain test that convincingly communicates geological relationships is sufficient. The named ten stages below may be merged, replaced or bypassed, and should be validated with actual animal-scale camera traversals.
+
+Stone Island's Yucatán/Costa Rica-inspired cenotes and collapsed cavities can be authored as heightfield voids with local real-3D rock/cave meshes, water surfaces, forest placement and baked light/occlusion as suitable; no general volumetric rock or aquifer solver. Main Island's more varied Catskill/Highland/pine-barren/South African references inform combinations of visually coherent terrain motifs, not a requirement for separate world-generation engines.
+
 ## Layered offline pipeline
 
 1. **Ancient foundation:** assign crustal blocks, strata, resistant rock belts, uplifts, faults, fold orientation, basins and erodibility fields across one connected ancestral landmass.
