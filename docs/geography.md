@@ -1,10 +1,13 @@
-# The Rauken — geography and island history
+# The Stalthosian Archipelago — geography and island history
 
 **Status:** High-level world direction with provisional dimensions. **Primary value:** evocative geography that invites curious exploration.
 
-## Formation thesis
+## Naming and formation thesis
 
-The Rauken is a deeply eroded, partly drowned continental upland system: ancient resistant ridges, differentiated bedrock, fault-bounded basins, river networks, and long-lived erosion precede marine inundation. The sea enters former valleys, leaving branching rias, headlands, narrow rocky inlets, irregular peninsulas, offshore rock towers and surviving hilltop islands.
+**The Stalthosian Archipelago** is the canonical fictional region name. **Stalthos** is shorthand and **Stalthosian** is its adjective. The invented name invokes an ancient rocky foundation; it is not claimed to be an attested Old English toponym. The four major island working names and geological profiles remain unchanged by the rename.
+
+
+The Stalthosian Archipelago is a deeply eroded, partly drowned continental upland system: ancient resistant ridges, differentiated bedrock, fault-bounded basins, river networks, and long-lived erosion precede marine inundation. The sea enters former valleys, leaving branching rias, headlands, narrow rocky inlets, irregular peninsulas, offshore rock towers and surviving hilltop islands.
 
 **Do not generate four generic islands independently.** Generate (or author against) shared geological structures and drainage history, then separate the highlands at different episodes of relative sea-level change, subsidence and fault motion.
 
@@ -91,4 +94,4 @@ Island orientations; winds and latitude; separation sequence and local relative 
 
 ## Simulation boundary
 
-Landform geometry, stream positions, springs and general moisture/suitability fields are primarily **map-design outputs**, not expensive ongoing geology. [RaukenSim](rauken-sim.md) handles day/night, weather, seasons and exceptional transient flooding; [FloraSim](flora-sim.md) uses those map fields to determine plant growth and health. Organism/geographic identity persists through [RaukenState](simulation-architecture.md).
+Landform geometry, stream positions, springs and general moisture/suitability fields are primarily **map-design outputs**, not expensive ongoing geology. [StalthosSim](stalthos-sim.md) handles day/night, weather, seasons and exceptional transient flooding; [FloraSim](flora-sim.md) uses those map fields to determine plant growth and health. Organism/geographic identity persists through [StalthosState](simulation-architecture.md).
