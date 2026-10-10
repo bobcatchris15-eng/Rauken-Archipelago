@@ -2,7 +2,7 @@
 
 **Status:** Proposed, implementation-ready work specification; no implementation exists yet.  
 **Parent:** [Roadmap](README.md). **Agent interfaces:** [Parallel work packages](parallel-work.md).  
-**Scope:** a Windows-first, reproducible, engine-neutral digital natural-history workshop. Build real scripts and sample assets in this order, **not a playable vertical slice**. Runtime engine remains undecided.
+**Scope:** a Windows-first, reproducible, engine-neutral digital natural-history workshop. Build real scripts and sample assets in this order, **not a playable vertical slice**. Wicked is the active renderer target; PlantFactory automation is an implementation assignment, not a preexisting CLI assumption.
 
 ## A. Design invariants
 
@@ -66,7 +66,7 @@ Use YAML **only as an author-friendly profile format** if its parser is pinned, 
 
 **Identity:** a fictional taxon/form ID is different from a generator family, asset revision, seeded appearance variant and placed-world instance ID. Maintain stable logical IDs independent of file paths or procedural node order. Derive reproducible sub-seeds using a specified stable hashing algorithm, never the randomized default Python hash. Instance IDs must survive reexport and transform changes where intended. Model normal unimportant variation as reproducible seed+profile, conspicuous scar/damage as sparse overrides later.
 
-**Contracts:** units in meters, documented handedness/axis conventions at each boundary, explicitly tested conversion to glTF and each candidate engine, agreed up/front vectors, time units, stage units, animation names, material color-space tags. Bake/export scales and coordinate transforms must be validated by a calibrated cube, reference biped and ground alignment fixture. No undocumented axis swaps.
+**Contracts:** units in meters, documented handedness/axis conventions at each boundary, explicitly tested conversion to glTF and Wicked Engine, agreed up/front vectors, time units, stage units, animation names, material color-space tags. Bake/export scales and coordinate transforms must be validated by a calibrated cube, reference biped and ground alignment fixture. No undocumented axis swaps.
 
 **Artifacts:** toolkit/schemas; toolkit/schema-validators; profiles/plants/softbough.yaml, profiles/plants/royal-frond.yaml, profiles/creatures/smalltrotter.yaml; fixture references and expected failures; schema changelog.
 
@@ -147,9 +147,9 @@ Evaluate geometry-vs-masked-card leaf treatments *per morphology family*: broadl
 
 ### Wicked-focused material and third-party authoring work
 
-The **active executable DAG** additionally assigns PFA-001/002/003 (PlantFactory version/license/export test, Blender import and preserved wind pivots), MAT-001/002/003 (procedural PBR and honest roughness authoring, Wicked channel packing/DDS/alpha mips, foliage transmission and wetness shader), and GEO-001 (legally usable photographed rock/root/log inputs). These are first-class bounded worker tasks, not a general suggestion to install software.
+The **active executable DAG** additionally assigns PFA-001/004/002/003/005 (PlantFactory version/rights discovery, agent-built native/plugin/Windows UI automation, Blender import, preserved wind pivots and seeded batch exports), MAT-001/002/003 (procedural PBR and honest roughness authoring, Wicked channel packing/DDS/alpha mips, foliage transmission and wetness shader), and GEO-001 (legally usable photographed rock/root/log inputs). These are first-class bounded worker tasks, not a general suggestion to install software.
 
-Keep Material Maker, PlantFactory, InstaMAT, ArmorPaint and photogrammetry tools **optional and version-audited**; only a tested supported export path is an accepted automation feature. Protect per-branch wind/animal-contact attributes from mesh optimization and maintain a separate native Blender generator route for all mandatory G1 plant forms. Native plant source and neutral texture recipes persist independently of derived Wicked materials. See [Wicked material pipeline](wicked-material-pipeline.md).
+Keep Material Maker, PlantFactory, InstaMAT, ArmorPaint and photogrammetry tools **optional and version-audited**. **PlantFactory GUI automation is explicitly authorized** when no native API exists: develop a supported plugin or Win32/UIA/pywinauto wrapper with version-specific control targeting, screenshot/error proof, serialized interactive desktop sessions, crash recovery and native project save/exports. Only actual emitted files/receipts count as accepted automation. Do not bypass licensing. Protect per-branch wind/animal-contact attributes from mesh optimization and maintain a separate native Blender generator route for all mandatory G1 plant forms. Native plant source and neutral texture recipes persist independently of derived Wicked materials. See [Wicked material pipeline](wicked-material-pipeline.md).
 
 ## D. Hero reference and interactions: TOOL-09, TOOL-10
 
@@ -166,7 +166,7 @@ Build a recognizable **dwarf titanosaur proxy**, not a generic cylinder lizard:
 
 Supply rig/skeletal GLB, bind poses, weight verification, animation timestamps, LOD/morph method and turntable/video evidence. Preserve stage transitions without requiring full dynamic growth mechanics or detailed physiology. Nonplayer animal families later reuse the rig/animation contract where anatomically appropriate, but **do not** assume that every actor should share one body plan.
 
-**QA:** no broken weights, toe/foot sliding in reference walks, badly deforming neck or armor; quills do not uniformly resemble porcupine spikes; actual rig and animated import supported by both engine candidates or conversion limitations declared. Performance claims require actual skin/animation benchmark.
+**QA:** no broken weights, toe/foot sliding in reference walks, badly deforming neck or armor; quills do not uniformly resemble porcupine spikes; actual rig and animated import supported by the actual Wicked build or conversion limitations declared. Performance claims require actual skin/animation benchmark.
 
 ### TOOL-10 — bending shrub / local-physical contact display contract
 
@@ -189,7 +189,7 @@ References are **source material and evidence**, not automatically redistributab
 
 Reference families to gather for eventual review: Main Island (Driftless/Baraboo, Wisconsin sand plain and buttes, Catskills/Appalachians, Scottish Highlands, pine barrens, selected South African terrains); Rainridge (Olympic temperate rainforest and Great Smoky Mountains humid coves); Stone Island (Yucatán/cenote and Costa Rican karst); Outer Reach (tsingy-like pinnacles and badlands). Treat these as **form/lighting references, not species or geology prescriptions**. Attach actual high-resolution originals only when reuse terms permit; otherwise store citations/links and separately authored derivative instructions.
 
-For optional PlantFactory: record exact installer/version, test actual unattended export rather than inventing a CLI, verify provenance of every PlantCatalog-derived asset, preserve branch/pivot/wind metadata where exported, and do not confuse permitted inclusion in a game with unrestricted asset marketplace resale. **Agent DAG:** PFA-001/PFA-002/PFA-003; Blender-native vegetation remains mandatory fallback. No hidden dependency on deprecated plugins or GUI-only projects. Independently modeled Blender/PlantFactory plants should be flagged distinctly from PlantCatalog variants.
+For optional PlantFactory: record exact installer/version, test actual unattended export rather than inventing a CLI, verify provenance of every PlantCatalog-derived asset, preserve branch/pivot/wind metadata where exported, and do not confuse permitted inclusion in a game with unrestricted asset marketplace resale. **Agent DAG:** PFA-001/PFA-004/PFA-002/PFA-003/PFA-005; agents should build whatever lawful native/plugin/Windows UI bridge is needed for reproducible export instead of stopping at a GUI-only program. Blender-native vegetation remains a guaranteed fallback. No unsupported assumption that old host plugins already run in Wicked. Independently modeled Blender/PlantFactory plants should be flagged distinctly from PlantCatalog variants.
 
 **QA:** publication halts on missing legal provenance for external base meshes/textures, not on purely linked documentary references requiring no redistribution. No invented scientific sources, exact fossil claims or assumed public-domain status for modern photos.
 
