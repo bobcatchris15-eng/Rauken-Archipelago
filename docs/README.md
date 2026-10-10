@@ -6,18 +6,18 @@ These are **planning documents**, not implementation code. They are separated by
 |---|---|---|
 | Product direction | [Vision and principles](vision-and-principles.md) | Goals, tone, acceptance philosophy |
 | Gameplay | [Gameplay](gameplay.md) | Player agency, physiology interface, life cycle and experience |
-| Geography | [Geography](geography.md) | The Rauken's four islands, coastlines, terrain characters and scales |
+| Geography | [Geography](geography.md) | The Stalthosian Archipelago's four islands, coastlines, terrain characters and scales |
 | World generation | [World generation](world-generation.md) | Authoring/generation method, metrics and test landforms |
 | Architecture | [Simulation architecture](simulation-architecture.md) | Named systems, ownership, time, interactions and persistence |
-| Environment simulation | [RaukenSim](rauken-sim.md) | Weather, seasonal conditions, floods, environmental history |
+| Environment simulation | [StalthosSim](stalthos-sim.md) | Weather, seasonal conditions, floods, environmental history |
 | Plant simulation | [FloraSim](flora-sim.md) | Persistent trees, shrubs, herbs, fungi; lazy growth and browsing |
-| Animal simulation | [FaunaSim](fauna-sim.md) | Regional cohorts, transient locally instantiated animals, narrowly retained mature giants |
+| Animal simulation | [FaunaSim](fauna-sim.md) | Regional cohorts, transient locally instantiated animals, bounded retention of previously instantiated, relevant individuals |
 | Player animal | [HeroSim and BeastCore](hero-sim.md) | Bodily condition, perception and player-intent execution |
-| Player interface | [HeroView](hero-view.md) | Body-relative WASD, orbit/follow, bounded detached camera and destination commands |
+| Player interface | [HeroView](hero-view.md) | Body-relative WASD, contextual intentions, documentary observation, bounded detached view, alarm recall and destinations |
 | Spatial lifecycle | [Spatial activation](spatial-activation.md) | Simulation regions buffered beyond perception and camera visibility |
 | Ecology | [Ecology and hydrology](ecology-and-hydrology.md) | Cross-domain habitats and ecological processes |
 | Flora | [Flora](flora.md) | Plant/fungal organisms, anatomical families, foods and plant life histories |
-| Creatures | [Creatures](creatures.md) | Animal anatomy, growth, behavior and ecological niches |
+| Creatures | [Creatures](creatures.md) | Five playable lineages, growth, sociality, reproduction and ecological niches |
 | Visual design | [Visual direction](visual-direction.md) | Appearance and motion quality contract, independent of renderer |
 | Engineering research | [Rendering experiments](rendering-experiments.md) | Engine comparison, hardware targets, instrumentation and gates |
 | Production tooling | [Asset toolkit](asset-toolkit.md) | Agent-accessible source-art and asset production pipeline |
@@ -26,7 +26,8 @@ These are **planning documents**, not implementation code. They are separated by
 ## Current status
 
 - **Established direction:** fictional Late Cretaceous-inspired archipelago; four main islands; dense, causally convincing landforms; continuous animal life rather than quest-led survival; environmental threats more common than predatory attacks; near-photorealistic rendering at 30 FPS minimum on the reference machine.
-- **Named architecture (decided):** **RaukenState**, **BeastCore**, **InteractionsCore**, alongside SimCore, RaukenSim, FloraSim, FaunaSim, HeroSim and **HeroView**. Logical in-process modules, not mandatory separate services.
+- **Named architecture (decided):** **StalthosState**, **BeastCore**, **InteractionsCore**, alongside SimCore, StalthosSim, FloraSim, FaunaSim, HeroSim and **HeroView**. Logical in-process modules, not mandatory separate services.
+- **Decided life design:** five Hero Beasts; hatching within existing populations; autonomous animal life while uncommanded; optional player-invoked slow-time intentions; species-specific parenting and compressed nesting; documentary camera; persistent world across player deaths.
 - **Provisional:** exact island dimensions, separation dates, species anatomy, metabolic values, time-compression tuning, storm/flood intensity, reconciliation budgets, demographic precision, engine selection and vendor dependencies. Detailed groundwater transport and continuous erosion are explicitly out of runtime scope.
 - **Research required:** age-dependent sauropod integument (the quills are consciously speculative); Cretaceous botanical reconstruction; physiological parameter ranges; low-end-hardware renderer benchmarks.
 
@@ -36,8 +37,8 @@ These are **planning documents**, not implementation code. They are separated by
 2. Keep **what exists** (world/species/ecology) separate from **how it looks** (visual) and **how it is implemented** (rendering/toolkit).
 3. Use [Simulation architecture](simulation-architecture.md) for canonical component names and authority; don't invent player-only biological rules.
 4. Keep simulation-chunk activation buffered beyond HeroView's reachable camera tether and HeroSim's perception; never tick plants or create/retire fauna solely because they're rendered. Catch-up is a **bounded, timestamped, version-safe** background workload.
-5. FaunaSim retains individuals long term only when **already instantiated** and mature members of designated largest species; ordinary population animals can turn over.
-6. HeroView can see things Smalltrotter can't perceive. Direct W is always body-forward, even with the camera looking at her face.
+5. FaunaSim retains compact individual records only after actual instantiation, for bonded companions, dependent young, some notable giants or other bounded reasons. Dormant individuals can advance, return or eventually decay to cohorts without creating duplicate animals.
+6. HeroView can see things the Hero Beast cannot perceive. Direct W is body-forward independent of camera orientation; autonomous behavior and documentary composition never provide the animal with camera-derived knowledge.
 7. Preserve concrete user preferences even when scientifically improbable; favor evocative geography where coherent causal relationships can still be maintained.
 8. Do not harden estimates into requirements without testing or an explicit design decision. Mark assumptions as *Proposed*, *To test*, *Unknown*, or *Decided*.
 9. Make work reproducible. Research claims require real citations in future completed specifications; don't invent taxonomic evidence.
