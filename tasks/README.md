@@ -3,9 +3,9 @@
 This directory defines the **toolchain build**, not a new game feature list. The deliverable is an agent-operated Windows-first workshop that can author, rig, bake, validate, version, preview, publish and benchmark engine-neutral landscape/plant/creature assets.
 
 **Canonical plan**: [toolkit-first roadmap](../docs/implementation/README.md) and [detailed toolkit spec](../docs/implementation/toolkit.md).  
-**Canonical agent DAG**: [toolkit-graph.json](toolkit-graph.json) (75 detailed work nodes; sole renderer target Wicked).  
+**Canonical agent DAG**: [toolkit-graph.json](toolkit-graph.json) (77 detailed work nodes; sole renderer target Wicked).  
 **Coordinator tool**: [taskgraph.py](../tools/taskgraph.py).  
-**Status**: none of the 75 implementation tasks is complete merely because the planning files exist.
+**Status**: none of the 77 implementation tasks is complete merely because the planning files exist.
 
 ## Start in one shell
 
@@ -73,7 +73,7 @@ When agents encounter undefined shared fields, they must request an interface ch
 
 The active renderer path runs **RND-001 Wicked import → MAT-002 channel packing/DDS → RND-002 native smoke scene → RND-003 neutral-to-Wicked scene audit → RND-005/006/007/008 capture experiments → RND-009 hardware readiness**. Material production and scanned rocks have dedicated tasks; read [Wicked materials and PlantFactory pipeline](../docs/implementation/wicked-material-pipeline.md).
 
-The additional work packets are **PFA-001/002/003** (PlantFactory license/export probe, Blender interchange, preserved leaf/branch pivot/wind attributes), **MAT-001/002/003** (procedural PBR + roughness, Wicked texture packing, thin-leaf wetness/transmission shaders), and **GEO-001** (legally sourced photogrammetry and rock/root/log cleanup). PlantFactory and photogrammetry exporters may remain optional/blocked if they aren't installed. Blender-native plant generation remains the reliable G1 fallback.
+The additional work packets are **PFA-001/004/002/003/005** (PlantFactory capability discovery, agent-built native/plugin/Windows UI automation, Blender interchange, preserved branch pivots, unattended seeded export batches), **MAT-001/002/003** (procedural PBR + roughness, Wicked texture packing, thin-leaf wetness/transmission shaders), and **GEO-001** (legally sourced photogrammetry and rock/root/log cleanup). **PlantFactory automation is an explicit engineering assignment:** the absence of a packaged CLI is *not* a blocker by itself. Agents may build a supported native/plugin bridge or safe pywinauto/UIA/Win32 desktop controller, including parameter edits, save/export, screenshots, retries and resumable batches. A missing local installation blocks end-to-end verification, not the design/prototype. GUI operations must serialize per desktop session. Blender-native generation remains a separate reliable G1 fallback.
 
 Avoid giving a shader-only worker a high-level `Wicked integration` job until the branch/core material contracts are accepted; request its specific task packet. Equivalent art coverage is checked against original Blender renders and instance manifests rather than a second renderer.
 
@@ -98,7 +98,7 @@ Suggested allocation with a flash-heavy harness: up to **three active coding wor
 - **G2 – Wicked asset fidelity:** full neutral Splitstone terrain/plant/rig/scene material source imported into Wicked with validated placements, surface channels, pivots and observable unsupported features.
 - **G3 – measured Wicked readiness:** on the GTX 1080 / first-gen Ryzen, record dense full-scene native 1080p appearance, P95/P99/hitches/VRAM, and actual shader/streaming bottlenecks. Wicked remains the planned renderer if further optimization is needed.
 
-The **75 tasks are construction tasks**. The 50+ wildlife and 200 plant-form directions are expansion goals, not mandatory standalone full simulators or initial-toolkit release blockers. Flax integration is not scheduled; the asset masters remain neutral. No playable vertical slice is requested as part of these tasks.
+The **77 tasks are construction tasks**. The 50+ wildlife and 200 plant-form directions are expansion goals, not mandatory standalone full simulators or initial-toolkit release blockers. Flax integration is not scheduled; the asset masters remain neutral. No playable vertical slice is requested as part of these tasks.
 
 ## Integration and file ownership
 
