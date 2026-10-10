@@ -2,6 +2,22 @@
 
 **Purpose:** Keep scientific evidence separate from invented lore and distinguish approved creative directions from provisional implementation choices.
 
+## Explicit visual and geographic clarification — 2026-10-10
+
+**1 — Local foliage contact:** user prefers bushes/shrubbery yielding and bending rather than clipping through the Hero Beast; retain as an important close-view goal. Later measured-performance compromise is permitted, not assumed. Use lightweight contact deformation rather than universal foliage physics.
+
+**2 — Animal behavior:** the visible performance *is* the target, including animals reacting to the Hero Beast (Brackenback's protective display and suspicious postures are examples). No deeper psychology, learning or simulation required without visual benefit.
+
+**3 — Geography:** accepted dramatic, plausible-looking terrain composition over rigorous geological simulation or procedural reenactment of ancient history. The existing multi-step terrain pipeline is a menu of techniques, not a mandatory fidelity contract.
+
+**4 — Landscape persistence:** no conspicuous tree rearrangement after walking over a hill and returning. Shortly dormant/instantiated regions retain local scene placement; long-dormant regions can regenerate ordinary scenery, subject to stable landmarks, saved significant changes and retained animals.
+
+**5 — Visual quality references:** still being selected by the user; no final target locked.
+
+**Provisional landscape references (creative direction, not locked maps):** Main Island adds Catskills/upper Appalachians, Scottish Highlands, pine barrens and several possible South African terrains (Cederberg, Golden Gate Highlands, Tsitsikamma/Garden Route, Waterberg/Marakele), while keeping Driftless/Baraboo and central Wisconsin sandy lowlands as its core. Rainridge adds Olympic rainforest and Great Smoky Mountains wet coves/forests/streams. Stone Island may lean strongly on Yucatán cenotes and Costa Rica's vegetated karst, rather than being uniformly dry limestone on top. Outer Reach retains Tsingy de Bemaraha-inspired sharp pinnacles and badlands. These are morphology/scene reference families only, not an exact flora, climate or geology requirement.
+
+**Useful references for future asset research:** NPS Olympic rainforests and GSM plant communities; Mexico's Ik Kil, Dos Ojos and Suytun cenotes; Costa Rica's Barra Honda and Venado caves; NPS/NY Catskill and Delaware Water Gap terrain; NJ Pinelands; Forestry and Land Scotland Glen Affric; SANParks Garden Route, Golden Gate and Marakele; Cederberg Conservancy. Verify image rights before putting any photographs directly into source assets.
+
 ## Runtime efficiency and frame-budget priority — 2026-10-10
 
 **Decision:** In support of the beautiful display-first facade, aggressively minimize recurring work everywhere. **Per-frame effort belongs to rendered pixels, responsive Hero Beast motion, immediate contact and convincing nearby behavior.** No per-plant ecology ticks, hidden-individual AI, world-wide collision sweeps, large persistent writes, or remote environment integration in the frame path.
