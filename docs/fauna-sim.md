@@ -56,6 +56,14 @@ A cohort's feeding and energy state can use approximate budgets; we do **not** r
 
 Test demographic/resource invariants after repeated enter/leave, offscreen season advancement and retained-individual reactivation.
 
+## Short-lived attention, local ranging and limited memory
+
+Active wildlife uses the same **small, expiring working-memory principle** as HeroSim: keep current sensory focus, immediate goals and a bounded amount of recent context (such as a predator briefly passing behind cover), without building learned landmark maps, lifelong routes or generalized experience histories. Short-lived habituation can prevent repeated Brackenback false alarms but naturally fades. Ordinary individuals need no long-term geographic memory records when returned to cohorts.
+
+Comfortable, adequately supplied animals primarily live within ecologically plausible local ranges: feeding, resting, drinking, socializing and making short trips. Range size and movement frequency depend on species and habitat; there is **no universal idle leash**, nor an intrinsic sightseeing/exploration objective. Actual scarcity, dispersal, pursuit, threats, weather or reproductive movement may carry an animal much farther. An animal displaced by events or player direction simply resumes suitable local behavior where it finds itself; there is no default long-range homing quest.
+
+Persistent regional distributions, habitat suitability, cohort movement and explicitly retained relationship/identity facts are **world/population state**, not a private learned map in every animal. Previously instantiated Reedcrest bonds and Longstride caregiver/dependent ties stay eligible for bounded persistence as already specified, without adding autobiographical memory.
+
 ## What an active animal needs
 
 - Species and current age/stage; geometry/appearance seed.
