@@ -73,7 +73,7 @@ The goal is a higher frequency of **places that could be good to somebody**, whe
 - Reproduction is a playable life event: courtship, nesting, incubation and hatching accelerated through the shared world timeline, targeting a focused episode of about thirty minutes or less. Species-specific offspring care may continue through ordinary play much longer.
 - No genetic optimization, breeding-stat progression, mandatory reproduction or inheritance-based player advantage.
 - Visual goal: **near-photorealistic outdoor nature** that runs at a **30 FPS floor**, preferably higher, on **GeForce GTX 1080 8 GB and first-generation Ryzen**.
-- Runtime engine: **Flax or Wicked Engine are leading preferences**. Do not lock either before controlled trials.
+- Runtime engine: **Wicked Engine is the active implementation target following hands-on local testing**. Keep source meshes, botanical profiles and PBR recipes neutral and portable. Other engines are deferred; Wicked's full-scene visual/performance readiness still requires actual reference-PC evidence.
 - Platform: Windows-first desktop. Resolution baseline for comparisons: 1920×1080 until actual display information changes it.
 - Asset production: automated and agent-friendly; use reference research, Blender/procedural systems, offline mesh/material baking, measurable exports and visual checks.
 
