@@ -8,6 +8,12 @@ The player inhabits an animal—not a human character controlling an animal-shap
 
 Start with the **[planning index](docs/README.md)** and **[simulation architecture](docs/simulation-architecture.md)**. These are specifications, not running systems.
 
+## Production principle: a beautiful, cheap illusion
+
+**The Stalthosian Archipelago is a display-first natural-history illusion, not an internally exact ecosystem model.** Near-photorealistic scenery, convincing animal movement and believable observable consequences have priority over scientifically detailed invisible ecology. Generate, stage, approximate and discard hidden state freely **unless doing so would expose a contradiction to the player**. Preserve local interaction outcomes, recurring landmarks, important relationships and visible changes with the smallest practical state.
+
+An expensive ecological mechanism is **opt-in**, only when a cheaper approximation demonstrably fails an observable gameplay/visual test. Do not turn an impressive visual requirement into a demand for full physiology, hydrology, nutrient budgets, population dynamics or weather-event replay.
+
 ## Current guiding choices
 
 - Four major, irregular islands and smaller islets; each island supports multiple connected ecological landscapes.
@@ -23,7 +29,7 @@ Start with the **[planning index](docs/README.md)** and **[simulation architectu
 - Flax and Wicked Engine are leading **candidates**, pending measured benchmarks.
 - All production should be agent-friendly, reproducible, inspectable and source-controlled.
 - Named boundaries: **SimCore** (time/scheduling), **StalthosState** (persistence), **StalthosSim** (environment), **FloraSim** (plants/fungi), **FaunaSim** (wildlife), **HeroSim** (player), **BeastCore** (shared animal biology) and **InteractionsCore** (validated cross-domain exchanges), and **HeroView** (bounded camera and the human-facing embodiment controls).
-- Watercourses, soils and plant suitability are mainly map-generated. Runtime weather and floods change conditions temporarily; plant growth is lazy and animal physiology multirate.
+- Watercourses, soils and plant suitability are mainly map-generated. Runtime weather, population pressure, growth and physiology use simple bounded approximations, with lasting visible exceptions saved explicitly. No requirement for physically correct ecology.
 
 No content here should be treated as a finalized implementation choice without the explicit decisions noted in the individual specifications.
 
