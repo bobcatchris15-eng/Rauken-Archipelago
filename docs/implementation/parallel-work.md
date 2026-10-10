@@ -15,7 +15,7 @@ Three concurrent *active implementers* plus a lightweight review/test lane is a 
 
 | Lane | Branch suggestion | Owns | Must not edit without contract review |
 |---|---|---|---|
-| A integration/tooling | work/toolkit-core | tools/stalthos.ps1, toolkit/cli, toolkit/schemas, toolkit/tests, conventions | fauna/flora spec authority; engine decision |
+| A integration/tooling | work/toolkit-core | tools/stalthos.ps1, toolkit/cli, toolkit/schemas, toolkit/tests, conventions | fauna/flora spec authority; Wicked shader decisions |
 | B botanical geometry | work/plant-families | toolkit/generators/plants, plant profiles and source/preview fixtures | CLI/schemas, game biology |
 | C creature and animation | work/smalltrotter-proxy | toolkit/generators/creatures, creature rig profiles/fixtures | HeroSim intent, shared schema without approval |
 | D landscape and references | work/splitstone-neutral | scenes/splitstone, terrain/export and placement packages, reference metadata | living ecology scheduler, renderer-specific source |
