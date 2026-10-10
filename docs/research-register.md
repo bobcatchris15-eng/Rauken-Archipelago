@@ -4,17 +4,17 @@
 
 ## Accepted creative direction
 
-- **Name:** The Rauken (not 'Veyran Archipelago' or 'Rauken Isles').
+- **Name (superseding earlier Rauken-era direction):** **The Stalthosian Archipelago**, with **Stalthos** as a convenient informal regional shorthand and **Stalthosian** as adjective. Name is invented, loosely inspired by early Germanic/Old English foundation/stone vocabulary; do **not** present Stalthos as an attested historical word. Repository slug stays Rauken-Archipelago until explicitly renamed.
 - Four major islands at different separation ages, with abundant minor islands.
 - Main Island: Driftless/Baraboo-like dissected uplands fading into broad Wisconsin Central Plain-like country with isolated resistant caprock buttes.
 - Rich, irregular drowned-upland coastlines, sheltered rocky mossy inlets and ravines, dramatic outcrops and strong geological silhouettes throughout.
 - Density and exploration appeal outweigh exact geographic probabilities; preserve plausible cause and consistent drainage.
 - Outer Reach's dry iron-weathered uplands vs sheltered productive Green Hollows is strongly favored.
-- Juvenile dwarf titanosaur is flagship; juvenile shaggy-looking sparse bristles/quills and adult scattered osteoderms, textured skin.
-- Player controls intention/motion; automatic nearby feeding/drinking and other routine animal behavior.
+- Five playable Hero Beasts: Smalltrotter dwarf titanosaur flagship (juvenile bristles and adult osteoderms); Brackenback true ankylosaurid; Thistletail small flightless feathered omnivore; Longstride medium roaming predator; Reedcrest medium basal hadrosauroid with a bonded small peer group.
+- Direct movement is the strongest voluntary player action; routine animal behavior continues concurrently. Uncommanded HeroSim can live and travel autonomously, observed by HeroView's unobtrusive documentary camera. Optional slow-time contextual responses are explicitly player-invoked, not automatic pop-ups.
 - Near-photorealism on GTX 1080 + early Ryzen with 30 FPS floor. Flax and Wicked lead, no confirmed engine winner.
-- **Accepted names:** **RaukenState** replaces WorldState, **BeastCore** replaces AnimalCore, and **InteractionsCore** names the cross-domain interaction layer. Other owners: SimCore, RaukenSim, FloraSim, FaunaSim, HeroSim.
-- Static hydrological geography and plant moisture suitability belong to map design; RaukenSim handles weather, seasons and temporary floods without routine erosion/groundwater simulation.
+- **Current logical names:** **StalthosState** (formerly RaukenState/WorldState), **StalthosSim** (formerly RaukenSim), **BeastCore** (formerly AnimalCore), **InteractionsCore**, SimCore, FloraSim, FaunaSim, HeroSim and HeroView. Names are planning contracts, not compiled interfaces.
+- Static hydrological geography and plant moisture suitability belong to map design; StalthosSim handles weather, seasons and temporary floods without routine erosion/groundwater simulation.
 
 ## Explicitly provisional
 
@@ -36,7 +36,7 @@
 
 ## Architecture decision — 2026-10-09
 
-Adopt logical in-process modules: **SimCore** schedules, **RaukenState** persists, **RaukenSim** supplies physical conditions, **FloraSim** owns lazily evaluated plants, **FaunaSim** wild animals, **HeroSim** the player, **BeastCore** reusable physiology and perception, **InteractionsCore** validated ecological transfers. Don't substitute the original names WorldState, AnimalCore or unnamed interaction layer.
+Adopt logical in-process modules: **SimCore** schedules, **StalthosState** persists, **StalthosSim** supplies physical conditions, **FloraSim** owns lazily evaluated plants, **FaunaSim** wild animals, **HeroSim** the player, **BeastCore** reusable physiology and perception, **InteractionsCore** validated ecological transfers. Don't substitute the original names WorldState, AnimalCore or unnamed interaction layer.
 
 Do not tick plants based on render visibility. Nearby animals need active multirate updates (immediate pain/startle; slower hunger/thirst/growth) while offscreen fauna may be aggregated. Choose time-pacing formulas after playable experiments, preserving comparable rules for player and NPC animals. This architecture does not mandate separate executables, network APIs or specific tick frequencies.
 
@@ -45,7 +45,7 @@ Do not tick plants based on render visibility. Nearby animals need active multir
 **No new runtime domains approved.** Preserve the established named component boundaries and ecology-first, presentation-driven scope. Tighten existing contracts rather than constructing a universal simulation framework.
 
 1. **FaunaSim:** persistent regional age/population ledger; abstract/active/retained reservations conserve accounting counts across activation/retirement. Cohort-level food demand causes finite, persistent FloraSim forage depletion through InteractionsCore; no individual biographies or exact remote trophic accounting required.
-2. **RaukenSim:** chronological compact environmental intervals and exceptional event records (drought duration, heat exposure, saturation, flood maxima and sequence), not simply aggregate rainfall/temperature means.
+2. **StalthosSim:** chronological compact environmental intervals and exceptional event records (drought duration, heat exposure, saturation, flood maxima and sequence), not simply aggregate rainfall/temperature means.
 3. **SimCore/spatial activation:** biological reconciliation, local active simulation and presentation are separate readiness tiers; bounded queue jobs, version/cursor checks and camera-tether prewarm. Don't synchronously catch up whole chunks on a camera turn.
 4. **Fidelity:** preserve domain consequences independently of temporal cadence and graphical detail. **Do not** build a generalized causal-importance scoring framework.
 5. **FloraSim/asset tooling:** significant plants use stable structural segment addresses; InteractionsCore finite/idempotent mutations; save compact current scars/structure rather than every bite. No per-leaf IDs.
@@ -96,7 +96,7 @@ These are starting leads to be checked for bibliographic accuracy, licensing and
 
 ## Research discipline
 
-For each answered scientific question, record source link/DOI, exact supported claim, caveats, conflicting interpretations and how The Rauken extrapolates. For each technical experiment, record source revision, hardware, binary/settings, raw measurements and visual comparison. Never cite the existence of an unpublished benchmark as proof of performance.
+For each answered scientific question, record source link/DOI, exact supported claim, caveats, conflicting interpretations and how The Stalthosian Archipelago extrapolates. For each technical experiment, record source revision, hardware, binary/settings, raw measurements and visual comparison. Never cite the existence of an unpublished benchmark as proof of performance.
 
 In future updates, append dated decisions with reasons, alternatives considered, test results and cross-domain impacts. This file should preserve *why* choices were made without taking ownership of each domain's final specification.
 
@@ -108,6 +108,22 @@ In future updates, append dated decisions with reasons, alternatives considered,
 
 **Spatial activation:** SimCore prewarms FaunaSim and FloraSim regions beyond the hero's own sensory extent and the full reachable bounded camera envelope. Local animals and plants are instantiated from their regional simulation state before they are shown. Vegetation need not have a per-blade biological agent.
 
-**Wildlife memory policy:** FaunaSim represents mostly population cohorts. Local animals can behave naturally—resting, basking, watching, browsing, yawning—without simulated biography. **Only already-instantiated mature individuals of selected largest species** can acquire optional lasting records; no global giant-animal identity registry for unseen islands.
+**Wildlife memory policy (superseded by the later 2026-10-09 life-history decision below):** FaunaSim still represents most wildlife as cohorts and avoids global personal biographies. Bounded **already-instantiated** identities may persist for bonded Reedcrest peers, dependent Longstride young/caregivers, notable mature giants and similarly meaningful encounters; never a registry of uninstantiated animals.
 
 **Provisional/tune:** camera radius and tether shape; activation buffers; exact physics controls; fear thresholds; retained adult budget. These are not fixed distances or performance claims.
+
+## Stalthosian name, Hero Beasts and life-history decisions — 2026-10-09 (supersedes earlier entries)
+
+**Naming.** The canonical fictional geographical name and working game title are **The Stalthosian Archipelago**; shorthand **Stalthos**. The project is an invented world; the name is invented, not a quoted historical Old English or Germanic word. Old Rauken-branded identifiers and the file stalthos-sim.md have been updated in planning text. The GitHub repository slug remains historical; changing the actual repo name was not requested.
+
+**Playable roster.** Five lineages with distinct anatomy and ecology: **Smalltrotter** (insular dwarf titanosaur, independent young, juvenile nape bristles), **Brackenback** (true ankylosaurid, low browser, generalized defensive response to any distressed smaller animal and occasional suspicion/posturing at innocent bushes/rocks), **Thistletail** (small flightless feathered opportunist using genuine microforage), **Longstride** (medium roaming predator, prolonged parental following), and **Reedcrest** (basal hadrosauroid, bonded small peer kindergarten from near-synchronously hatching neighboring nests). Names, measurements and fossil-inspired anatomy remain provisional design hypotheses, **not evidence that these precise behaviors were fossilized**.
+
+**Five childhoods and parenting styles.** Every new player life **hatches as an ordinary member of a selected species within an existing local population**. Smalltrotter young are soon on their own; Brackenback juveniles mingle near protective unrelated adults/aunties/uncles; Reedcrest young form strongly bonded peer groups of two to four companions alongside the playable animal; Thistletail attends offspring only briefly, like some ground fowl; Longstride parents provide the longest care, with growing youngsters following, learning, sometimes falling behind and finally dispersing. Playing a hatchling Longstride means encountering a wild caregiving parent. Child care and individual lifetime continuation can last beyond the brief nesting sequence.
+
+**Breeding.** All five species can court/mate, nest, lay/incubate and hatch using species-appropriate behavior. A focused **nest-to-hatch episode targets about thirty minutes or less** of player time by interruptible, coherent SimCore world-time acceleration, while offspring dependence can span normal later play. No breeding-stat or inherited-progression game, no detailed genetics or mandatory mating, and no guaranteed clutch survival.
+
+**Player authority.** Direct body-relative locomotion has highest voluntary precedence. Compatible head/neck/mouth/social activity (e.g., Smalltrotter plucking shrubs while walking) is autonomous even during direct control. A small **slow-time contextual response** chooser opens only on deliberate request and produces intents, not scripted outcomes. Otherwise HeroSim fully governs the animal, including meaningful travel; it does not merely idle nearby. HeroView defaults to animal-centered third-person, can become a gently orbiting documentary camera when left alone, and retains a locally bounded detached view. Significant *sensed* alarms may orient animal/camera at the same point and recall a detached view smoothly; direct camera input cancels. Brackenback's innocent-bush scares may be lesser alarms, not repeated forced camera swings.
+
+**Death and retention.** Death changes the inhabited animal, not the world. A new playable life starts as another wild hatchling. Surviving nests, offspring, cohorts, corpses and previously instantiated individualized animals may continue. Retained identity is **bounded and conditional**, advanced coarsely by elapsed world time, and can decay into cohorts when social/dependent/notable justification ends. No long-lived memory for every individual, no population duplication and no respawning the dead. Reedcrest's peers and Longstride dependent offspring are reasons for temporary individuality, not a separate complex memory simulation. Cross-island followers navigate and survive real crossings or fail; no teleports.
+
+**Remain open to research/testing:** taxonomy, exact developmental/parental intervals, physical speed/mass, activation and identity budgets, camera alarm thresholds and animation/feeding compatibility, nested world-time scaling, terrain sizes, renderer. These are tuning/research topics rather than additional creative-direction approvals. No source evidence is asserted for invented species parenting.
