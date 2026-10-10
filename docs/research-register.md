@@ -2,6 +2,14 @@
 
 **Purpose:** Keep scientific evidence separate from invented lore and distinguish approved creative directions from provisional implementation choices.
 
+## Geographic compression and naturally discovered places — 2026-10-10
+
+**Decision:** user explicitly approves compressing landform dimensions, intervening distances and feature spacing **beyond natural geological likelihood** to make ordinary traversal satisfying and increase the frequency of possible “Good Spots.” A gorge can be much shorter than its real-world analogue, and interesting microhabitats can occur unusually close together. Favor plausible local form and spatial continuity over watershed-scale realism.
+
+**Important non-goal:** “Good Spots” are **not a data label, quest, density quota, biome-grid target, interest heat map or special HeroSim scoring subsystem**. Goodness is subjective and contextual: a player may love the scene; the Hero Beast's existing ordinary drives may find food, shade, water or shelter useful. Do not add attraction-seeking autonomy or reward-based navigation to implement this direction.
+
+**Execution:** compose at animal height and traveling speed; compress/cluster while preserving drainage directions, plausible material/rock shape, physical passability and occasional unremarkable stretches for contrast. Tune in traversable scenes instead of locking ratios or kilometers on paper. This decision takes precedence over earlier references to scientifically realistic landform spacing.
+
 ## Explicit visual and geographic clarification — 2026-10-10
 
 **1 — Local foliage contact:** user prefers bushes/shrubbery yielding and bending rather than clipping through the Hero Beast; retain as an important close-view goal. Later measured-performance compromise is permitted, not assumed. Use lightweight contact deformation rather than universal foliage physics.
