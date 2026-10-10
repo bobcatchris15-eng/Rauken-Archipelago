@@ -62,9 +62,9 @@ Counts are subject to visually equivalent screen coverage. Preserve a geometry-o
 
 **V8 Creatures:** skeletal GPU/CPU cost, foot IK, skin/osteoderm/quill render cost, reduced distant update rates, age morph changes.
 
-**V9 Ecology bridge:** plant consumption/growth and channel wetness changes rebuild only affected spatial patches; persistent IDs survive unload/reload. Chunk loading requests **FloraSim** bulk snapshots from persistent **StalthosState** identities; no per-rendered-plant biology polling.
+**V9 Display-level ecology bridge:** visible browsing, seasonal foliage and wetness update only affected patches; conspicuous saved changes survive reload. Chunk loading requests cheap seeded/seasonal FloraSim appearance plus StalthosState exceptions, not comprehensive individual plant biology.
 
-**V9b Simulation/visual decoupling:** **HeroSim/FaunaSim** biology continues at suitable active rates regardless of visibility, with shared **BeastCore** formulas. **InteractionsCore** changes update the affected visuals; weather/wetness rendering reads **StalthosSim** current state. Benchmark chunk unload/reload and catch-up spikes.
+**V9b Staging/visual decoupling:** **HeroSim/FaunaSim** keep simple active behavior beyond camera visibility with shared cheap BeastCore rules. **InteractionsCore** updates visible contacts; weather/wetness draws from StalthosSim current state. Benchmark chunk reload and long-absence reentry without hidden ecological reconstruction.
 
 **V10 Streaming:** camera route across cell boundaries at varying speeds; monitor stalls, pops, resource residence and distant transition quality.
 
@@ -92,4 +92,4 @@ See [Visual direction](visual-direction.md) for appearance requirements and [Ass
 
 Test orbit-follow without automatic heading recentering, body-relative WASD at every camera heading, local free-camera flight to a soft/hard tether, returning to the animal, collision handling, and tether correction when the animal walks away.
 
-Critically, **SimCore simulation activation must buffer beyond the full local free-camera envelope**. Benchmark flora bulk instantiation, fauna cohort instantiation/retirement, and rendering together while flying the camera over an occluding hill. Animals should already be resting/browsing before revealed, not spawned by renderer visibility. Check CPU spikes, delayed geometry, repeated count conservation, and the ability to draw camera-visible creatures Smalltrotter has not perceived. See [Spatial activation](spatial-activation.md).
+Critically, **SimCore simulation activation must buffer beyond the full local free-camera envelope**. Benchmark flora bulk instantiation, fauna cohort instantiation/retirement, and rendering together while flying the camera over an occluding hill. Animals should already be resting/browsing before revealed, not spawned by renderer visibility. Check CPU spikes, delayed geometry, known-animal duplication and visible popping, and the ability to draw camera-visible creatures Smalltrotter has not perceived. See [Spatial activation](spatial-activation.md).
