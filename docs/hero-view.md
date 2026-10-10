@@ -66,7 +66,7 @@ Normal grazing, grooming, calling, drinking and incidental movement-compatible f
 
 The camera can orbit, pan, rise above a nearby hill and examine the immediate surroundings while the Hero Beast keeps browsing, resting, travelling or observing. It is **not** a free-roaming map explorer or unrestricted spectator.
 
-**Hard rule:** a spatial tether to the Hero Beast prevents distant excursions. Over the nearby ridge: yes. Across a strait to another island: no. The tether is anchored to the animal **current position**, follows the animal when it moves, and should behave independently of which way it faces.
+**Hard rule:** a spatial tether to the Hero Beast prevents distant excursions. Over the nearby ridge: yes. Across a strait to another island: no. The tether is anchored to the animal's **current position**, follows the animal when it moves, and should behave independently of which way it faces.
 
 Proposed tether behavior (tuning values, **not specifications**):
 - **Comfort zone:** camera moves freely within a local observation radius.
@@ -112,9 +112,9 @@ Avoid reflexes turning into prolonged cutscenes where the user has no control.
 
 The camera is for the **player**; it is not an additional eye, ear or sensor for the Hero Beast.
 
-- HeroSim/BeastCore derive what it can perceive from the animal bodily sensory position, field of view, occlusion, hearing, wind/odor approximations, contact and attention.
+- HeroSim/BeastCore derive what it can perceive from the animal's bodily sensory position, field of view, occlusion, hearing, wind/odor approximations, contact and attention.
 - HeroView can render a sleeping predator beyond a ridge if the bounded camera is high enough. That does **not** make the animal aware of it.
-- Even a destination beyond its line of sight is a player instruction, not a grant of map awareness. She must negotiate obstacles/hazards with local perception and terrain navigation.
+- Even a destination beyond its line of sight is a player instruction, not a grant of map awareness. It must negotiate obstacles/hazards with local perception and terrain navigation.
 - The renderer must draw visually eligible animals whether or not the Hero Beast has recognized them. Attention affects body motion/feedback, **not existence or visibility**.
 - Audio and subjective cues can be filtered by HeroSim perception; ambient environmental graphics still come from spatial world state.
 
