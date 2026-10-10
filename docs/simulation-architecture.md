@@ -16,6 +16,16 @@ The **visual catalogs** may contain about fifty non-hero fauna actors and about 
 
 A cheap food-web mapping provides coarse producer/consumer/predator and habitat relations for plausible placement and local action prompts, **not** an exact population-energy ledger. Maintain immediate physical truth and conspicuous continuity, but don't require that unseen remote ecology perfectly balances every visible actor. The catalog/species-profile responsibility lives in [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md); systems still own local mutable events.
 
+## Per-frame work minimization (decided)
+
+**Recurring work requires an observable payoff.** Architect the domain modules to be mostly dormant between meaningful events. SimCore owns a small priority/deadline scheduler, not thousands of continuously ticking organism objects. The Hero Beast, current camera/audio and genuinely contacting or perceptually urgent local actors get fast updates; ordinary visible wildlife gets appropriately reduced/phase-staggered updates; prepared-but-hidden actors get rare lightweight maintenance; remote areas use seeds, densities, timestamps and saved conspicuous exceptions.
+
+Avoid per-frame queries across all plants or wildlife, per-branch collision/physics, routine persistence writes, world-wide environmental integration and full locomotion/IK on every creature. Allocate geometry preparation, instance buffers, terrain streaming, asset decoding and save/checkpoint work outside the critical frame wherever feasible, with measured per-frame dispatch and memory budgets. Rendering itself must of course run each frame; economize via batching, culling, GPU instancing, simplified distant representations and change-triggered updates.
+
+**Important distinction:** activation *ahead of camera visibility* guarantees credible encounters, not expensive full-simulation updates for everything within the tether buffer. An animal may be pre-staged in a resting/foraging state, then promoted to fuller motion and interaction only when visually or physically relevant. No discontinuities, teleportation or camera-triggered materialization.
+
+The correctness invariants remain narrow and observable: direct input, physical contact, known identities, lasting conspicuous changes and smooth visual continuity. Profile first; no universal numerical tick/collider/LOD policy without representative scenes.
+
 ## Named components
 
 | Component | Owns | Does not own |
