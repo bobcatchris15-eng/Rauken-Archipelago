@@ -1,10 +1,10 @@
 # HeroSim — the player's animal
 
-**Domain:** High-fidelity player-animal physiology, intention, sensory feedback and lifecycle. **Status:** Conceptual plan.
+**Domain:** High-fidelity observable player-animal behavior, lightweight condition cues, intention, sensory feedback and lifecycle. **Status:** Conceptual plan.
 
 ## Authority
 
-HeroSim owns the player animal's immediate biological state and player-facing behavior. Its biological rules come from **BeastCore**, the same shared physiology/perception/anatomy library used by FaunaSim. It does not own weather, flora resources, or a separate world clock.
+HeroSim owns the player animal's immediate simplified condition state and player-facing behavior. Its biological rules come from **BeastCore**, the same shared physiology/perception/anatomy library used by FaunaSim. It does not own weather, flora resources, or a separate world clock.
 
 ## Hero Beast authority, autonomy and contextual intentions
 
@@ -72,35 +72,29 @@ Social and alarm behavior derives from senses, present circumstance and species 
 
 ## BeastCore — shared internal model
 
-BeastCore is a **library of reusable animal biology and sensory mechanisms**, not a fifth autonomous organism simulator:
-- Metabolism, energy reserves, gut fill, delayed digestion, water intake and loss.
-- Body temperature/thermal discomfort, exertion, activity fatigue.
-- Injury, acute nociception/startle and slower persistent pain/healing.
-- Growth and anatomical proportions from species life-history curves, nourishment and developmental state.
-- Sensory capability models (sight, hearing, smell, body contact), limited perception and habituation.
-- Drives (hunger, thirst, rest, shelter, alertness) derived separately from objective internal quantities.
+BeastCore is a **small library of shared species behavior and condition cues**, not a full animal physiology engine:
 
-HeroSim and FaunaSim must use the same underlying formulas and species definitions, but HeroSim evaluates urgent values more frequently and provides richer presentation output. BeastCore should be headlessly testable against reference environmental traces.
+- Approximate hunger/food condition, hydration comfort, fatigue/rest, stress and short-term alarm.
+- Simple injury severity and recovery effects when visible.
+- Species-defined age/growth-stage morphology, reproductive readiness and aging.
+- Basic sensory and contact capabilities: field of view, hearing/odor cues, physical reach, limited transient memory.
+- Drives and preferences sufficient for ordinary local animal life, species-specific social instincts and intended action execution.
 
+These are **display/gameplay values**. Avoid gut chemistry, exact energy budgets, thermal-mass models, full parasite/disease ecology and metabolic conservation unless an inexpensive proxy demonstrably fails. HeroSim and FaunaSim share compatible rules while updating at different rates. Headless tests should validate behavior/continuity, not scientific accuracy.
 ## Timing and fluid progression
 
-- Inputs, collisions, balance and acute reactions retain realtime responsiveness.
-- Thermoregulation, ongoing pain and arousal use relatively frequent scheduled integration.
-- Digestion, hydration, injury healing and fatigue use slower physiological stepping; events such as a drink or injury still affect state immediately.
-- Growth is **nonlinear and condition dependent**. Young juveniles should noticeably grow during an approachable play session, not require hours for the first visible changes.
-- SimCore owns world-time acceleration and time-skipping. Species developmental pacing may be compressed, but must remain consistent for wild juveniles and the player's animal; do not give HeroSim secret biological rules or multiply immediate reflex rate.
-- Rest/sleep may accelerate world time while updating hazards and offscreen ecology, with bounded interrupt checks.
+- Input, collisions, locomotion, visible feeding and acute alarm/injury remain immediately responsive.
+- A few needs, current behavioral activity and simple condition/recovery advance at affordable slower or event-driven rates.
+- Reproduction, growth stage and offscreen condition advance from elapsed **SimCore world time** and species-defined curves.
+- Rest/nesting can advance the shared clock faster, with bounded checks for meaningful danger and persistent changes.
+- Player and active NPC conspecifics have comparable **visible** stage progression. Remote cohorts use coarse stage/abundance updates.
 
-A key tuning question remains: how much growth compression comes from global clock acceleration versus a shared species developmental curve? Record options with test results rather than selecting durations prematurely.
-
+No independent physiology clock or per-organ scheduler. Set lifespan/development rates to create satisfying experiences, not to reconstruct real dinosaur metabolism.
 ## Time semantics shared with FaunaSim
 
-**Do not implement four independent clocks.** SimCore owns the only advancing **world/calendar clock**; realtime drives immediate physical input, movement, collision and reflex response. Physiological state is *integrated across world time* plus discrete activity/resource events, using BeastCore for both HeroSim and FaunaSim. Developmental progression is a **species life-history calculation** from elapsed world time, nutrition/condition and age class, not a secret HeroSim-only clock.
+SimCore owns **one world/calendar clock**. Realtime input and physical contact remain responsive during accelerated world time. BeastCore uses coarse elapsed-time changes for condition and age plus immediate event effects for eating, injury and movement; this is not a continuous mass-balance integrator.
 
-At elevated world-time speed, avoid applying the multiplier twice: an actual kilometer walked incurs an activity-dependent movement cost **once**, while resting metabolism follows elapsed biological/world time under the chosen abstraction. Growth cannot be infinitely free; use an explicit *approximate* nutrition/condition limiter and consistent cohort-scale NPC approximation. Do not claim exact mass-energy conservation or biologically literal multi-month growth if playtesting compresses early development.
-
-A moderate world-time accelerator plus shared nonlinear juvenile developmental pacing is a **candidate**, not a selected numerical mapping. Safe rest time-skips use bounded environmental/physiological steps, interrupting on dangerous events. Test the same species as player and NPC under identical world-time/event input, including movement cost, temperature, eating and growth, and compare outcomes within defined tolerances.
-
+The same species parameters yield **roughly comparable visible** growth, stamina and aging for HeroSim and active FaunaSim. Distant fauna may age statistically. Avoid charging the same movement/action twice during accelerated time, but do **not** require exact metabolic or heat balance between player and NPCs. Rest/time skips sample significant hazards and surviving relationships at bounded intervals. Tuning follows what is observable and enjoyable.
 ## Environment and interaction contracts
 
 - StalthosSim: sample current local conditions relevant to heat, rain, wind, water safety, shelter and flooding.
