@@ -6,7 +6,7 @@
 
 Create one persistent ecological reality with **StalthosState** storing identities/history and the domain simulations owning their facts. The renderer is a consumer, not an alternate source of biological truth.
 
-Causal chain: **geology → relief/substrate → exposure/drainage/water → soils/microclimate → plants → consumers/decomposers → disturbance and succession**.
+Causal chain: **geology → relief/substrate → exposure/drainage/water → soils/microclimate → plants → consumers/decomposers → occasional disturbance and lightweight recovery**. This is a guide to plausible appearance and consequences, **not** a commitment to detailed ecosystem succession.
 
 Biomes are descriptive landscape assemblages, not abrupt boundaries. Habitat suitability emerges from continuous variables, including sunlight, temperature, rainfall, soil depth, moisture and chemistry, salinity, wind shelter, slope and disturbance.
 
@@ -35,8 +35,8 @@ Plant individuals or population patches track:
 - Establishment requirements and growth potential.
 - Edible standing biomass by accessible layer/type.
 - Age, stress, damage, browsing history, death and decomposition.
-- Reproductive output and propagule dispersal at coarse resolution.
-- Response to canopy shade, competition, drought, flood and physical disturbance.
+- Coarse establishment/regeneration opportunity where it materially affects habitat appearance; detailed propagule dispersal and individual seedling life histories are not required.
+- Coarse response to canopy openness, drought, flooding and physical disturbance; no mandatory individual competition solver.
 
 Persistent prominent trees and conspicuous plants keep identities. Low ground vegetation may be regenerated from population-state patches and deterministic seeds.
 
@@ -55,11 +55,13 @@ Predation matters, but hunger, dehydration, flood, terrain, infection and accide
 - Seasonal shoot growth, plant dormancy/stress, fruiting and shedding.
 - Temporary floodwater across established channels/floodplains; a crossing may become unsafe and later recover.
 - Drought-driven changes in usable forage and drinking locations.
-- Storm windthrow, landslips, branchfall, decay and colonization.
+- Occasional storm windthrow, branchfall and rare localized landslips, preserving affected tree identities, deadwood and conspicuous canopy openings.
 - Local browsing creates recognizable depletion and possibly bushier regrowth where biologically reasonable.
 - Dead vegetation becomes litter, wood and microbial/fungal substrate; nutrients recycle.
 
 Most terrain remains fixed. Major storms may cause discrete treefall, debris or rare local rockfall, but should not progressively remake riverbeds. Familiarity relies on persistence.
+
+**Provisional limit on forest change:** use existing deterministic adult-tree seeds and compact damage/death overrides, plus coarse cover patches that can respond to a canopy opening and occasionally establish new durable trees. The goal is visible, recognizable change across revisits—not a succession, seed-bank, competition or wildfire-spread simulator. Wildfire is a **deferred possibility**, not required scope. Add sophistication only after a simple in-engine demonstration shows a worthwhile appearance/gameplay improvement; see [FloraSim](flora-sim.md).
 
 ## Scale and performance
 
@@ -82,4 +84,4 @@ Cross-references: [Architecture](simulation-architecture.md), [StalthosSim](stal
 
 ## Simulation chunks versus camera visibility
 
-FaunaSim and FloraSim prepare locally appropriate organisms in **simulation chunks extending beyond Smalltrotter's senses and the entire bounded HeroView camera envelope**. Organisms are not created by the render frustum. Long-term identity belongs to trees/hero and selectively to *already-instantiated* adult giant wildlife—not to every regional fauna cohort. See [Spatial activation](spatial-activation.md) and [HeroView](hero-view.md).
+FaunaSim and FloraSim prepare locally appropriate organisms in **simulation chunks extending beyond Smalltrotter's senses and the entire bounded HeroView camera envelope**. Organisms are not created by the render frustum. Long-term identity belongs to significant trees/the Hero Beast and selectively to *already-instantiated* socially relevant or notable wildlife (including bonded peers and dependent young)—not to every regional fauna cohort. See [Spatial activation](spatial-activation.md) and [HeroView](hero-view.md).
