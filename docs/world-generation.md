@@ -6,7 +6,7 @@
 
 Generate credible *relationships* between rock, drainage, coast, vegetation and navigability, then deliberately intensify the most engaging features. Do **not** simulate full geological time at runtime. The goal is a persistent beautiful world, not a numerical geological research model.
 
-**Explicit aesthetic mandate:** The Rauken favors dense, evocative terrain, sheltered mossy ravines and inlets, dramatic outcrops and irregular drowned uplands over strict average-frequency geological realism. Judge the balance inside a traversable environment rather than settling it from paper dimensions.
+**Explicit aesthetic mandate:** The Stalthosian Archipelago favors dense, evocative terrain, sheltered mossy ravines and inlets, dramatic outcrops and irregular drowned uplands over strict average-frequency geological realism. Judge the balance inside a traversable environment rather than settling it from paper dimensions.
 
 ## Layered offline pipeline
 
@@ -72,4 +72,4 @@ Geography mesh and collision; terrain stratigraphy/material IDs; slope/aspect; s
 
 Engine-neutral export is preferred until rendering experiments select Flax or Wicked. See [Geography](geography.md) and [Ecology](ecology-and-hydrology.md).
 
-**Simulation boundary:** world generation supplies static terrain/water/soil inputs. [RaukenSim](rauken-sim.md) supplies weather and short-lived flood conditions; [FloraSim](flora-sim.md) determines which plants thrive; [RaukenState](simulation-architecture.md) stores persistent biological/geographical identities.
+**Simulation boundary:** world generation supplies static terrain/water/soil inputs. [StalthosSim](stalthos-sim.md) supplies weather and short-lived flood conditions; [FloraSim](flora-sim.md) determines which plants thrive; [StalthosState](simulation-architecture.md) stores persistent biological/geographical identities.
