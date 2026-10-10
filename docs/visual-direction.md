@@ -57,6 +57,14 @@ Physically based textures calibrated under neutral test illumination:
 
 High-resolution source masters are retained; game assets are optimized derivatives. No supplied/generated image may become an anatomical authority without actual research verification.
 
+## Shrub and low-branch contact — preferred quality target
+
+**Initial design preference:** bushes, ferns, young saplings and low branches should move aside around the Hero Beast's body (and visibly interacting NPCs). Favor convincing local bend/part/recovery over conspicuous mesh-through-body clipping. The cost is justified by the immediate visual payoff; do not require continuous physical simulation of individual foliage.
+
+Select the cheapest measured approach that convincingly works in motion: contact capsules/volumes, animal-centered deformation fields, batched vertex/branch shader effects, simplified stem bones or selectively animated nearby clusters. Only activate interaction where contact is plausible; background vegetation continues cheaper wind-only animation.
+
+**Fallback policy:** optimize and compare before reducing this effect. It is acceptable to compromise later for frame-time, but clipping is not the starting artistic goal.
+
 ## Non-negotiable motion/contact checks
 
 - No foot sliding, body floating, plant hovering or cliff/terrain seam popping.
