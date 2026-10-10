@@ -57,6 +57,10 @@ High-resolution source masters are retained; game assets are optimized derivativ
 - On-screen spatial repetition should be difficult to notice; generated variants retain species morphology.
 - LOD transitions preserve apparent silhouette and color without conspicuous pop or shimmering.
 
+## Authority boundary
+
+**RaukenSim** determines actual weather, wetness and flood; **FloraSim** owns plant condition; **HeroSim** and **FaunaSim** own animal states using **BeastCore**. The renderer may animate each frame but cannot alter biological time, resource ownership or current weather. Plant chunk loading uses **RaukenState** snapshots; **InteractionsCore** publishes changes. See [Architecture](simulation-architecture.md).
+
 ## Render-cost-independent acceptance
 
 For every representative asset/scene, preserve: reference provenance, turntables in neutral and outdoor illumination, moving camera passes, near/mid/far comparisons, material diagnostic renders, and roughness/normal/alpha checks. A visual review must approve image quality *and movement*, even if quantitative benchmarks are good.

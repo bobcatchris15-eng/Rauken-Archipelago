@@ -62,6 +62,12 @@ Each taxon/profile defines:
 
 Use normalized biological properties where evidence is unknown; nutritional values are experimental parameters, not fossil measurements. Avoid translating in-vitro rumen fermentation data directly into sauropod-specific calories.
 
+## FloraSim lifecycle
+
+**FloraSim** owns individual trees, distinctive shrubs, plant colonies and fungi independently of render chunks. Permanent species/habitat suitability is mostly map-generated (soil, moisture, water distance and relative elevation); **RaukenSim** supplies seasonal conditions and compact weather history. FloraSim updates growth lazily on **batched spatial-state requests** or discrete browsing/storm events; **no per-rendered-plant polling**.
+
+Tree geometry must be reconstructed from stable IDs/seeds and saved structural changes in **RaukenState**. **InteractionsCore** commits limited biomass removal and publishes the resulting state changes to the renderer. See [FloraSim](flora-sim.md).
+
 ## Food, regeneration and display
 
 The dinosaur approaches eligible flora; a reach and preference query identifies edible parts. Feeding animation directs to actual branches/fronds/patches and updates consumed biomass. Shoots disappear, bend or reduce density plausibly. A plant with repeated grazing can show reshaping or depletion across visits.

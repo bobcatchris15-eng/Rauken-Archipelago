@@ -66,6 +66,12 @@ Predators do not possess player-location information. They have territories, ene
 
 Lineages share ancestry but diversify under different isolation ages, soil chemistry, rainfall, plant foods and population barriers. Main Island may retain generalists; Rainridge wet-forest adaptations; Stone Island karst/dry-slope adaptations; Outer Reach old plateau specialists. Evolution is constrained by plausible dispersal routes; all lineages don't split in lockstep.
 
+## BeastCore, HeroSim and FaunaSim
+
+**BeastCore** holds reusable metabolism, perception, homeostasis, digestion, injury and age-dependent anatomy rules. **HeroSim** owns the player animal with the highest update responsiveness; **FaunaSim** owns wild individuals/populations with lower rates where acceptable. The same species must follow compatible biological rules in both.
+
+**RaukenSim** supplies environment, **InteractionsCore** finite resources, **SimCore** time and developmental pacing, **RaukenState** identities/history. Juvenile growth must be perceptible in an enjoyable session, while remaining subject to nutrition and shared life history. [Architecture](simulation-architecture.md).
+
 ## Rendering interface (not implementation)
 
 Biology emits high-resolution anatomical master and stage-specific descriptions. Rendering receives skinned bodies, quill/armor placement maps, materials, interaction bones, pose-dependent wrinkle regions and morphological parameters. Actual geometry budgets, shaders, rigs and engine choices live in [Visual direction](visual-direction.md), [Rendering experiments](rendering-experiments.md) and [Asset toolkit](asset-toolkit.md).

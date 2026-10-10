@@ -1,10 +1,10 @@
-# Ecology, climate, hydrology and persistence
+# Ecology and hydrology — shared ecological principles
 
-**Domain:** Physical and biological world processes. **Status:** System design hypotheses, not tuned equations.
+**Domain:** Interactions among terrain, water, living systems and disturbance. **Status:** Revised planning direction. Ownership is defined in [Simulation architecture](simulation-architecture.md) and its domain documents.
 
 ## World model
 
-Create one consistent world state that generates both ecological resources and visual representations. Avoid parallel 'ecology spreadsheet' and 'decorative foliage' that disagree.
+Create one persistent ecological reality with **RaukenState** storing identities/history and the domain simulations owning their facts. The renderer is a consumer, not an alternate source of biological truth.
 
 Causal chain: **geology → relief/substrate → exposure/drainage/water → soils/microclimate → plants → consumers/decomposers → disturbance and succession**.
 
@@ -18,20 +18,13 @@ Biomes are descriptive landscape assemblages, not abrupt boundaries. Habitat sui
 - Microclimate from canopy, slope aspect, rock exposure, proximity to water, cold/moist air drainage and salt spray.
 - Fog and dampness can be plausible in Rainridge valleys; exposed Outer Reach plateaus contrast with spring-fed basins.
 
-## Hydrology
+## Hydrology — primarily a map property
 
-Separate **catchment water balance** from visible water-surface rendering:
-- Watershed graph and contributing area.
-- Precipitation → infiltration / storage / evaporation / runoff.
-- Groundwater/springs and coarse aquifer storage.
-- River reaches with discharge, water level, velocity class and channel connectivity.
-- Floodplain storage, seasonal ponds, saturated ground and wetland cells.
-- Coast tides, storm setup and salinity intrusion in lower streams and brackish pools.
-- Terrain/sediment change as infrequent event/geomorphology updates; do not run full free-surface CFD across all islands.
+Watercourses, springs, permanent ponds, aquifer-influenced zones, wetlands, soil drainage and floodplain shapes are **authored or generated with the map** and remain geographically stable across ordinary game years. Distance from freshwater informs flora distribution, but must combine with **relative height above water**, soil permeability, shade, slope and baseline rainfall. Expose these as precomputed environmental suitability/moisture fields.
 
-Some streams are permanent and spring-fed; others flow only after rain. Water is a resource with **depth, access, freshness, current and contamination risk**, not just a blue material.
+**RaukenSim** owns day/night, seasons, regional weather, current wetness and exceptional storms/floods. Storms temporarily raise river levels and inundate **known flood-prone terrain**, then recede. Avoid continuous groundwater storage/pressure/transport simulation, channel erosion, riverbed remodeling and full fluid dynamics.
 
-Failure cases to test: rain upstream creates dangerous flash flood downstream; a dry season separates pools; tidal creeks become brackish; water appears at plausible permeable/impermeable contacts; steep slopes drain and low depressions retain moisture.
+Available water still has accessibility, depth, salt content, temperature and approximate current; a wet-looking inlet is not automatically drinkable. Rainfall history may influence botanical growth without actually moving terrain.
 
 ## Soil, substrates and plants
 
@@ -60,21 +53,17 @@ Predation matters, but hunger, dehydration, flood, terrain, infection and accide
 ## Seasonal processes and disturbance
 
 - Seasonal shoot growth, plant dormancy/stress, fruiting and shedding.
-- Flood scour and sediment deposition; changed river crossings.
+- Temporary floodwater across established channels/floodplains; a crossing may become unsafe and later recover.
 - Drought-driven changes in usable forage and drinking locations.
 - Storm windthrow, landslips, branchfall, decay and colonization.
 - Local browsing creates recognizable depletion and possibly bushier regrowth where biologically reasonable.
 - Dead vegetation becomes litter, wood and microbial/fungal substrate; nutrients recycle.
 
-Major storms and geomorphic changes are **occasional**; don't oscillate the whole map rapidly for visual drama. Familiarity relies on persistence.
+Most terrain remains fixed. Major storms may cause discrete treefall, debris or rare local rockfall, but should not progressively remake riverbeds. Familiarity relies on persistence.
 
 ## Scale and performance
 
-Four linked simulation tiers (suggested, subject to measured CPU cost):
-1. **Immediate:** visible animals/plants, interaction volumes, water contact, gait and feeding.
-2. **Nearby:** individual significant organisms, patch resources, animal routes, short-interval water state.
-3. **Regional:** soil/climate water balance, plant cohorts, populations and major habitat transitions.
-4. **Distant:** coarse aggregates for islands with little or no player observation, advancing consistently with elapsed time.
+Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** uses active multirate nearby animals and coarse offscreen populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using RaukenSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **RaukenState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
 
 Use event scheduling, low-frequency growth/accounting and deterministic spatial seeds. Separate render-chunk rebuild from ecological updates; batch many plant changes rather than one mesh rebuild per bite.
 
@@ -89,4 +78,4 @@ Don't equate offscreen simplification with resetting resources. Return visits sh
 - Conditions determine wildlife distributions; never hardcode predatory ambushes to player location.
 - Instrument per-tick CPU, save/load cost, memory and local detail promotion/demotion.
 
-Cross-references: [Flora](flora.md), [Creatures](creatures.md), [Gameplay](gameplay.md), [World generation](world-generation.md).
+Cross-references: [Architecture](simulation-architecture.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [HeroSim](hero-sim.md), [World generation](world-generation.md).

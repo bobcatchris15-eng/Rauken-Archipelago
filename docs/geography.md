@@ -88,3 +88,7 @@ This is a **reference watershed, not fixed map geography**. First test a **fully
 ## Open questions
 
 Island orientations; winds and latitude; separation sequence and local relative sea-level history; normal ocean current strength; precise area and relief; how far the Main Island interior transition can compress without feeling like a biome theme park; Stone Island's definitive character.
+
+## Simulation boundary
+
+Landform geometry, stream positions, springs and general moisture/suitability fields are primarily **map-design outputs**, not expensive ongoing geology. [RaukenSim](rauken-sim.md) handles day/night, weather, seasons and exceptional transient flooding; [FloraSim](flora-sim.md) uses those map fields to determine plant growth and health. Organism/geographic identity persists through [RaukenState](simulation-architecture.md).

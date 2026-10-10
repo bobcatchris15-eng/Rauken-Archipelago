@@ -13,6 +13,8 @@
 - Juvenile dwarf titanosaur is flagship; juvenile shaggy-looking sparse bristles/quills and adult scattered osteoderms, textured skin.
 - Player controls intention/motion; automatic nearby feeding/drinking and other routine animal behavior.
 - Near-photorealism on GTX 1080 + early Ryzen with 30 FPS floor. Flax and Wicked lead, no confirmed engine winner.
+- **Accepted names:** **RaukenState** replaces WorldState, **BeastCore** replaces AnimalCore, and **InteractionsCore** names the cross-domain interaction layer. Other owners: SimCore, RaukenSim, FloraSim, FaunaSim, HeroSim.
+- Static hydrological geography and plant moisture suitability belong to map design; RaukenSim handles weather, seasons and temporary floods without routine erosion/groundwater simulation.
 
 ## Explicitly provisional
 
@@ -28,7 +30,15 @@
 | Food chemical/nutrition values | Species-sensitive, generalist browser | Biological parameters and measured tuning |
 | Reference display | Baseline 1080p | Confirm user monitor and target resolution |
 | Runtime engine | Flax/Wicked shortlist | Same-scene, same-hardware benchmarks |
-| Full hydrological fidelity | Coarse catchment + visual approximation | CPU budgets and seasonal-world validation |
+| Temporary storm/flood fidelity | Precomputed flood masks and approximate water levels | Traversal and performance tests |
+| Fluid time and juvenile growth | Noticeable early maturation; shared species growth and optional global time acceleration | Playtest rate, siblings and physiological balance |
+| Fauna/Flora simulation cadence | Active multirate animals, lazy plants, rendering independent | Continuity + cost benchmarks |
+
+## Architecture decision — 2026-10-09
+
+Adopt logical in-process modules: **SimCore** schedules, **RaukenState** persists, **RaukenSim** supplies physical conditions, **FloraSim** owns lazily evaluated plants, **FaunaSim** wild animals, **HeroSim** the player, **BeastCore** reusable physiology and perception, **InteractionsCore** validated ecological transfers. Don't substitute the original names WorldState, AnimalCore or unnamed interaction layer.
+
+Do not tick plants based on render visibility. Nearby animals need active multirate updates (immediate pain/startle; slower hunger/thirst/growth) while offscreen fauna may be aggregated. Choose time-pacing formulas after playable experiments, preserving comparable rules for player and NPC animals. This architecture does not mandate separate executables, network APIs or specific tick frequencies.
 
 ## Sources to read and verify
 

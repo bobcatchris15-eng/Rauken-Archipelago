@@ -6,7 +6,7 @@ A fictional Late Cretaceous-inspired island archipelago and small-dinosaur life 
 
 The player inhabits an animal—not a human character controlling an animal-shaped avatar. The world is a persistent, interconnected ecology where landscape, weather, vegetation, growth and ordinary animal behavior are the central experience. The geography is deliberately striking and compressed for exploration.
 
-Start with **[the planning index](docs/README.md)** once the domain documents are committed.
+Start with the **[planning index](docs/README.md)** and **[simulation architecture](docs/simulation-architecture.md)**. These are specifications, not running systems.
 
 ## Current guiding choices
 
@@ -19,5 +19,7 @@ Start with **[the planning index](docs/README.md)** once the domain documents ar
 - Visual ambition is near-photorealism, on a reference GTX 1080 8 GB plus first-generation Ryzen with a 30 FPS floor.
 - Flax and Wicked Engine are leading **candidates**, pending measured benchmarks.
 - All production should be agent-friendly, reproducible, inspectable and source-controlled.
+- Named boundaries: **SimCore** (time/scheduling), **RaukenState** (persistence), **RaukenSim** (environment), **FloraSim** (plants/fungi), **FaunaSim** (wildlife), **HeroSim** (player), **BeastCore** (shared animal biology) and **InteractionsCore** (validated cross-domain exchanges).
+- Watercourses, soils and plant suitability are mainly map-generated. Runtime weather and floods change conditions temporarily; plant growth is lazy and animal physiology multirate.
 
 No content here should be treated as a finalized implementation choice without the explicit decisions noted in the individual specifications.

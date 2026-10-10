@@ -82,9 +82,11 @@ Create branch-aware trees, true rachis/pinna ferns, segmented horsetails, stiff 
 
 A plant family should yield morphological variants with identifiable species traits; don't randomize so widely that forms stop resembling one lineage.
 
+The asset generator must reconstruct a tree from **FloraSim** and **RaukenState** state (stable ID, seed, age, growth, branch damage, foliage/fruit stage) without altering recognizable branches on chunk reload. The renderer receives state snapshots and InteractionsCore change events, never drives biological ticking.
+
 ## Special creature production
 
-A rigged anatomical source for the flagship titanosaur with stage-dependent proportions; osteoderm and bristle zones attached to skeleton, underlying scale patterns, pose wrinkle regions, material masks, multiple growth stages and animation contacts. Export validated neutral poses, gait loops, grazing/drinking and head/neck ranges. No animation budget estimates based solely on triangle count.
+A rigged anatomical source for the flagship titanosaur with stage-dependent proportions; osteoderm and bristle zones attached to skeleton, underlying scale patterns, pose wrinkle regions, material masks, multiple growth stages and animation contacts. **BeastCore** shared development curves inform appearance from HeroSim/FaunaSim life state. Export validated neutral poses, gait loops, grazing/drinking and head/neck ranges. No animation budget estimates based solely on triangle count.
 
 ## Visual review
 

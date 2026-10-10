@@ -43,6 +43,9 @@ No expectation of exact Paleogene/Maastrichtian reconstruction: this is an inven
 - Small animal-scale detail vs. overall world size and streaming.
 - Autonomous animal action vs. ability for the player to leave or interrupt.
 - Rigorous life simulation vs. readable, non-nagging feedback.
+- Fluid juvenile development vs. coherent world time and the development of neighboring wildlife.
 - Continuous ecology vs. tractable CPU/memory budgets.
 
 **Success:** a player can find a home, recognize individual landmarks and plants, become absorbed in ordinary life, and remain curious about the next ridge.
+
+**Named architecture:** SimCore coordinates time; **RaukenState** stores persistent identity/history; **RaukenSim** governs environment; **FloraSim** plants; **FaunaSim** wildlife; **HeroSim** the player; **BeastCore** shared animal rules; **InteractionsCore** ecological exchanges. See [Simulation architecture](simulation-architecture.md).

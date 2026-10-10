@@ -30,6 +30,10 @@ Interaction algorithm (conceptual):
 
 Never eat undrinkable saltwater because it is water; do not vacuum biomass through rock or far outside neck reach.
 
+## Simulation contract
+
+**HeroSim** owns the player's condition and player-intention arbitration using shared **BeastCore** metabolic/sensory models also used by **FaunaSim**. **RaukenSim** provides weather/water, **FloraSim** finite food, **InteractionsCore** transfer results, **RaukenState** persistence and **SimCore** world time. Acute startle/pain and movement remain immediately responsive; thermal, hydration, digestion and developmental processes can be sampled at different slower rates.
+
 ## Physiological model
 
 Maintain internal quantities separate from UI semantics:
@@ -86,6 +90,8 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 
 - Implement persistent time, weather and ecology without simulating every leaf offscreen at full fidelity.
 - Favor meaningful days, seasonal shifts and generational lifespan rather than arcade timing.
+- **Fluid time:** visible juvenile growth should emerge within a reasonably short play session. SimCore can accelerate world time/rest and shared species developmental curves may compress early growth; exact pacing remains under test.
+- Real-time controls and acute sensory reactions cannot slow down just because world/developmental time advances faster. Comparable NPC juveniles must have compatible BeastCore growth rules.
 - World state and significant individual histories persist after a player's death; new lives do not inherit magical skills or knowledge.
 - Consider starting a later life as a descendant only if birth and inheritance systems justify it.
 
@@ -101,4 +107,4 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 
 ## Out of scope for this domain
 
-Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). World state/ecology belongs in [Ecology](ecology-and-hydrology.md). Appearance belongs in [Visual direction](visual-direction.md).
+Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). Persistence and ownership belong in [Simulation architecture](simulation-architecture.md); specifics in [HeroSim](hero-sim.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md) and [FaunaSim](fauna-sim.md). Appearance belongs in [Visual direction](visual-direction.md).

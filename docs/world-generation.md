@@ -28,7 +28,7 @@ An optional 'feature interest' field may bias local relief, rare formations, rav
 - Heightfield or streamed terrain tiles for broad ground.
 - Local real 3D meshes or SDF/voxel patches for undercuts, arches, overhangs, caves, ledges and vertical cliffs.
 - Blended material and collision interfaces; no visible seams at terrain/rock mesh intersections.
-- Offline erosion and geometry processing preferred; updates during play limited to rare stream migration, rockfall, sediment changes and disturbance.
+- Offline erosion and geometry processing only for ordinary terrain evolution; runtime floods temporarily cover preset areas, with rare discrete debris/rockfall. No routine stream migration, sediment transport or terrain erosion simulation.
 - Stable seeds and landmark identities. Don't regenerate a known rock tower into a different shape when its tile reloads.
 
 ## Player-scale composition
@@ -68,6 +68,8 @@ A successful generated scene should allow ordinary stretches of woodland between
 
 ## Outputs needed by other domains
 
-Geography mesh and collision; terrain stratigraphy/material IDs; slope/aspect; hydrology graph and spring sites; canopy and soil fields; fauna-accessible surfaces and routes; coastline/tide/salt maps; landmark persistent IDs; spatial chunk hierarchy and source seed provenance.
+Geography mesh and collision; terrain stratigraphy/material IDs; slope/aspect; stable streams/springs and floodplain masks; **precomputed moisture/suitability fields from water proximity, relative elevation, soils and climate**; canopy and soil fields; fauna-accessible surfaces and routes; coastline/tide/salt maps; landmark persistent IDs; spatial chunk hierarchy and source seed provenance.
 
 Engine-neutral export is preferred until rendering experiments select Flax or Wicked. See [Geography](geography.md) and [Ecology](ecology-and-hydrology.md).
+
+**Simulation boundary:** world generation supplies static terrain/water/soil inputs. [RaukenSim](rauken-sim.md) supplies weather and short-lived flood conditions; [FloraSim](flora-sim.md) determines which plants thrive; [RaukenState](simulation-architecture.md) stores persistent biological/geographical identities.
