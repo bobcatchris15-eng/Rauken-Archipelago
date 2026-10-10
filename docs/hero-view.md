@@ -140,21 +140,20 @@ HeroView presentation and rendering may be housed in one module while APIs stay 
 
 ## Acceptance scenarios
 
-10. Leave both input and camera alone; HeroSim pursues uncommanded life while the camera eases into comfortable documentary framing without teleporting or creating events.
-11. Hold direct steering as Smalltrotter; she snatches reachable foliage while walking, with no pop-up and no feet-locked feeding animation.
-12. Invoke contextual responses deliberately around another animal: the chooser slows the shared local world, emits a plausible intent and stays hidden at all other times.
-13. A serious alarm while detached orients camera and animal attention toward the same sensed point, then returns the camera smoothly to an animal-centered view; player camera input cancels recall.
-14. Ordinary Brackenback suspicion can produce posture alone, without repeatedly wrestling camera control away.
-
-
 1. Orbit 180 degrees in front of the Hero Beast; holding W still walks her **toward** the camera.
 2. Place the camera broadside on a creek; walking carries her left-to-right across the picture; camera pans/follows position without swiveling behind.
 3. Detach camera, fly over a *nearby* ridge, examine a shady predator; hard tether stops further travel and never permits a remote island excursion.
 4. While camera observes from the ridge, issue a ground destination; she sets out using her own footing, range of movement and perception.
 5. A sated predator quietly observes her from a hillside without mandatory attack.
 6. Normal hunger doesn't hijack WASD or erase a travel goal; acute pain can briefly override; fear affects destination travel more than direct movement.
-7. the Hero Beast moves away from detached camera; tether follows smoothly. Switch back to orbit/follow without teleports.
+7. The Hero Beast moves away from detached camera; tether follows smoothly. Switch back to orbit/follow without teleports.
 8. HeroView sees an animal the Hero Beast hasn't noticed; HeroSim remains unaware until a relevant sensory stimulus arrives.
 9. Active world simulation exceeds the free-camera envelope; revealing a hill doesn't cause animals to pop into existence.
+
+10. Leave both input and camera alone; HeroSim pursues uncommanded life while the camera eases into comfortable documentary framing without teleporting or creating events.
+11. Hold direct steering as Smalltrotter; she snatches reachable foliage while walking, with no pop-up and no feet-locked feeding animation.
+12. Invoke contextual responses deliberately around another animal: the chooser slows the shared local world, emits a plausible intent and stays hidden at all other times.
+13. A serious alarm while detached orients camera and animal attention toward the same sensed point, then returns the camera smoothly to an animal-centered view; player camera input cancels recall.
+14. Ordinary Brackenback suspicion can produce posture alone, without repeatedly wrestling camera control away.
 
 Related: [HeroSim](hero-sim.md), [Spatial activation](spatial-activation.md), [Simulation architecture](simulation-architecture.md), [Gameplay](gameplay.md).
