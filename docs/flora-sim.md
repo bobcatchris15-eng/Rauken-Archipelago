@@ -12,9 +12,9 @@ A plant may be ecologically elaborate while rendered with one simple distant mes
 
 **Individuals:** prominent/long-lived trees, significant shrubs, large ferns/cycads and plants with distinctive browsing scars. Each substantial tree has a stable *logical identity* (region/placement ID or durable ID), species, location, deterministic branching seed, establishment/growth information and any meaningful structural overrides. **Identity does not imply a separate heavyweight persisted row or per-tree update loop:** unchanged baseline trees can be reconstructed from world/region seeds; only meaningful mutable differences need compact records. New trees established later receive durable identities.
 
-**Population/colony patches:** grasses, reeds, horsetails, small herbs, mosses and fungi where organism-level tracking would be wasteful. Stable patch ID, species mix, coverage, density, age/size distribution, available edible biomass, health, cohort change and last-evaluated time.
+**Population/colony patches:** grasses, reeds, horsetails, small herbs, mosses and fungi where organism-level tracking would be wasteful. Stable patch seed/ID, species mix, approximate cover/edible amount, seasonal appearance and coarse recovery state.
 
-Organisms/patches use environmental baseline fields from world generation and **coarse current season/condition signals** from StalthosSim. **Where state differs from its deterministic baseline**, compact records and relevant event/checkpoint information live in StalthosState. Do not store generated meshes or an endless replay log for every tree.
+Organisms/patches use environmental baseline fields from world generation and **coarse current season/condition signals** from StalthosSim. **Where conspicuous state differs from its deterministic baseline**, compact exceptions live in StalthosState. Do not store generated meshes or an endless replay log for every tree.
 
 ## Biological region activation ahead of rendering
 
@@ -75,6 +75,6 @@ For requested chunks, return stable botanical snapshots/variant seeds, geometry-
 
 ## Test cases
 
-A tree growing over multiple seasons returns as the same individual; a browsed shrub loses finite edible biomass; a rain event outside render view changes future growth; a fern colony can update 6 months of history quickly; two animals cannot consume the same leaf biomass twice. A fallen seed-generated tree does not return undamaged after chunk cycling; a localized gap can develop different coarse cover and a few new durable trees over time without simulating individual seedlings or rebuilding all neighboring tree meshes.
+A conspicuous tree returns with stable identity and its saved structural exceptions; a browsed shrub visibly loses foliage and recovers plausibly; seasonal changes produce consistent variants after months away; two animals cannot simultaneously claim the same **visible** morsel. A fallen seed-generated landmark tree stays fallen after chunk cycling; a canopy gap can alter nearby patch cover without detailed succession or growth replay.
 
 Biology definitions live in [Flora](flora.md); architecture in [Simulation architecture](simulation-architecture.md).
