@@ -6,7 +6,7 @@
 
 The late Cretaceous supports flowering plants, conifers/other gymnosperms, diverse ferns, horsetails, cycads, wetland monocots, mosses and fungi. Avoid portraying the world as only cycads and ferns, or as a modern temperate grassland. Grass lineages existed by the Late Cretaceous, but modern grass-dominated savannas must not be the default.
 
-Invent derived species and common names for The Rauken. Fossil leaf forms and pollen can guide shapes but usually do not specify whole-plant branching, color, soft tissue, toxicity or ecological role. Mark inferred traits accordingly.
+Invent derived species and common names for The Stalthosian Archipelago. Fossil leaf forms and pollen can guide shapes but usually do not specify whole-plant branching, color, soft tissue, toxicity or ecological role. Mark inferred traits accordingly.
 
 The flagship sauropod is a **generalist browser with real preferences and consequences**, primarily using shrubs, tender herbs, horsetails, accessible fern species, young conifer shoots and some fruit/reproductive parts. It cannot eat arbitrary 'green biomass' equally well.
 
@@ -38,7 +38,7 @@ Working organisms (names optional/provisional):
 | Cliff mosses / liverworts / lichens | Multiple | Rock seepage, rotten wood and stable shaded soil | Moisture and appearance, not significant staple browse |
 | Gilled, bracket, crust and coral fungi | Multiple | Logs, litter, soil, damp hollows | Decomposition, episodic fruiting, incidental consumption |
 
-This table is not a commitment that all species coexisted in the exact real Maastrichtian Hațeg Basin. All Rauken taxa are fictional.
+This table is not a commitment that all species coexisted in the exact real Maastrichtian Hațeg Basin. All Stalthos taxa are fictional.
 
 ## Island divergence
 
@@ -64,9 +64,9 @@ Use normalized biological properties where evidence is unknown; nutritional valu
 
 ## FloraSim lifecycle
 
-**FloraSim** owns individual trees, distinctive shrubs, plant colonies and fungi independently of render chunks. Permanent species/habitat suitability is mostly map-generated (soil, moisture, water distance and relative elevation); **RaukenSim** supplies seasonal conditions and compact weather history. FloraSim updates growth lazily on **batched spatial-state requests** or discrete browsing/storm events; **no per-rendered-plant polling**.
+**FloraSim** owns individual trees, distinctive shrubs, plant colonies and fungi independently of render chunks. Permanent species/habitat suitability is mostly map-generated (soil, moisture, water distance and relative elevation); **StalthosSim** supplies seasonal conditions and compact weather history. FloraSim updates growth lazily on **batched spatial-state requests** or discrete browsing/storm events; **no per-rendered-plant polling**.
 
-Tree geometry must be reconstructed from stable IDs/seeds and saved structural changes in **RaukenState**. **InteractionsCore** commits limited biomass removal and publishes the resulting state changes to the renderer. See [FloraSim](flora-sim.md).
+Tree geometry must be reconstructed from stable IDs/seeds and saved structural changes in **StalthosState**. **InteractionsCore** commits limited biomass removal and publishes the resulting state changes to the renderer. See [FloraSim](flora-sim.md).
 
 ## Food, regeneration and display
 
