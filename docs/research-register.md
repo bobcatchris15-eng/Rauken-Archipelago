@@ -2,6 +2,16 @@
 
 **Purpose:** Keep scientific evidence separate from invented lore and distinguish approved creative directions from provisional implementation choices.
 
+## Runtime efficiency and frame-budget priority — 2026-10-10
+
+**Decision:** In support of the beautiful display-first facade, aggressively minimize recurring work everywhere. **Per-frame effort belongs to rendered pixels, responsive Hero Beast motion, immediate contact and convincing nearby behavior.** No per-plant ecology ticks, hidden-individual AI, world-wide collision sweeps, large persistent writes, or remote environment integration in the frame path.
+
+**Implementation defaults:** event-driven/coarsely scheduled ecology; stage possible wildlife before camera reveal at *lightweight* fidelity; full animation/contact only when needed; short-term activity/identity continuity; remote seed+density+season reconstruction; batched vegetation instances and shader work; bounded streaming, resource uploads and preparation jobs; heavy geometry/material/LOD/refinement work offline. GPU foliage overdraw, shadows, streaming, draw dispatch and skinning are measurable major costs—not exempt simply because they're visual.
+
+**No premature global magic numbers.** The reference GTX 1080 / first-generation Ryzen, 1080p, 30 FPS floor is evaluated with full scenes, P99/hitches, CPU/GPU breakdown, VRAM and visual comparison. Prioritize near-view quality when selecting compromises; test rather than decreeing all geometry/shadows expensive. Preparation beyond the camera tether means no pop-in, **not** full-rate background AI/physics.
+
+This tightens, without superseding, the display-first fidelity doctrine above and is reflected in Vision, Simulation Architecture, Spatial Activation and Rendering Experiments.
+
 ## Display-first ecological fidelity — 2026-10-10 (supersedes heavyweight hidden-ecology contracts)
 
 **Decision:** The Stalthosian Archipelago is a **beautiful Potemkin village of the Cretaceous**. Prioritize extraordinary visual quality, lifelike movement/interaction, convincing local animal behavior, and consistency the player can observe. Internal ecology is intentionally shallow, cheap, approximated and often staged. Scientific realism can inspire presentation but is not a mechanical completeness requirement.
