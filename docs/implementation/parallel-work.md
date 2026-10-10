@@ -86,11 +86,11 @@ This packet intentionally does not select a programming language for the game ru
 
 ## Packet G1 — PlantFactory and procedural surface tools
 
-**Can start with capability/version/rights audits after CFG-001; automated import requires actual installed exporters and the approved neutral schema.** Covers PFA-001/002/003, MAT-001 and GEO-001. Collaborates with E1 for MAT-002/003. Never claim that discontinued PlantFactory offers a batch CLI unless discovered and demonstrated locally.
+**Can start with capability/version/rights audits after CFG-001; automated import requires actual installed exporters and the approved neutral schema.** Covers PFA-001/004/002/003/005, MAT-001 and GEO-001. Collaborates with E1 for MAT-002/003. **If no CLI exists, build an automation bridge.** Evaluate supported plugins/scripting first, then Windows UI Automation (pywinauto/UIA/Win32 or comparable) for published parameters, preset changes, native saves and exports. Do not invent native flags, but GUI-only is an engineering constraint, not an excuse to stop.
 
-**Deliver:** PlantFactory export capability and PlantCatalog provenance matrix, source-to-Blender asset conversion with optional branch/wind/pivot sidecars, Material Maker or Blender-node PBR graphs for leaf/bark/rock/skin and correctly tagged roughness/thickness/normal channels, scanned-rock cleanup and rights records.
+**Deliver:** agent-controlled PlantFactory authoring/exports (script, native plugin or robust UI controller), resumable seeded variant batches, PlantCatalog provenance matrix, source-to-Blender asset conversion with branch/wind/pivot sidecars, Material Maker or Blender-node PBR graphs for leaf/bark/rock/skin and correctly tagged roughness/thickness/normal channels, scanned-rock cleanup and rights records.
 
-**Acceptance:** actual source fixtures preserve UV/scale/leaves/branch-group data or disclose losses; material swatches show controlled lighting comparisons; optimization cannot silently discard interaction attributes. Absent PlantFactory is a documented optional blocked adapter, not a reason to stop six-reference-plant work.
+**Acceptance:** actual source fixtures preserve UV/scale/leaves/branch-group data or disclose losses; material swatches show controlled lighting comparisons; optimization cannot silently discard interaction attributes. If an actual PlantFactory install is available, automation must perform repeated parameter edits and batch exports without manual clicking. If unavailable, keep implementing and unit-testing the controller against mocks, mark real verification blocked, and continue Blender-native six-reference-plant production.
 
 **Ownership:** G1 uses its own worktree and only the PFA/MAT/GEO paths listed by the machine graph. E1 owns Wicked shader conversion and target-PC measurement; shared interfaces are versioned through A0/INT review.
 
