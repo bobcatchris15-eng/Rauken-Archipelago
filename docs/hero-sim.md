@@ -98,9 +98,9 @@ The same species parameters yield **roughly comparable visible** growth, stamina
 ## Environment and interaction contracts
 
 - StalthosSim: sample current local conditions relevant to heat, rain, wind, water safety, shelter and flooding.
-- FloraSim: query reachable resources, finite plant biomass and ecological quality through validated feeding events.
+- FloraSim: query reachable food tags, approximate local forage amount and visible depletion through simple validated feeding events.
 - FaunaSim: shared encounters, sensing, signals and physical contact; not privileged to reveal all unseen animals.
-- InteractionsCore: commit cross-domain transfers, injury effects and resource transitions.
+- InteractionsCore: prevent duplicate **visible** effects and coordinate immediate food/contact, injury and conspicuous scene transitions.
 - StalthosState: preserve this animal's identity and lifecycle so saves/reloads and deaths remain coherent.
 - HeroView/renderer/physics: HeroView owns human input focus and bounded camera, receives HeroSim bodily/sensory presentation; streamer supplies renderable world separately; none owns animal biology.
 
