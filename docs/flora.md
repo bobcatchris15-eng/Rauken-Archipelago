@@ -56,7 +56,7 @@ Each taxon/profile defines:
 - Branching/leaf arrangement, roots, stems, foliage turnover and reproductive structures.
 - Establishment (light, moisture, substrate and soil chemistry).
 - Seasonal phenology, regrowth, reproduction, dispersal.
-- Resource fractions: leaf/shoot/fruit/seed, water, fiber, digestibility, defenses and silica where applicable.
+- **Simple forage tags:** accessible parts (leaf/shoot/fruit/seed), approximate palatability/nutrition, water content and notable defenses/silica where visually or behaviorally meaningful—not a precise nutrient chemistry model.
 - Browsing accessibility by animal height and mechanical interaction envelope.
 - Disturbance response: flood, drought, branch damage, trampling, death, decomposition.
 
@@ -64,9 +64,9 @@ Use normalized biological properties where evidence is unknown; nutritional valu
 
 ## FloraSim lifecycle
 
-**FloraSim** owns individual trees, distinctive shrubs, plant colonies and fungi independently of render chunks. Permanent species/habitat suitability is mostly map-generated (soil, moisture, water distance and relative elevation); **StalthosSim** supplies seasonal conditions and compact weather history. FloraSim updates growth lazily on **batched spatial-state requests** or discrete browsing/storm events; **no per-rendered-plant polling**.
+**FloraSim** owns individual trees, distinctive shrubs, plant colonies and fungi independently of render chunks. Permanent species/habitat suitability is mostly map-generated (soil, moisture, water distance and relative elevation); **StalthosSim** supplies coarse seasonal/weather condition signals, not historical weather reconstruction. FloraSim updates growth lazily on **batched spatial-state requests** or discrete browsing/storm events; **no per-rendered-plant polling**.
 
-Tree geometry must be reconstructed from stable IDs/seeds and saved structural changes in **StalthosState**. **InteractionsCore** commits limited biomass removal and publishes the resulting state changes to the renderer. See [FloraSim](flora-sim.md).
+Prominent tree geometry uses stable IDs/seeds and saved **conspicuous** structural exceptions in **StalthosState**; normal branches/foliage need not be individually persisted. **InteractionsCore** coordinates immediate local feeding/visible change, not a complete biomass ledger. See [FloraSim](flora-sim.md).
 
 ## Food, regeneration and display
 
