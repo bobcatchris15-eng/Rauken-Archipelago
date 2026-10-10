@@ -1,13 +1,13 @@
 # Implementation roadmap — toolkit first
 
-**Status:** Proposed execution plan, not implemented features or a selected engine.  
+**Status:** Proposed executable plan. **Wicked Engine is the chosen active renderer target** based on user local testing; engine integration and target-hardware results remain unimplemented/unmeasured.  
 **Source baseline:** main at ce04d13e5dfcb4b8256db431a100427542fbee44, reviewed 2026-10-10.  
 **Working setting name:** The Stalthosian Archipelago; repository slug Rauken-Archipelago is historical. Do not rename modules, repository, or game without a separate decision.  
 **First executable milestone:** an agent-operable, engine-neutral content production and validation toolkit. This is **not** a playable vertical slice.
 
 Read [Toolkit implementation](toolkit.md) for work items and exact handoffs, and [Parallel work packages](parallel-work.md) for bounded concurrent assignments.
 
-**Squad execution:** [Machine-readable 68-task DAG, dispatcher and acceptance gates](../../tasks/README.md) translates this plan into agent-ready bounded work. The graph is canonical for dispatch; this document remains rationale and design authority.
+**Squad execution:** [Machine-readable 75-task Wicked-first DAG, dispatcher and acceptance gates](../../tasks/README.md) translates this plan into agent-ready bounded work. The graph is canonical for dispatch; this document remains rationale and design authority.
 
 ## 1. Baseline and priority order
 
@@ -31,12 +31,12 @@ The existing 20 topical documents, planning index, and root README describe a co
 | Rig, animation and plant contact interfaces | Renderers cannot compare meaningful hero movement or plant bending against equivalent inputs | TOOL-09 and TOOL-10 |
 | Licensing/reference traceability | Training/reference images and PlantFactory/PlantCatalog outputs can be misused or redistributed incorrectly | TOOL-02, TOOL-11 |
 | Grounded visual and automated QA | Near-photorealism and biodiversity are undefined without consistent evidence/review sheets | TOOL-11 and TOOL-12 |
-| Neutral world sample | Flax versus Wicked could be tested using incomparable scene density | WORLD-01, BENCH-01 |
+| Neutral world sample | Wicked can silently lose content or shader features compared with authored neutral asset masters | WORLD-01, RND-003 |
 | Performance repeatability | An average FPS or screenshot hides shader/streaming, overdraw, hitches and VRAM cost | BENCH-02, BENCH-03 |
 | Small runtime contract examples | Image/contact/streaming probes need stable IDs and semantic event payloads without full ecology | ARCH-01 |
 | Parallel integration discipline | Several agents would race on scene formats, naming, shared files and tool installers | [Parallel work packages](parallel-work.md) |
 
-There is **no evidence yet** that either Flax or Wicked meets the target on the reference PC. There is also no justification to implement exact population accounting, weather-history replay, per-plant ticking, live erosion or per-branch rigid-body physics.
+There is **no full-scene measurement yet** demonstrating that Wicked meets the frame target on the reference PC. There is also no justification to implement exact population accounting, weather-history replay, per-plant ticking, live erosion or per-branch rigid-body physics.
 
 ## 3. Recommended sequence and gates
 
@@ -52,17 +52,17 @@ There is **no evidence yet** that either Flax or Wicked meets the target on the 
 
 **Gate G1 — every reference asset passes a round-trip:** profile + stable seed -> editable source -> validated GLB/other documented interchange -> stage/variant comparison -> QA sheet -> publish receipt. Failing assets do not land in the published manifest. Human art review is an explicit gate; validators cannot prove naturalistic appearance.
 
-### Stage 2 — Build one neutral landscape and measurable scenes
+### Stage 2 — Build one neutral landscape and a Wicked import scene
 
-**Execute:** WORLD-01 authoring/export of Splitstone, with a dense ~512×512 m renderer comparison area and a separate ~1×1 km traversable geography exercise. Create equivalent plant instance positions/coverage, a stream/ravine/bluff/wet hollow, rock interfaces, sunlight/overcast/wet states, several visible wildlife proxies and repeatable camera paths. This is a scene/terrain/asset test bed, not a game slice or a promise of future engine APIs.
+**Execute:** WORLD-01 authoring/export of Splitstone, with a dense ~512×512 m Wicked renderer test area and a separate ~1×1 km traversable geography exercise. Create equivalent plant instance positions/coverage, a stream/ravine/bluff/wet hollow, rock interfaces, sunlight/overcast/wet states, several visible wildlife proxies and repeatable camera paths. This is a scene/terrain/asset test bed, not a game slice or a promise of future engine APIs.
 
-**Gate G2 — scene parity:** identical shared source geometry/material intents, instance/seeding manifest, camera path, lighting conditions and visually comparable coverage are demonstrably loaded by **both** candidate adapters. Engine-specific preprocessing is documented, and discarded/failing imports are visible in reports. Density cannot be reduced quietly to win.
+**Gate G2 — neutral-to-Wicked scene fidelity:** shared source geometry, materials/roughness, instance/seeding manifest, camera routes and comparable coverage are loaded faithfully in Wicked. Compare against neutral source/Blender reference images and hash/instance manifests. Derived WISCENE/shader formats and unsupported/lost attributes are documented; density cannot be reduced quietly to make the performance target easier.
 
-### Stage 3 — Engine competition and targeted visual experiments
+### Stage 3 — Wicked appearance, materials and measured optimization
 
-**Execute:** BENCH-01 through BENCH-03 for Flax and Wicked with the prescribed V1–V10 render/activation experiments in [Rendering experiments](../rendering-experiments.md). Start with asset import fidelity and a minimal native scene, then proceed to wind, foliage overdraw, shadows, animation/IK, animal-driven shrub deformation, water, weather and stream/reveal hitches. Standalone release builds on the reference machine, native 1080p, unthrottled, repeated paths, GPU/CPU/VRAM tracing. Use equivalent perceived image quality as an input to comparison.
+**Execute:** RND-001 through RND-009 and MAT-001 through MAT-003 with the V1–V10 render/activation experiments in [Rendering experiments](../rendering-experiments.md). Start with reproducible Wicked import and calibrated material/rig fixtures, then measure thin-leaf transmission, alpha mips, roughness, wetness, wind/branch pivots, foliage overdraw, animal-driven shrub deformation, water, weather and stream/reveal hitches. Execute native standalone Wicked builds on the reference computer with repeated 1080p camera paths, genuine CPU/GPU/VRAM timings and side-by-side authored-source visual evidence. [Wicked material pipeline](wicked-material-pipeline.md) is the binding visual production specification.
 
-**Gate G3 — documented engine decision:** choose one only with side-by-side video/stills, run manifests, raw timing traces (median, P95, P99 and below-30 events), GPU/CPU diagnosis, memory accounting, source/build automation and practical implementation cost. **Provisional passing target:** P99 at or below 33.3 ms on a representative full-scene load, preferably with headroom; report failures honestly. If neither qualifies, pursue *specific* optimizations rather than a blanket engine choice.
+**Gate G3 — documented Wicked readiness:** compare neutral reference and Wicked moving footage, reproducible build/route manifests, raw frametime distributions (median/P95/P99 and below-30 events), CPU/GPU/VRAM diagnosis and concrete shader/asset optimization tradeoffs. **Provisional performance target:** representative full-scene Wicked P99 at or below 33.3 ms, preferably with headroom; if it fails, record measured bottlenecks and targeted Wicked fixes. This gate does not require building a second renderer or revisiting the engine choice.
 
 ### Stage 4 — Minimal real runtime contracts, then a continuously explorable world
 
@@ -84,8 +84,8 @@ Once the pipeline and runtime import are trustworthy, develop generator/rig fami
                                  ├─ TOOL-09 creature/animation ───┘          │
                                  └─ TOOL-10 local vegetation contact         │
     WORLD-01 terrain+placements <──────── schemas/asset export ───────────────┘
-       └─ BENCH-01 shared scene ── BENCH-02 engine adapters ── BENCH-03 measured comparison
-                                      └─ G3 engine decision
+       └─ Wicked import + material mapping ── thin-leaf/wetness/contact tests ── reference-PC traces
+                                      └─ G3 measured Wicked readiness
                                             └─ ARCH-01 runtime contracts
                                                   └─ expandable fauna/flora/world
 
@@ -93,7 +93,7 @@ Arrows are handoff constraints, not rigid serial scheduling. Plant families, cre
 
 ## 5. Technical contracts across all phases
 
-**Offline tool boundaries:** PowerShell launchers and Python orchestration, Blender Python in its own runtime, external tools as versioned adapters. Profiles, interchange geometry and proof artifacts must remain engine-neutral until a renderer is selected. Scriptable is a requirement; specific Python package versions and optional authoring packages are still **To test**.
+**Offline tool boundaries:** PowerShell launchers and Python orchestration, Blender Python in its own runtime, external tools as versioned adapters. Profiles, interchange geometry and proof artifacts remain engine-neutral; **only derived adapters/compiled artifacts target Wicked**. Scriptable is a requirement; specific Python package versions and optional authoring packages are still **To test**.
 
 **Units and spaces (proposed until fixture validation):** meters, seconds, radians where APIs call for them; a documented right/left-hand transform convention; no invisible unit guessing; colors explicitly tagged linear versus sRGB; tangent handedness verified after import. Prefer glTF/GLB as common exchange, not a hard rule when it loses needed data. Semantic sidecars contain interaction targets, collision proxies and environmental affordances unsupported by the interchange format. Maintain source masters, optimized variants and cooked engine copies separately.
 
@@ -121,7 +121,7 @@ Arrows are handoff constraints, not rigid serial scheduling. Plant families, cre
     artifacts/                       # ignored generated builds and receipts
     benchmarks/
       manifests/ routes/ analyses/
-      flax/ wicked/                  # isolated engine adapters
+      wicked/                        # sole active renderer adapter
 
 **Proposed**, not a directive to instantiate empty packages immediately. Generated caches, third-party executables, downloaded proprietary models and bulk licensed photos stay out of regular Git. Git LFS is for intentionally reviewed large original assets, not a blanket solution to unbounded outputs. Establish .gitignore, LFS rules and storage budget before committing binary data.
 
@@ -136,7 +136,7 @@ Arrows are handoff constraints, not rigid serial scheduling. Plant families, cre
 
 ## 8. What this plan deliberately does not authorize
 
-No chosen renderer; no claim that 30 FPS or photorealism has been achieved; no final sizes, map areas or exact terrain distribution; no playable vertical slice; no compulsory science-grade population, hydrology or physiological simulation; no bulk licensing downloads without provenance; no paid API use; no remote agent execution assumed. Work packages can be handed to independent coding agents, but this document does not claim any have been dispatched.
+No competing renderer build; no claim that 30 FPS or photorealism has been achieved; no final sizes, map areas or exact terrain distribution; no playable vertical slice; no compulsory science-grade population, hydrology or physiological simulation; no bulk licensing downloads without provenance; no paid API use; no remote agent execution assumed. Work packages can be handed to independent coding agents, but this document does not claim any have been dispatched.
 
 ## 9. Documentation traceability
 
