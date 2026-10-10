@@ -2,6 +2,16 @@
 
 **Purpose:** Keep scientific evidence separate from invented lore and distinguish approved creative directions from provisional implementation choices.
 
+## Wicked-first renderer and plant/material toolkit — 2026-10-10
+
+**User decision:** after local tests, build the active renderer/toolchain around **Wicked Engine** and leave Flax implementation/comparison out for now. This supersedes earlier undecided Flax/Wicked shortlist language below; those references are historical research only, not executable work.
+
+**Implementation:** maintain neutral Blender/PlantFactory masters, GLB interchange, and editable PBR profiles. Wicked adapter handles derived meshes, alpha/normal/roughness channel mapping, compressed textures, foliage shaders and benchmark scenes. Enable PlantFactory where local export/rights are demonstrated; retain Blender fallback. Material Maker, photogrammetry/CC0 scans, wetness, thin-leaf transmission and wind/contact semantics are specific asset-toolkit work, not a reason to invent deep ecology.
+
+**Proof:** comparative baseline is authored neutral source/Blender imagery versus the same material/geometry in Wicked, plus target GTX 1080/Ryzen measured frame traces; **not** a head-to-head second-engine benchmark. Record blockers and revise Wicked optimizations before reopening engine selection. Do not claim a measured FPS result from the user's informal local preference.
+
+See [Wicked material pipeline](implementation/wicked-material-pipeline.md) and [execution DAG](../tasks/README.md).
+
 ## Geographic compression and naturally discovered places — 2026-10-10
 
 **Decision:** user explicitly approves compressing landform dimensions, intervening distances and feature spacing **beyond natural geological likelihood** to make ordinary traversal satisfying and increase the frequency of possible “Good Spots.” A gorge can be much shorter than its real-world analogue, and interesting microhabitats can occur unusually close together. Favor plausible local form and spatial continuity over watershed-scale realism.

@@ -1,6 +1,6 @@
 # Rendering architecture experiments
 
-**Domain:** Evidence-based engine and renderer selection. **Status:** Planned trials only; no measurements yet.
+**Domain:** Wicked Engine visual fidelity, shader and performance experiments. **Status:** Wicked is the active renderer choice after user local testing; full-scene benchmarks remain planned/unmeasured.
 
 ## Hardware and objective
 
@@ -20,18 +20,15 @@ Break profiling into CPU main/submit, GPU shading/overdraw, visibility and draw 
 
 Require A/B captures *and* frame-time traces for any quality compromise. Do not encode a blanket low-poly/no-shadow decision based on assumptions; optimize the actual dominant costs.
 
-## Shortlist
+## Active engine and deferred alternatives
 
-1. **Flax Engine** — favored for existing terrain, quadtree foliage, animation and native source access. Watch cluster rebuild cost for frequent plant edits.
-2. **Wicked Engine** — favored for source-level rendering modifications, custom vegetation and engine-neutral data flow; watch custom toolchain/terrain integration burden.
-3. **UNIGINE** — optional third control with mature environmental systems and proprietary constraints. Retain only if access/license/automation meet experiment needs.
-4. Other alternatives (Godot, Unity URP, Unreal without expensive defaults, Bevy) may enter after evidence-based screening, not uncontrolled multiplication of demos.
+**Wicked Engine is the only active implementation target.** Do not author a Flax adapter or spend this phase running two-engine competitive benchmarks. Maintain authored neutral Blender/PlantFactory geometry, material recipes and GLB interchange independently of Wicked.
 
-No benchmark-based winner has been selected. The user currently leans Flax or Wicked.
+The user's local Wicked test provides directional confidence, **not measured proof** that the planned dense woodland, animal contact and full water/weather effects meet the reference-PC frame target. Reopen a second engine only after an explicit decision and a concrete Wicked blocker. The current task graph owns native Wicked import, roughness/alpha packing, foliage/wetness shaders, visual reviews and frame traces.
 
 ## Common test bed
 
-Build one shared reference scene with identical source heightmap/meshes, plant positions/coverage, materials, weather inputs and scripted camera routes. A candidate must not 'win' by quietly reducing density, shadow quality or creature animation.
+Build one neutral reference scene with identical frozen source heightmap/meshes, plant positions/coverage, materials, weather inputs and scripted camera routes on each **Wicked test iteration**. Compare to authored Blender/reference image and manifests. A Wicked optimization must not look faster by quietly reducing density, shadow quality or creature animation.
 
 Proposed benchmark data:
 - Detailed terrain patch around 512×512 m and distant lower-detail surrounding views; include a 1×1 km walkable geography test independently.
@@ -80,21 +77,19 @@ Counts are subject to visually equivalent screen coverage. Preserve a geometry-o
 
 ## Outcome/reporting
 
-Deliver source and build steps for each engine, identical manifests/benchmark paths, a raw results set, corresponding still/moving captures, optimization deltas, license notes and an explicit recommendation.
+Deliver Wicked source revision/build steps, immutable neutral source scene and repeated Wicked benchmark paths, raw timing results, corresponding source/Wicked still and moving captures, shader/material fidelity audits, optimization deltas and explicit release-readiness blockers.
 
-Score both *visual quality* and *frametime/headroom*. Prefer a clear practical winner; if neither meets the quality+performance gate, diagnose top costs and conduct **targeted renderer experiments** instead of guessing. No full game implementation authorized here.
+Score both *visual quality* and *frametime/headroom* in Wicked. If Wicked misses either gate, identify specific shader, alpha coverage, LOD, instancing, source geometry or memory bottlenecks and conduct **targeted experiments** instead of guessing. No second engine build or full game implementation authorized here.
 
 ## Useful technical leads
 
-- Flax foliage: https://docs.flaxengine.com/manual/foliage/index.html
-- Flax programmatic foliage: https://docs.flaxengine.com/manual/foliage/tutorials/foliage-from-code.html
 - Wicked Engine: https://github.com/turanszkij/WickedEngine
 - PresentMon: https://github.com/GameTechDev/PresentMon
 - RenderDoc: https://renderdoc.org/
 - Tracy: https://github.com/wolfpld/tracy
 - meshoptimizer: https://meshoptimizer.org/
 
-Important: Flax documentation notes that after programmatic foliage changes clusters should be rebuilt in batches. Plant bite events must not rebuild a huge actor on every action.
+For Wicked, verify whether batch instance-buffer updates and local contact shader data can avoid rebuilding whole foliage groups after every browsing event; benchmark rather than assume any particular engine API.
 
 See [Visual direction](visual-direction.md) for appearance requirements and [Asset toolkit](asset-toolkit.md) for reproducible content.
 

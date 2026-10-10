@@ -1,0 +1,2724 @@
+{
+  "schema_version": "1.0.0",
+  "title": "The Stalthosian Archipelago — Wicked-first toolkit execution graph",
+  "branch_baseline": "planning/toolkit-first-implementation",
+  "description": "Agent-assignable DAG to build Windows-first, neutral source assets with a Wicked Engine runtime/renderer target, agent-operated PlantFactory automation (native/plugin/UI desktop bridge) and PBR material adapters, visual QA, and measured benchmarks. No competing renderer integration is scheduled. Planning graph; none of these tasks is complete by virtue of appearing here.",
+  "conventions": {
+    "canonical_source": "tasks/toolkit-graph.json",
+    "required_instruction_docs": [
+      "docs/README.md",
+      "docs/vision-and-principles.md",
+      "docs/research-register.md",
+      "docs/asset-toolkit.md",
+      "docs/visual-direction.md",
+      "docs/implementation/README.md",
+      "docs/implementation/toolkit.md",
+      "docs/implementation/parallel-work.md",
+      "docs/implementation/wicked-material-pipeline.md"
+    ],
+    "no_goals": [
+      "playable vertical slice",
+      "multi-renderer implementation or engine selection contest",
+      "deep ecological physiology/population/water solver",
+      "paid recurring API prerequisite",
+      "unlicensed reference asset redistribution"
+    ],
+    "target": "Native Windows, GTX 1080 8 GB + first-gen Ryzen, native 1920x1080, measured 30 FPS full-scene goal; never infer from synthetic workstation.",
+    "agent_policy": "Implement Wicked Engine as the sole current renderer. Never add competing engine adapters or performance comparison tasks. All authoring masters and interchange data must remain renderer-neutral; material/rig feature losses must be reported. Do not edit other task-owned paths, invent licenses/sources/measurements, or mark work done without integration review. Use isolated branches/worktrees.",
+    "default_max_workers": 3,
+    "lane_descriptions": {
+      "integration": "windows CLI, builds, packaging and release",
+      "contracts": "data/units/profile schemas and fixtures",
+      "assets": "bpy/exchange/baking/LOD/turntables",
+      "research": "evidence and licensing",
+      "quality": "visual and repeatability validation",
+      "plants": "reusable morphology families and species profiles",
+      "creatures": "Smalltrotter shape, rig, animation and stages",
+      "world": "offline Splitstone terrain and placements",
+      "renderer": "Wicked-only build, import, shader/contact tests and actual full-scene hardware benchmarks"
+    },
+    "primary_renderer": "wicked",
+    "asset_source_policy": "Keep original .blend/native PlantFactory sources, profiles, GLB/FBX and PBR textures as neutral masters. Build WISCENE and GPU-compressed materials as derived Wicked artifacts only.",
+    "plantfactory_automation": "Agents are authorized to implement supported PlantFactory plugins, native scripting or safe Windows desktop/UI automation to enable deterministic source editing and exports. No CLI is assumed. Preserve real installation/version evidence, reversible workflows and native projects; never bypass licensing or misstate export rights."
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "name": "Contracts and CLI foundation",
+      "requires": [
+        "CFG-001",
+        "CFG-002",
+        "CFG-003",
+        "CON-008",
+        "CLI-001",
+        "CLI-007"
+      ],
+      "review": "A real Windows doctor and clean validated fixture command; no optional installers or false success."
+    },
+    {
+      "id": "G1",
+      "name": "Reusable asset workshop",
+      "requires": [
+        "PLT-011",
+        "CRE-006",
+        "ART-009",
+        "QA-004",
+        "CLI-005"
+      ],
+      "review": "Six botanical examples and age-distinct Smalltrotter neutral bundle; approved motion/image QA, provenance and deterministic regeneration."
+    },
+    {
+      "id": "G2",
+      "name": "Neutral Splitstone faithfully imported into Wicked",
+      "requires": [
+        "WRD-007",
+        "RND-003"
+      ],
+      "review": "Neutral original meshes, plant bend metadata, rig clips, scene placements, material roughness, camera routes and lighting presets faithfully translate into Wicked. Missing/import-lost assets or unsupported shading are explicit; art review compares Wicked view against neutral reference renders."
+    },
+    {
+      "id": "G3",
+      "name": "Wicked visual quality and measured full-scene readiness",
+      "requires": [
+        "RND-009"
+      ],
+      "review": "Actual GTX 1080/Ryzen native 1080p raw frametime P50/P95/P99, streaming hitches, VRAM, visual defects and targeted fixes are documented. If target fails, retain Wicked and state blockers rather than fabricating a passing benchmark."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "CFG-001",
+      "title": "Read-only Windows tool doctor",
+      "lane": "integration",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [],
+      "write_paths": [
+        "toolkit/doctor/"
+      ],
+      "capabilities": [
+        "windows",
+        "powershell"
+      ],
+      "objective": "Inspect actual Windows hardware and available authoring/build tools without installing anything.",
+      "steps": [
+        "Probe OS/CPU/RAM/storage/display/GPU/driver and Git, Python, Blender, C++ SDK, Wicked Engine, profiling utilities.",
+        "Resolve overrideable paths from untracked local config; report optional/missing/incompatible/untested separately.",
+        "Emit JSON capabilities and actionable missing-tool messages."
+      ],
+      "deliverables": [
+        "toolkit/doctor package",
+        "doctor JSON fixture",
+        "Windows probe report"
+      ],
+      "acceptance": [
+        "PowerShell doctor returns parseable JSON on a Windows host.",
+        "Missing optional tools do not fail unrelated probes; no installers or license acceptance."
+      ]
+    },
+    {
+      "id": "CFG-002",
+      "title": "Versioned toolchain bootstrap",
+      "lane": "integration",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CFG-001"
+      ],
+      "write_paths": [
+        "tools/bootstrap.ps1",
+        "toolkit/toolchain/",
+        "docs/toolchain-setup.md"
+      ],
+      "capabilities": [
+        "windows",
+        "powershell",
+        "python"
+      ],
+      "objective": "Reproducibly prepare pinned local Python/orchestration dependencies and record external tool versions.",
+      "steps": [
+        "Provide opt-in venv creation and pinned lock with repeatable installation commands.",
+        "Document Blender's separate Python environment and the exact tested external tool versions.",
+        "Record local overrides without tracking proprietary binaries or user machine paths."
+      ],
+      "deliverables": [
+        "bootstrap script",
+        "tool version manifest",
+        "installation/upgrade instructions"
+      ],
+      "acceptance": [
+        "Bootstrap cleanly repeats without clobbering custom installs.",
+        "No paid tools, auto-downloads, global package mutations, or implicit license approvals."
+      ]
+    },
+    {
+      "id": "CFG-003",
+      "title": "Source/artifact/cache layout and safe ignores",
+      "lane": "integration",
+      "wave": 0,
+      "size": "S",
+      "depends_on": [],
+      "write_paths": [
+        ".gitignore",
+        ".gitattributes",
+        "docs/implementation/storage.md",
+        "tools/workspace.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Separate editable source, generated builds, shared caches, published bundles and renderer outputs with bounded local disk use.",
+      "steps": [
+        "Define source/derived/temporary locations and Git LFS guidance with retention/cleanup policy.",
+        "Create a non-destructive workspace initializer and dry-run cache pruning.",
+        "Exclude third-party installers, licensed references, engine caches and temporary captures from Git."
+      ],
+      "deliverables": [
+        "workspace initializer",
+        "ignore/LFS guidance",
+        "500 GB SSD and NAS archive staging policy"
+      ],
+      "acceptance": [
+        "Dry-run cleanup names only regenerable artifacts and never sources or validated published outputs.",
+        "Two worktrees can use unique scratch directories without overwriting each other."
+      ]
+    },
+    {
+      "id": "CLI-001",
+      "title": "PowerShell launcher and Python CLI skeleton",
+      "lane": "integration",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CFG-001",
+        "CON-002"
+      ],
+      "write_paths": [
+        "tools/stalthos.ps1",
+        "toolkit/cli/main.py",
+        "toolkit/__main__.py"
+      ],
+      "capabilities": [
+        "windows",
+        "powershell",
+        "python"
+      ],
+      "objective": "Expose stable commands for doctor, profile validation and future build/publish actions from Windows.",
+      "steps": [
+        "Implement PS1 launcher and Python module entry point without assuming shell-specific package paths.",
+        "Validate arguments and emit clean machine-readable JSON on stdout.",
+        "Define exit-code map and support --help with accurate implemented-command status."
+      ],
+      "deliverables": [
+        "launcher",
+        "python CLI",
+        "smoke invocations"
+      ],
+      "acceptance": [
+        "Unknown commands fail nonzero with actionable error; no fake successful no-op commands.",
+        "Windows-first CLI can run schema validation with no Blender installed."
+      ]
+    },
+    {
+      "id": "CON-001",
+      "title": "Coordinates, IDs, units and seed conventions",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [],
+      "write_paths": [
+        "docs/implementation/contracts/coordinates.md",
+        "toolkit/contracts/identity.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Freeze machine-readable neutral spatial, identity and random-seed conventions before parallel generators.",
+      "steps": [
+        "Specify glTF transforms, meters, up/forward axes, tangent/normal handedness and sRGB/linear material fields.",
+        "Define species/form, logical asset, source revision, seeded variant, placed instance and landmark IDs.",
+        "Derive stable subseeds with explicit hashing independent of Python runtime random hash."
+      ],
+      "deliverables": [
+        "coordinate convention",
+        "ID/seed utility",
+        "1 m cube orientation fixture specification"
+      ],
+      "acceptance": [
+        "Same profile/seed yields stable IDs across runs/processes.",
+        "Unit and axis conversion is testable with a calibrated fixture; no implicit transforms."
+      ]
+    },
+    {
+      "id": "CON-002",
+      "title": "Common asset profile JSON Schema",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-001"
+      ],
+      "write_paths": [
+        "toolkit/schemas/asset.schema.json",
+        "toolkit/contracts/profile.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Declare engine-independent identity, morphology and build inputs under a versioned JSON Schema.",
+      "steps": [
+        "Define common fields, profile kind and schema_version with strict unknown-field policy.",
+        "Implement safe YAML ingestion only if chosen; canonical JSON is the validated exchange format.",
+        "Create clear field paths and typed validation failures."
+      ],
+      "deliverables": [
+        "common JSON Schema",
+        "profile loader/validator",
+        "valid/invalid fixtures"
+      ],
+      "acceptance": [
+        "A malformed ID, missing dimensions or unsupported schema revision fails predictably.",
+        "A valid profile validates without Blender or renderer installs."
+      ]
+    },
+    {
+      "id": "CON-003",
+      "title": "Provenance and redistribution rights schema",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/schemas/provenance.schema.json",
+        "toolkit/contracts/provenance.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Preserve reliable licensing and scientific reference traceability for each external asset or reference.",
+      "steps": [
+        "Record canonical source/creator/date/license and separate inspiration-only citations from reused bytes.",
+        "Represent PlantFactory/PlantCatalog derived status and redistribution flags explicitly.",
+        "Reject publication of undocumented third-party base meshes/textures, not innocent linked citations."
+      ],
+      "deliverables": [
+        "rights schema",
+        "license policy validator",
+        "positive/negative samples"
+      ],
+      "acceptance": [
+        "Unknown license is not interpreted as CC0 or public domain.",
+        "A citation-only documentary image can be referenced without automatically bundling it."
+      ]
+    },
+    {
+      "id": "CON-004",
+      "title": "Build, QA and publication receipt contracts",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-001",
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/schemas/receipt.schema.json",
+        "toolkit/contracts/receipts.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Describe deterministic inputs, artifact hashes, tool fingerprints, validation, status and run failure without ambiguity.",
+      "steps": [
+        "Record input hashes, seeds, normalized config, tool versions, output paths and SHA-256.",
+        "Specify status, warning/error codes, partial-build and publish states.",
+        "Differentiate reproducible geometry from driver-dependent render images and measured benchmarks."
+      ],
+      "deliverables": [
+        "receipt JSON Schema",
+        "canonical receipt serializer",
+        "failure-mode fixtures"
+      ],
+      "acceptance": [
+        "Receipts from two equivalent normalized inputs compare consistently.",
+        "Failed subprocess cannot produce a successful publication receipt."
+      ]
+    },
+    {
+      "id": "CON-005",
+      "title": "Plant profile and semantic affordance schema",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/schemas/plant.schema.json",
+        "profiles/plants/examples/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Give plant families enough morphology, habitat, browse and bending data without individual biology simulators.",
+      "steps": [
+        "Define woody/frond/segmented/fungus typed forms, growth stages and species-preserving variation ranges.",
+        "Describe rootedness, contact bend groups, mouth-accessible foliage zones and wind masks.",
+        "Provide concrete Softbough and Royal-frond fixture profiles."
+      ],
+      "deliverables": [
+        "plant schema",
+        "two sample plant profiles",
+        "invalid morphology fixtures"
+      ],
+      "acceptance": [
+        "Plant variants remain constrained by taxon morphology.",
+        "No per-leaf IDs, nutrient conservation or climate history required by schema."
+      ]
+    },
+    {
+      "id": "CON-006",
+      "title": "Creature profile, skeleton and interaction schema",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/schemas/creature.schema.json",
+        "toolkit/schemas/rig.schema.json",
+        "profiles/creatures/examples/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Specify distinct creature stages, bone/IK sockets and visual attachment zones in neutral data.",
+      "steps": [
+        "Define named bones, retarget/follow behavior, clips, morph targets, attachment/contact anchors.",
+        "Describe juvenile/adult Smalltrotter proportions, quill/osteoderm zones as fictional design parameters.",
+        "Include units/axis and neutral exporters' capability requirements."
+      ],
+      "deliverables": [
+        "creature and rig schemas",
+        "Smalltrotter example",
+        "rig error fixtures"
+      ],
+      "acceptance": [
+        "Missing foot/mouth sockets and invalid bone parents receive specific failures.",
+        "Fictional anatomical details are not represented as verified fossil claims."
+      ]
+    },
+    {
+      "id": "CON-007",
+      "title": "Terrain, scene and camera-route schemas",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-001",
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/schemas/scene.schema.json",
+        "toolkit/schemas/terrain.schema.json",
+        "toolkit/schemas/route.schema.json"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Provide neutral terrain, instance and repeatable benchmark camera/lighting contracts.",
+      "steps": [
+        "Model terrain tiles, non-heightfield meshes, streams, habitats and landmarks.",
+        "Store instance IDs, transforms, fixed positions, weather/lighting presets and juvenile-height camera paths.",
+        "Require stable random seeds, asset bundle IDs and digestible scene hashes."
+      ],
+      "deliverables": [
+        "three JSON Schemas",
+        "minimal scene fixture",
+        "route and placement validators"
+      ],
+      "acceptance": [
+        "Camera paths are deterministic and independent of chosen renderer.",
+        "No world-scale erosion or general ecological simulator is encoded."
+      ]
+    },
+    {
+      "id": "CON-008",
+      "title": "Contract golden fixtures and breaking-change tests",
+      "lane": "contracts",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-003",
+        "CON-004",
+        "CON-005",
+        "CON-006",
+        "CON-007"
+      ],
+      "write_paths": [
+        "toolkit/tests/test_contracts.py",
+        "toolkit/tests/fixtures/contracts/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Ship a reliable set of good and deliberately bad normalized profiles and receipt/scene examples.",
+      "steps": [
+        "Write positive/negative tests for identifiers, units, rights, rig hierarchy, terrain and receipts.",
+        "Exercise schema version incompatibility and normalization.",
+        "Document migration procedure for future schema changes."
+      ],
+      "deliverables": [
+        "golden fixtures",
+        "schema test suite",
+        "contract changelog template"
+      ],
+      "acceptance": [
+        "Every contract has at least one passing and one meaningfully failing fixture.",
+        "No renderer/Blender dependency needed to run golden tests."
+      ]
+    },
+    {
+      "id": "REF-001",
+      "title": "Reference index, license ledger and rights QA",
+      "lane": "research",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "CON-003"
+      ],
+      "write_paths": [
+        "reference/index/",
+        "toolkit/qa/licenses.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Track source photography, fossil and botanical literature, sourced textures and PlantCatalog rights without redistributing unknown materials.",
+      "steps": [
+        "Define a citation-only record vs reusable binary asset distinction.",
+        "Add a rights check to asset publish metadata; separate proof levels from fictional design.",
+        "Use verified URLs/licenses and record unresolved cases honestly."
+      ],
+      "deliverables": [
+        "reference index format",
+        "license fixture samples",
+        "rights test"
+      ],
+      "acceptance": [
+        "No downloaded image is called freely redistributable without evidence.",
+        "Unknown rights prevent binary reuse, not linked descriptive reference research."
+      ]
+    },
+    {
+      "id": "REF-002",
+      "title": "Four-island terrain/photo reference dossiers",
+      "lane": "research",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "REF-001"
+      ],
+      "write_paths": [
+        "reference/islands/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Collect licensed or citation-only photographic landscape sources and concise form/lighting observations for all four islands.",
+      "steps": [
+        "Main: Baraboo/Driftless/Catskills/Highlands/pine barrens/South African variants.",
+        "Rainridge: Olympic + Smokies; Stone: Yucatán/Costa Rica cenotes/karst; Outer Reach: Tsingy and badlands.",
+        "Tag source credibility, relevant shapes, vegetation/lighting cues and whether redistribution is allowed."
+      ],
+      "deliverables": [
+        "four reference dossiers",
+        "annotated source index"
+      ],
+      "acceptance": [
+        "Every entry has working canonical link and rights/reuse caution.",
+        "These are morphology references, not copied world maps or species claims."
+      ]
+    },
+    {
+      "id": "REF-003",
+      "title": "Smalltrotter anatomical evidence and uncertainty dossier",
+      "lane": "research",
+      "wave": 0,
+      "size": "M",
+      "depends_on": [
+        "REF-001"
+      ],
+      "write_paths": [
+        "reference/creatures/smalltrotter/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Separate supported titanosaur anatomy from invented juvenile bristles and island dwarf proportions.",
+      "steps": [
+        "Survey primary/credible scientific sources for dwarf titanosaur, skin, osteoderms and comparative movement.",
+        "Document living analogs for age-dependent structures as analogies, not proof.",
+        "Supply measured/provisional proportions and close/side/top visual cues for modelers."
+      ],
+      "deliverables": [
+        "evidence matrix",
+        "reference links",
+        "fiction/evidence flag summary"
+      ],
+      "acceptance": [
+        "Every paleontology claim is cited and uncertainty labeled.",
+        "Quills are explicitly fictional and remain more prominent in juveniles than adults."
+      ]
+    },
+    {
+      "id": "ART-001",
+      "title": "Blender background-mode adapter",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "CFG-002",
+        "CLI-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/adapters/blender_runner.py",
+        "toolkit/adapters/blender_scripts/probe.py"
+      ],
+      "capabilities": [
+        "windows",
+        "blender",
+        "python"
+      ],
+      "objective": "Run Blender Python/bpy headlessly with pinned version and export operation receipts.",
+      "steps": [
+        "Probe Blender in background mode; keep bpy interpreter isolation.",
+        "Implement deterministic script invocation with explicit input/output JSON paths.",
+        "Provide missing-Blender and API-version error handling."
+      ],
+      "deliverables": [
+        "background Blender runner",
+        "probe fixture",
+        "tool fingerprint"
+      ],
+      "acceptance": [
+        "A headless Blender fixture succeeds on actual installed Blender.",
+        "Missing Blender blocks only relevant asset build, not schema work."
+      ]
+    },
+    {
+      "id": "ART-002",
+      "title": "Engine-neutral geometry and glTF/GLB exporter",
+      "lane": "assets",
+      "wave": 1,
+      "size": "L",
+      "depends_on": [
+        "ART-001",
+        "CON-001",
+        "CON-004"
+      ],
+      "write_paths": [
+        "toolkit/adapters/blender_scripts/export_geometry.py",
+        "toolkit/export/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Export calibrated source geometry with stable coordinate/units/material naming and semantic sidecars.",
+      "steps": [
+        "Emit static and skinned GLB with source project and sidecar manifests.",
+        "Build calibrated 1 m cube, slope-contact and simple skeleton fixtures.",
+        "Verify importer-independent bbox, transform, normals and UV metadata."
+      ],
+      "deliverables": [
+        "GLB exporter",
+        "unit/axis fixtures",
+        "export receipts"
+      ],
+      "acceptance": [
+        "World scale/handedness roundtrip works in a neutral viewer or validator.",
+        "No renderer-specific source master required."
+      ]
+    },
+    {
+      "id": "ART-003",
+      "title": "Mesh/UV/tangent/interchange validator",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-002"
+      ],
+      "write_paths": [
+        "toolkit/qa/geometry.py",
+        "toolkit/tests/test_geometry.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Reject inverted or torn geometry, invalid UVs and broken material/mesh import data.",
+      "steps": [
+        "Check finite geometry, degenerate faces, normals/tangents, UV bounds and nonmanifold exceptions.",
+        "Call external Khronos validator when available, with native fallback and explicit coverage notes.",
+        "Report actionable diagnostics tied to asset/material/mesh IDs."
+      ],
+      "deliverables": [
+        "geometry validator",
+        "good/bad GLB fixtures",
+        "QA report"
+      ],
+      "acceptance": [
+        "Deliberate inverted-normal and missing-UV samples fail.",
+        "Optional validator absence is reported, never hidden or treated as an authoritative pass."
+      ]
+    },
+    {
+      "id": "ART-004",
+      "title": "Rig, animation and morph validation",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-002",
+        "CON-006"
+      ],
+      "write_paths": [
+        "toolkit/qa/rig.py",
+        "toolkit/tests/test_rig.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Verify skeletal weights, parent graph, required anchors, animations and growth stage exports.",
+      "steps": [
+        "Check cyclic/unknown parents, unweighted vertices and malformed clip durations.",
+        "Validate named mouth, feet, tail and neck sockets against creature schema.",
+        "Report import format losses rather than dropping animations silently."
+      ],
+      "deliverables": [
+        "rig validator",
+        "valid/invalid skeleton fixtures",
+        "rig report"
+      ],
+      "acceptance": [
+        "Wrong bone names, absent sockets or broken weights fail with specific errors.",
+        "No assumption that all fauna share one skeleton."
+      ]
+    },
+    {
+      "id": "ART-005",
+      "title": "PBR material baking and procedural masks",
+      "lane": "assets",
+      "wave": 1,
+      "size": "L",
+      "depends_on": [
+        "ART-001",
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/materials/bake.py",
+        "toolkit/adapters/blender_scripts/bake_material.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Bake/author reusable bark, skin, leaves, rock and fungus materials with correct PBR color space.",
+      "steps": [
+        "Define base-color, normal, roughness, mask, thickness and optional AO passes.",
+        "Emit lighting-independent albedo and deterministic bake settings/receipts.",
+        "Support neutral calibration swatches and leaf double-sided/transmission intent."
+      ],
+      "deliverables": [
+        "material bake commands",
+        "calibration swatches",
+        "source/bake manifest"
+      ],
+      "acceptance": [
+        "Albedo contains no pre-baked directional sun lighting.",
+        "Explicit sRGB/linear and tangent-space conventions survive export."
+      ]
+    },
+    {
+      "id": "ART-006",
+      "title": "Texture optimization, packing and format adapters",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-005"
+      ],
+      "write_paths": [
+        "toolkit/materials/optimize.py",
+        "toolkit/tests/test_textures.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Optimize texture sizes and mip/alpha behavior without knowingly degrading close-up foliage.",
+      "steps": [
+        "Generate or invoke tested mipmap/packing/compression tool adapters.",
+        "Check leaf alpha coverage and normal map conventions for prospective BC5/BC7 outputs.",
+        "Keep source textures immutable and compare result images."
+      ],
+      "deliverables": [
+        "texture optimizer",
+        "metadata receipt",
+        "before/after captures"
+      ],
+      "acceptance": [
+        "Output color space and normal orientation are verified.",
+        "Unsupported compressor capabilities fall back explicitly rather than pretending success."
+      ]
+    },
+    {
+      "id": "ART-007",
+      "title": "LOD, meshoptimizer and impostor candidates",
+      "lane": "assets",
+      "wave": 1,
+      "size": "L",
+      "depends_on": [
+        "ART-002",
+        "ART-003"
+      ],
+      "write_paths": [
+        "toolkit/geometry/lods.py",
+        "toolkit/qa/lod.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Generate and validate near/mid/far representations with silhouette and shimmer comparisons.",
+      "steps": [
+        "Integrate meshoptimizer/gltfpack where available and a documented fallback.",
+        "Preserve distinct broadleaf/fern/stem treatment rather than blanket alpha-card use.",
+        "Emit LOD screen-size metadata and repeatable camera-transition test assets."
+      ],
+      "deliverables": [
+        "LOD generator",
+        "LOD QA checks",
+        "optimization receipt"
+      ],
+      "acceptance": [
+        "LOD transitions maintain recognizable silhouettes in moving views.",
+        "No arbitrary triangle/texture budget is declared as a substitute for profiling."
+      ]
+    },
+    {
+      "id": "ART-008",
+      "title": "Fixed turntable render and material diagnostics",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-001",
+        "CON-002"
+      ],
+      "write_paths": [
+        "toolkit/qa/turntable.py",
+        "toolkit/adapters/blender_scripts/render_preview.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Produce reproducible neutral/daylight/overcast/wet comparison captures under controlled camera/scale.",
+      "steps": [
+        "Render fixed orthographic and perspective views plus material/normal/roughness diagnostics.",
+        "Normalize crop, object scale and filenames across ages/seeds.",
+        "Record lighting, Blender version, camera and render hashes."
+      ],
+      "deliverables": [
+        "turntable command",
+        "image and video sheets",
+        "preview receipt"
+      ],
+      "acceptance": [
+        "Two variants appear under identical view/lighting conditions.",
+        "Driver/render nondeterminism is labeled; same seed geometry determinism remains tested."
+      ]
+    },
+    {
+      "id": "CLI-002",
+      "title": "Subprocess adapters and failure envelopes",
+      "lane": "integration",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "CLI-001",
+        "CON-004"
+      ],
+      "write_paths": [
+        "toolkit/cli/runner.py",
+        "toolkit/tests/test_runner.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Run Blender and other external tools with isolated working directories, timeouts and honest machine receipts.",
+      "steps": [
+        "Implement subprocess runner capturing exit code, stderr logs, duration and version metadata.",
+        "Support cancellation, timeout, missing executable and corrupt output cases.",
+        "Never mix subprocess chatter into JSON stdout."
+      ],
+      "deliverables": [
+        "runner",
+        "error envelopes",
+        "failure-mode tests"
+      ],
+      "acceptance": [
+        "All nonzero, missing-tool and timeout paths fail with stable codes.",
+        "Failure cannot overwrite a previously approved bundle."
+      ]
+    },
+    {
+      "id": "CLI-003",
+      "title": "Content-addressed build DAG and cache",
+      "lane": "integration",
+      "wave": 1,
+      "size": "L",
+      "depends_on": [
+        "CLI-002",
+        "CFG-003",
+        "CON-004"
+      ],
+      "write_paths": [
+        "toolkit/cli/buildcache.py",
+        "toolkit/tests/test_buildcache.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Rebuild only invalidated outputs and isolate parallel scratch workspaces.",
+      "steps": [
+        "Hash canonical inputs, generator/tool revisions and external dependencies.",
+        "Implement atomic cache publication and reuse for identical tasks.",
+        "Handle interrupted runs, corrupted caches and concurrent identical builds."
+      ],
+      "deliverables": [
+        "build cache",
+        "manifest key derivation",
+        "concurrency tests"
+      ],
+      "acceptance": [
+        "Two workers cannot partially clobber the same cache key.",
+        "Changing one texture only invalidates dependent outputs, not unrelated families."
+      ]
+    },
+    {
+      "id": "CLI-004",
+      "title": "Atomic publish and provenance gate",
+      "lane": "integration",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "CLI-003",
+        "CON-003",
+        "CON-008"
+      ],
+      "write_paths": [
+        "toolkit/cli/publish.py",
+        "toolkit/tests/test_publish.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Promote only validated, rights-checked immutable asset bundles.",
+      "steps": [
+        "Verify validation receipts, hash graph and licensed source provenance.",
+        "Stage content in temporary directory and promote atomically with prior pointer untouched on failure.",
+        "Support review status provisional versus art-approved; preserve rejection detail."
+      ],
+      "deliverables": [
+        "published-bundle index",
+        "publish operation",
+        "rollback/error tests"
+      ],
+      "acceptance": [
+        "Bad license/QA blocks publish, leaving prior revision unchanged.",
+        "Published bundle hash and source relationship are auditable."
+      ]
+    },
+    {
+      "id": "CLI-005",
+      "title": "Batch workflow and retry/resume operator",
+      "lane": "integration",
+      "wave": 1,
+      "size": "L",
+      "depends_on": [
+        "CLI-003",
+        "CLI-004"
+      ],
+      "write_paths": [
+        "toolkit/cli/batch.py",
+        "toolkit/tests/test_batch.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Allow agents to run whole fixture manifests with bounded concurrency and resumable steps.",
+      "steps": [
+        "Interpret build/preview/validate/publish DAG with explicit prerequisites.",
+        "Cap parallel external process count and peak temporary disk budget.",
+        "Emit JSONL events and terminal receipt including failed/cached/skipped steps."
+      ],
+      "deliverables": [
+        "batch manifest executor",
+        "resume tests",
+        "command usage examples"
+      ],
+      "acceptance": [
+        "Retry skips complete verified outputs and reruns only failed/invalidated nodes.",
+        "Independent workers cannot race to publish mutable latest outputs."
+      ]
+    },
+    {
+      "id": "CLI-006",
+      "title": "Windows worker onboarding and command cookbook",
+      "lane": "integration",
+      "wave": 1,
+      "size": "S",
+      "depends_on": [
+        "CLI-001",
+        "CFG-002",
+        "CON-008"
+      ],
+      "write_paths": [
+        "docs/implementation/agent-onboarding.md"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Let a flash-type agent set up and execute a bounded toolkit job from a clean worktree.",
+      "steps": [
+        "Document exact commands as implemented, required/optional prerequisites and no-install default.",
+        "Include read-only doctor, schema fixture, deterministic seed and bad-input example.",
+        "Explain receipts, artifact paths, LFS and cache pruning."
+      ],
+      "deliverables": [
+        "worker setup instructions",
+        "troubleshooting table"
+      ],
+      "acceptance": [
+        "A fresh worker can reproduce a schema fixture with only documented prerequisites.",
+        "No instructions claim unavailable commands or benchmark results."
+      ]
+    },
+    {
+      "id": "CLI-007",
+      "title": "Cross-platform schema CI and Windows smoke CI",
+      "lane": "integration",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "CON-008",
+        "CLI-001",
+        "CLI-006"
+      ],
+      "write_paths": [
+        ".github/workflows/toolkit-ci.yml",
+        "toolkit/tests/test_cli_smoke.py"
+      ],
+      "capabilities": [
+        "python",
+        "github-actions"
+      ],
+      "objective": "Catch broken contract/CLI changes cheaply without requiring Blender or a dedicated GPU on every PR.",
+      "steps": [
+        "Run stdlib/pinned schema golden tests on public runner and Windows PowerShell smoke.",
+        "Report failures as CI, not fictional successful benchmarks.",
+        "Keep optional Blender/engine integration in explicitly labeled jobs outside basic gate."
+      ],
+      "deliverables": [
+        "CI workflow",
+        "smoke tests",
+        "artifact retention policy"
+      ],
+      "acceptance": [
+        "Malformed graph or schema causes CI failure.",
+        "Core CI requires no paid service, private token or GPU."
+      ]
+    },
+    {
+      "id": "PFA-001",
+      "title": "PlantFactory automation surface discovery and license/version survey",
+      "lane": "assets",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "CFG-001",
+        "CON-003"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/probe.py",
+        "docs/implementation/plantfactory-compatibility.md"
+      ],
+      "capabilities": [
+        "windows",
+        "python"
+      ],
+      "objective": "Identify the strongest **buildable** automation surface for PlantFactory 2023/2024, including official plugin/export hooks, published parameters, preset files, project formats and Windows desktop control; do not stop when a native CLI is absent.",
+      "steps": [
+        "Inspect locally installed 2023 and/or 2024 editions, help/docs, Export Central, presets/published parameters and bundled host-integration plugins. Separate actual programmable hooks from assumptions. Record compatibility differences and 2024 beta stability risk.",
+        "Prototype bounded no-install interactions through any officially documented local scripting/plugin/host bridge, or Windows UI Automation (pywinauto/UIA/Win32) if that is the practical interface. Inspect export dialogs and select likely supported mesh/material output.",
+        "Design a staged, reversible automation bridge and test with one legally usable simple authored plant; document GUI-session/headless constraints, crash handling, rights, fallback and expected maintenance costs.",
+        "Never modify licensing, bypass copy protection, patch proprietary executables, or distribute PlantCatalog source content contrary to terms."
+      ],
+      "deliverables": [
+        "automation surface capabilities matrix with actual run evidence",
+        "chosen native/plugin/GUI wrapper integration approach",
+        "Windows prototype control and export trace",
+        "versioned license/PlantCatalog source policy"
+      ],
+      "acceptance": [
+        "Report documents whether *our agents can build an automation driver*, not merely whether PlantFactory advertises a CLI.",
+        "If PlantFactory is present, at least one creation/open/parameter/edit/export operation is experimentally attempted with logs; failures and UI-only constraints are explicit.",
+        "Absent software blocks empirical proof only, not the architecture/prototype work; 2023 production and 2024 beta differences are documented."
+      ]
+    },
+    {
+      "id": "QA-001",
+      "title": "Determinism and artifact provenance tests",
+      "lane": "quality",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-002",
+        "CON-004",
+        "CLI-003"
+      ],
+      "write_paths": [
+        "toolkit/qa/determinism.py",
+        "toolkit/tests/test_determinism.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Verify reproducible geometry IDs, stable anchors and rebuild cache semantics independent of image pixel hashes.",
+      "steps": [
+        "Rebuild minimal fixture twice with same config/seed/tool fingerprint.",
+        "Compare semantic output fingerprints, geometry bounds, IDs and hashes.",
+        "Exercise changed seed, profile and tool-version cache invalidation."
+      ],
+      "deliverables": [
+        "repeatability test",
+        "comparison report"
+      ],
+      "acceptance": [
+        "No Python-process hash randomness changes geometry identities.",
+        "GPU output pixel differences aren't mislabeled geometry nondeterminism."
+      ]
+    },
+    {
+      "id": "QA-002",
+      "title": "Silhouette, morphology and biodiversity sheets",
+      "lane": "quality",
+      "wave": 1,
+      "size": "M",
+      "depends_on": [
+        "ART-008",
+        "ART-007"
+      ],
+      "write_paths": [
+        "toolkit/qa/contact_sheets.py",
+        "toolkit/qa/silhouette.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Compare structurally meaningful botanical/animal forms at true scale and consistent view distances.",
+      "steps": [
+        "Build grayscale/solid silhouette contact sheets and leaf/branch anatomy atlases.",
+        "Add near/mid/far and multiple age/seed rows.",
+        "Flag suspicious visual duplication for human judgment, not automated rejection."
+      ],
+      "deliverables": [
+        "contact sheet generator",
+        "silhouette comparison report"
+      ],
+      "acceptance": [
+        "Texture recolors alone are not counted as new morphologies.",
+        "Different sized specimens are placed at consistent world scale."
+      ]
+    },
+    {
+      "id": "ART-009",
+      "title": "Published neutral bundle integration",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "CLI-004",
+        "ART-003",
+        "ART-004",
+        "ART-006",
+        "ART-007",
+        "ART-008"
+      ],
+      "write_paths": [
+        "toolkit/export/bundle.py",
+        "toolkit/tests/test_bundle.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Unify editable source, GLB, optimized textures, sockets, LODs and evidence in a verified immutable bundle.",
+      "steps": [
+        "Assemble complete manifest and file hashes with schema-valid sidecars.",
+        "Reject missing source, previews, metadata or unreviewed visual state according to gate.",
+        "Expose stable bundle lookup for renderer adapters."
+      ],
+      "deliverables": [
+        "neutral published bundle command",
+        "integration fixtures",
+        "bundle audit report"
+      ],
+      "acceptance": [
+        "Bundle can be reconstructed from source/seed/versions and compared by hashes.",
+        "Failed validation never appears as an approved published asset."
+      ]
+    },
+    {
+      "id": "CRE-001",
+      "title": "Smalltrotter neutral rig and attachments",
+      "lane": "creatures",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "CON-006",
+        "ART-002"
+      ],
+      "write_paths": [
+        "toolkit/generators/creatures/rig.py",
+        "profiles/creatures/smalltrotter-rig.json"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Create anatomically plausible named skeleton and skin/IK contact contract for Smalltrotter.",
+      "steps": [
+        "Author axial, neck, tail, hip, limbs, jaw, eye/ear and contact bones.",
+        "Create stable mouth/foot/water and posture anchors independent of engine.",
+        "Add skeleton hierarchy validation and exported bind pose."
+      ],
+      "deliverables": [
+        "Smalltrotter rig master",
+        "named sockets",
+        "bind-pose GLB"
+      ],
+      "acceptance": [
+        "All four foot contacts and browsing mouth location validate.",
+        "Engine-neutral skeleton does not contain renderer-specific identifiers."
+      ]
+    },
+    {
+      "id": "CRE-002",
+      "title": "Smalltrotter juvenile/adult anatomical masters",
+      "lane": "creatures",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "CRE-001",
+        "REF-003"
+      ],
+      "write_paths": [
+        "toolkit/generators/creatures/smalltrotter.py",
+        "assets-source/creatures/smalltrotter/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Produce anatomically designed dwarf titanosaur masters with genuine juvenile-to-adult body shape differences.",
+      "steps": [
+        "Shape torso, posture, head/neck/tail proportions with evidence labels.",
+        "Author skin fold/morph or stage meshes bound to shared rig.",
+        "Create close, side, top silhouette and root-foot-ground reviews."
+      ],
+      "deliverables": [
+        "source anatomical masters",
+        "juvenile and adult mesh",
+        "evidence mapping"
+      ],
+      "acceptance": [
+        "Clearly reads as dwarf titanosaur, not elongated generic reptile.",
+        "Adult bulk, joints and head/neck proportions differ from juvenile."
+      ]
+    },
+    {
+      "id": "CRE-003",
+      "title": "Bristles, osteoderms and skin materials",
+      "lane": "creatures",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "CRE-002",
+        "ART-005"
+      ],
+      "write_paths": [
+        "toolkit/generators/creatures/integument.py",
+        "profiles/creatures/smalltrotter-appearance.json"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Implement stage-varying quill silhouette and scaled skin/armor without claiming fossil proof.",
+      "steps": [
+        "Attach sparse quill-like juvenile nape/shoulder bristles to stage/risk zones.",
+        "Reduce visible bristles and increase scattered osteoderm/skin wrinkle detail with age.",
+        "Bake microtexture with believable anatomical folds, roughness and wear."
+      ],
+      "deliverables": [
+        "integument generator/materials",
+        "juv/adult closeups"
+      ],
+      "acceptance": [
+        "Juvenile nape shaggy but not woolly/porcupine; adult sparsely bristled.",
+        "Quill hypothesis labeled fictional in appearance documentation."
+      ]
+    },
+    {
+      "id": "CRE-004",
+      "title": "Walk, stand, rest and turn animation set",
+      "lane": "creatures",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "CRE-001",
+        "CRE-002",
+        "ART-004"
+      ],
+      "write_paths": [
+        "toolkit/generators/creatures/animations_locomotion.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Author skeletal gait and weight/inertia-aware basic motion suitable for runtime import tests.",
+      "steps": [
+        "Animate locomotion phases and foot contacts with stable clip naming.",
+        "Include turn, idle gaze/breathing, rest-to-stand and slope/ground adaptations.",
+        "Record IK/contact cues for engine adapter tests."
+      ],
+      "deliverables": [
+        "locomotion clips",
+        "motion reel",
+        "rig animation receipt"
+      ],
+      "acceptance": [
+        "Feet do not visibly skate through ground in reference playback.",
+        "Age stages preserve motion and bone attachment while showing mass differences."
+      ]
+    },
+    {
+      "id": "CRE-005",
+      "title": "Browse, drink, head/neck and contact clips",
+      "lane": "creatures",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "CRE-004",
+        "PLT-003"
+      ],
+      "write_paths": [
+        "toolkit/generators/creatures/animations_interaction.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Provide plausible mouth-to-plant/drinking reach and adjacent plant bend trigger fixtures.",
+      "steps": [
+        "Create feeding/drinking neck/head motion under real target distances.",
+        "Emit mouth contact events and brief pause/recover transitions.",
+        "Supply scripted Softbough pass-through and foliage bite test clips."
+      ],
+      "deliverables": [
+        "feeding/drinking clips",
+        "contact/reach reel",
+        "event anchor fixture"
+      ],
+      "acceptance": [
+        "Mouth visibly reaches valid targets; browsing state can be consumed once.",
+        "Camera motion alone never triggers plant contact."
+      ]
+    },
+    {
+      "id": "GEO-001",
+      "title": "Scanned rock/root/log and PBR photo-reference ingest",
+      "lane": "assets",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "ART-002",
+        "REF-001"
+      ],
+      "write_paths": [
+        "toolkit/adapters/photogrammetry/",
+        "toolkit/qa/scanned_assets.py"
+      ],
+      "capabilities": [
+        "python",
+        "blender"
+      ],
+      "objective": "Accept CC0 or personally photographed scanned rocks, fallen logs, roots and ground textures and convert them to repeatable neutral geometry/material packages.",
+      "steps": [
+        "Document RealityScan/Reconstruction optional export and permissions, and test a free/CC0 external sample with provenance.",
+        "Clean mesh scale, decimation, high-to-low normal bake, roughness approximation disclaimers, texel scale and terrain blending masks.",
+        "Emit collision-friendly boulder/log proxy, closeup/far LOD and review sheet; no silent auto-license from web availability."
+      ],
+      "deliverables": [
+        "scanner-neutral ingest and cleanup recipe",
+        "scanned geological test object",
+        "rights and quality receipts"
+      ],
+      "acceptance": [
+        "A legally usable scan survives conversion with matching scale, UVs and reasonably plausible material response.",
+        "Unavailable proprietary scanning software does not block open-source ingest and Blender fallback."
+      ]
+    },
+    {
+      "id": "MAT-001",
+      "title": "Procedural bark/leaf/rock PBR and measured-look roughness authoring",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "ART-005",
+        "CON-003"
+      ],
+      "write_paths": [
+        "toolkit/materials/procedural.py",
+        "profiles/materials/",
+        "reference/materials/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Build repeatable Material Maker or Blender-node recipe ingestion for varied bark, leaf cuticles, stone, moss and fungus, with physically coherent material-channel conventions.",
+      "steps": [
+        "Author multiple scale-separated base-color, roughness, normal, thickness/SSS intent and packed mask variants with traceable procedural recipes.",
+        "Evaluate Material Maker graph/export automation and retain Blender-node fallback; avoid depending on non-scriptable proprietary UIs.",
+        "Use dry/overcast neutral spheres, foliage planar swatches and closeup reference rather than assuming estimated photo-derived roughness is physically measured."
+      ],
+      "deliverables": [
+        "sample material profiles and procedural source graphs",
+        "image/channel/rights QA sheet",
+        "roughness and microdetail comparison"
+      ],
+      "acceptance": [
+        "A tested material recipe regenerates same authored channels and records tool/version, colorspace and input assets.",
+        "Leaf wax versus rough bark versus wet rock have meaningfully different highlights; no directional lighting baked into albedo."
+      ]
+    },
+    {
+      "id": "PFA-002",
+      "title": "PlantFactory-to-Blender neutral botanical import bridge",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "PFA-004",
+        "ART-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/import.py",
+        "toolkit/adapters/plantfactory/fixtures/"
+      ],
+      "capabilities": [
+        "windows",
+        "blender",
+        "plantfactory",
+        "python"
+      ],
+      "objective": "Build the end-to-end automated PlantFactory -> neutral Blender asset import route, not just a manual 'export if available' bridge.",
+      "steps": [
+        "Drive PFA-004 to author/load one parameterized plant and export through an actually verified format; accept changes in native PlantFactory project with authorship/provenance.",
+        "Blender background-import neutralizes units, axes, UVs, material/alpha groups, basic leaf/branch identity, collision/browse tags and source paths.",
+        "Validate material/geometry fidelity and original plant editability with deterministic named export receipt; preserve unrecoverable metadata separately.",
+        "If native GUI export fails, improve the controller/plugin or document exact blocker. Do not silently replace this task with a manual click guide; separate Blender source fallback keeps unrelated G1 plants moving."
+      ],
+      "deliverables": [
+        "PlantFactory exporter/import adapter",
+        "branch/material metadata manifest",
+        "neutral GLB and source fixture"
+      ],
+      "acceptance": [
+        "One PlantFactory-authored plant can be driven through exporter and Blender import with agent-issued commands; files/metadata/rights verified.",
+        "Source unit scale/leaf alpha/shape matches PlantFactory reference or losses are documented.",
+        "Unavailable installed PlantFactory may block this task but must not halt Blender-native botanical reference builds."
+      ]
+    },
+    {
+      "id": "PFA-003",
+      "title": "Branch hierarchy, pivot and wind semantics preservation under optimization",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "PFA-002",
+        "ART-007"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/wind_semantics.py",
+        "toolkit/qa/pivot_preservation.py"
+      ],
+      "capabilities": [
+        "windows",
+        "plantfactory",
+        "blender",
+        "python"
+      ],
+      "objective": "Keep bending hierarchy and stiffness data through compression/LOD/GLB and derived Wicked-import sidecars.",
+      "steps": [
+        "Define parent branch IDs, per-vertex stiffness, independent leaf bend pivots and deterministic branch coordinate basis, derived from PlantFactory hierarchy or restored in Blender.",
+        "Test meshoptimizer/gltfpack handling of custom attributes and node hierarchy; use exact remap/sidecars if native export lacks metadata.",
+        "Compare unoptimized/optimized pivots, stage/instance IDs, wind result and contact recovery against original native-PlantFactory export; feed back missing attributes into PFA-004 automation."
+      ],
+      "deliverables": [
+        "wind/pivot interchange spec",
+        "optimization regression fixtures",
+        "failure diagnostics"
+      ],
+      "acceptance": [
+        "Compression cannot silently delete or reorder semantic attributes without detection.",
+        "Parent stem and leaf deformation remain locally coherent across near/mid LOD boundaries."
+      ]
+    },
+    {
+      "id": "PFA-004",
+      "title": "PlantFactory agent-operated automation bridge",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "PFA-001",
+        "CFG-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/automation/",
+        "toolkit/tests/test_plantfactory_automation.py"
+      ],
+      "capabilities": [
+        "windows",
+        "python"
+      ],
+      "objective": "Implement a real Windows automation adapter that agents can drive to create/open plants, set published parameters/seeds, save a native project and export a bounded geometry/material package, even if PlantFactory exposes no command-line API.",
+      "steps": [
+        "Prefer supported native plugin/scripting/host integration when demonstrated; otherwise use a dedicated Windows desktop/UI Automation controller (pywinauto, UIA, Win32, or equivalent) with accessible controls, window IDs and image-verification fallback where needed.",
+        "Implement command JSON input/output, version-scoped UI workflow profiles, process ownership, foreground/interactive-session detection, screenshot-on-error, timeout/retry, file-dialog targeting and safe cancellation. Avoid brittle fixed screen coordinates when semantic controls exist.",
+        "Use isolated input/output workspace and **one PlantFactory application instance per actual GUI desktop session**; serialize batch operations and avoid parallel agents stealing UI focus. Keep Windows session unlocked only where explicitly authorized.",
+        "Create non-destructive fixture for opening an owned plant, changing a published shape parameter, saving native source and exporting FBX/OBJ/other tested format; emit exact output hashes and visual/structural receipts.",
+        "Discover better native integration during implementation? Replace GUI driver behind the same contract without changing agent commands. Explicitly prohibit license/DRM bypass, undocumented system alteration or fake success."
+      ],
+      "deliverables": [
+        "versioned local automation driver",
+        "documented JSON operation contract",
+        "native project plus tested exported fixture",
+        "stderr/log/screenshot failure proof"
+      ],
+      "acceptance": [
+        "A real PlantFactory installation is controllable from one reproducible script, without a human manually clicking through every export.",
+        "All operations fail cleanly on missing desktop/app/mismatched UI; worker sees diagnosis, not 'success' on unchanged outputs.",
+        "Agent can switch tested native/plugin/UI strategies without changing source asset/seed contracts."
+      ]
+    },
+    {
+      "id": "PLT-001",
+      "title": "Woody branch/trunk/root procedural core",
+      "lane": "plants",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "ART-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/generators/plants/woody.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Generate editable branch-aware trees/shrubs with root flare, organic joints and botanical parameter controls.",
+      "steps": [
+        "Construct hierarchy-aware trunk/branch meshes and bark UV seams.",
+        "Bind leaf/needle placement, stiffness groups, wind masks and variation knobs.",
+        "Provide deterministic aged stage outputs and named browsable/interactive groups."
+      ],
+      "deliverables": [
+        "woody generator",
+        "native source fixture",
+        "geometry and turntable output"
+      ],
+      "acceptance": [
+        "Tree is not visibly cylinders joined at right angles.",
+        "Identical seed/profile regenerates stable structure and semantic groups."
+      ]
+    },
+    {
+      "id": "PLT-002",
+      "title": "Splitcrown conifer reference build",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "PLT-001",
+        "ART-005",
+        "ART-008"
+      ],
+      "write_paths": [
+        "profiles/plants/splitcrown.json",
+        "assets-source/plants/splitcrown/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Build irregular tiered crown conifer with true large trunk and root-ground integration.",
+      "steps": [
+        "Author branch whorls and varied crown mass at multiple ages.",
+        "Bake plausible bark/needle material and close-up branches.",
+        "Export LOD/turntable, roots and simplified trunk collider."
+      ],
+      "deliverables": [
+        "Splitcrown source+bundle candidate",
+        "adult/young previews"
+      ],
+      "acceptance": [
+        "Reads as a distinct gymnosperm at juvenile-eye distance.",
+        "Stable shape, root flare and nonuniform branching visible in multiple views."
+      ]
+    },
+    {
+      "id": "PLT-003",
+      "title": "Softbough shrub and bend/browse semantics",
+      "lane": "plants",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "PLT-001",
+        "ART-005",
+        "CON-005"
+      ],
+      "write_paths": [
+        "profiles/plants/softbough.json",
+        "assets-source/plants/softbough/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Build visibly compliant branching browse shrub and precise local contact affordances.",
+      "steps": [
+        "Author an arching branch hierarchy with leaves and different growth stages.",
+        "Mark bend weights, contact envelopes, accessible foliage and recovery parameters.",
+        "Export flexible and static variants to test body passage in renderer."
+      ],
+      "deliverables": [
+        "Softbough master and GLB",
+        "bend/browse sidecar",
+        "motion-ready fixture"
+      ],
+      "acceptance": [
+        "Branch structure is visibly real and not an opaque crossed-card bush.",
+        "Local interaction fields can bend/part it without per-leaf physics."
+      ]
+    },
+    {
+      "id": "PLT-004",
+      "title": "Compound fern and frond procedural core",
+      "lane": "plants",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "ART-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/generators/plants/fern.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Build botanical rachis/pinna morphology families and age-varied fronds without flat generic cards.",
+      "steps": [
+        "Parameterize basal crown, rachis curvature, pinna rows/leaflets, taper and stiffness.",
+        "Support whole frond/dead variant and simplified distant equivalent.",
+        "Record leaf and branch material/UV/wind groups."
+      ],
+      "deliverables": [
+        "fern generator",
+        "anatomy fixture",
+        "profile parameters"
+      ],
+      "acceptance": [
+        "Closeup visibly shows a rachis and distinct pinnae.",
+        "Supports at least two different species architectures beyond recoloring."
+      ]
+    },
+    {
+      "id": "PLT-005",
+      "title": "Royal frond reference build",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "PLT-004",
+        "ART-005",
+        "ART-008"
+      ],
+      "write_paths": [
+        "profiles/plants/royal-frond.json",
+        "assets-source/plants/royal-frond/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Produce fine-leaflet moist woodland fern with graceful frond arches and juveniles.",
+      "steps": [
+        "Tune pinna shape/spacing, frond angles and age spread.",
+        "Author material/underside detail and damp/wind appearance.",
+        "Export neutral/reduced variants and neutral+forest previews."
+      ],
+      "deliverables": [
+        "Royal frond master+candidate bundle",
+        "leaf anatomy sheet"
+      ],
+      "acceptance": [
+        "Reads as a recognizable fern rather than crossed leaf cards.",
+        "Different young/adult silhouettes share lineage-specific anatomy."
+      ]
+    },
+    {
+      "id": "PLT-006",
+      "title": "Basketfern giant frond reference build",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "PLT-004",
+        "ART-005",
+        "ART-008"
+      ],
+      "write_paths": [
+        "profiles/plants/basketfern.json",
+        "assets-source/plants/basketfern/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Produce a dramatically distinct tall humid-hollow fern architecture.",
+      "steps": [
+        "Build robust crown/rhachis and large compound fronds.",
+        "Add realistic asymmetry, litter/dead fronds and surface masks.",
+        "Export several seed variants and low-camera scale sheet."
+      ],
+      "deliverables": [
+        "Basketfern master+candidate bundle",
+        "silhouette comparison with Royal frond"
+      ],
+      "acceptance": [
+        "A silhouette sheet clearly distinguishes Basketfern from Royal frond.",
+        "The giant frond is believable and not merely a scaled Royal-frond clone."
+      ]
+    },
+    {
+      "id": "PLT-007",
+      "title": "Jointed-stem/horsetail procedural core",
+      "lane": "plants",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "ART-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/generators/plants/jointed.py"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Generate segmented upright stems, nodes and branch whorls as dense plausible colonies.",
+      "steps": [
+        "Model variable nodes/internodes, alternate/whorl branches and growth stages.",
+        "Support clump placement, packed distance LOD, bending/wind masks.",
+        "Prevent rigid grid, repeated vertical tube appearance."
+      ],
+      "deliverables": [
+        "jointed-stem generator",
+        "colony fixture"
+      ],
+      "acceptance": [
+        "Joints and branch whorls remain visible in close views.",
+        "Large patches avoid uniform repeated geometry."
+      ]
+    },
+    {
+      "id": "PLT-008",
+      "title": "Jointreed wet-thicket reference build",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "PLT-007",
+        "ART-005",
+        "ART-008"
+      ],
+      "write_paths": [
+        "profiles/plants/jointreed.json",
+        "assets-source/plants/jointreed/"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Build segmented wet thickets at juvenile eye level, suitable for browsing and local push-through.",
+      "steps": [
+        "Tune stem clustering, mature height, branch whorls and translucency.",
+        "Define edible shoot areas and contact proxies.",
+        "Export dense near and optimized far stand fixtures."
+      ],
+      "deliverables": [
+        "Jointreed master+candidate bundle",
+        "thicket camera comparison"
+      ],
+      "acceptance": [
+        "Recognizable segmented reed/horsetail structure, not plain grass strips.",
+        "Wind/contact groups and browse geometry survive export."
+      ]
+    },
+    {
+      "id": "PLT-009",
+      "title": "Attached bracket fungus and decomposing log",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "ART-002",
+        "ART-005",
+        "ART-008"
+      ],
+      "write_paths": [
+        "toolkit/generators/plants/fungus.py",
+        "profiles/plants/bracket-fungus.json"
+      ],
+      "capabilities": [
+        "blender",
+        "python"
+      ],
+      "objective": "Create convincing substrate-attached bracket fungus on fallen wood without a nutrient simulator.",
+      "steps": [
+        "Generate log/substrate anchor with moss/litter-compatible interface.",
+        "Model layered fungus shelves and wet/old material variants.",
+        "Export neutral package and overcast closeups."
+      ],
+      "deliverables": [
+        "fungus/log source fixture",
+        "GLB+turntables"
+      ],
+      "acceptance": [
+        "No floating shelves or repetitive cookie-cutter spacing.",
+        "Asset bundle flags fungus as decorative unless interactable tags specified."
+      ]
+    },
+    {
+      "id": "PLT-010",
+      "title": "Plant morphology variation and seed-family guardrails",
+      "lane": "plants",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "PLT-001",
+        "PLT-004",
+        "PLT-007",
+        "CON-001"
+      ],
+      "write_paths": [
+        "toolkit/generators/plants/variation.py",
+        "toolkit/tests/test_plant_variation.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Produce varied but identifiable members of a fictional plant form, with stable appearance seeds.",
+      "steps": [
+        "Implement domain-specific parameter ranges across woody, fern and jointed families.",
+        "Generate silhouette sheet against fixed camera/equal height.",
+        "Check duplicate shape signatures and stable named anchors."
+      ],
+      "deliverables": [
+        "variant generator",
+        "fixed-seed QA sample"
+      ],
+      "acceptance": [
+        "Different seeds vary shape but preserve species/family architecture.",
+        "No color-only changes counted as morphological diversity."
+      ]
+    },
+    {
+      "id": "QA-003",
+      "title": "Motion/contact/LOD visual review reels",
+      "lane": "quality",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "ART-008",
+        "ART-007",
+        "ART-004"
+      ],
+      "write_paths": [
+        "toolkit/qa/reels.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Review animal gait, foliage wind, plant deflection, LOD shimmer and contact in motion.",
+      "steps": [
+        "Define fixed moving-camera templates and ingest scripted contact animation inputs.",
+        "Render side-by-side A/B motion and annotated timing/lighting context.",
+        "Separate structural QA from human cinematic-quality review."
+      ],
+      "deliverables": [
+        "reel builder",
+        "movement acceptance rubric"
+      ],
+      "acceptance": [
+        "A moving bad gait or floating foot is visible in evidence.",
+        "No still turntable is deemed sufficient to certify motion."
+      ]
+    },
+    {
+      "id": "QA-004",
+      "title": "Human art approval and release report",
+      "lane": "quality",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "QA-002",
+        "QA-003",
+        "REF-001",
+        "ART-009"
+      ],
+      "write_paths": [
+        "toolkit/qa/review.py",
+        "docs/implementation/visual-review-rubric.md"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Require explicit review for anatomy, plant silhouette, material scale and render degradation before production publish.",
+      "steps": [
+        "Record reviewer/date/asset hash/status and reason in canonical receipt.",
+        "Report manual visual score separately from numeric performance.",
+        "Support request-revision, provisional and accepted states without fake approval."
+      ],
+      "deliverables": [
+        "approval receipt model",
+        "review checklist",
+        "QA audit tests"
+      ],
+      "acceptance": [
+        "A machine validator cannot self-approve near-photorealistic visual quality.",
+        "Optimized versions include comparable before/after captures."
+      ]
+    },
+    {
+      "id": "WRD-001",
+      "title": "Neutral terrain representations and scene fragments",
+      "lane": "world",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "CON-007"
+      ],
+      "write_paths": [
+        "toolkit/world/terrain.py",
+        "scenes/splitstone/contracts/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Choose offline-compatible heightfield plus local 3D rock overlay semantics for Splitstone.",
+      "steps": [
+        "Document tile dimensions, terrain material masks and coordinate conversion.",
+        "Support real 3D cliff/arch undercuts and collision proxy overlays.",
+        "Treat drainage and geology as composition inputs rather than historical solvers."
+      ],
+      "deliverables": [
+        "terrain loader/exporter",
+        "test material masks"
+      ],
+      "acceptance": [
+        "Heightfield and rock meshes align with no major gaps.",
+        "No runtime erosion, aquifer or volume-fluid system required."
+      ]
+    },
+    {
+      "id": "WRD-002",
+      "title": "Splitstone ravine/stream/valley terrain source",
+      "lane": "world",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "WRD-001",
+        "REF-002"
+      ],
+      "write_paths": [
+        "scenes/splitstone/terrain/",
+        "toolkit/world/splitstone_height.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Author detailed animal-scale ravine, descending stream, sheltered hollow and open valley.",
+      "steps": [
+        "Use deliberate offline layering/procedural composition to form traversable 1 km landscape.",
+        "Include a dense Wicked material-and-foliage benchmark patch around 512x512 m.",
+        "Validate downhill stream and plausible animal routes, with some inaccessible rock."
+      ],
+      "deliverables": [
+        "heightfield/source terrain",
+        "scene preview",
+        "navigability annotation"
+      ],
+      "acceptance": [
+        "Stream consistently descends; bluff/hollow/ordinary intervals visually read.",
+        "A juvenile creature can explore realistic alternate routes; not all slopes are passable."
+      ]
+    },
+    {
+      "id": "WRD-003",
+      "title": "Local cliffs, boulders, rock interfaces and collision",
+      "lane": "world",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "WRD-001",
+        "WRD-002"
+      ],
+      "write_paths": [
+        "toolkit/world/rock_overlays.py",
+        "scenes/splitstone/rocks/"
+      ],
+      "capabilities": [
+        "python",
+        "blender"
+      ],
+      "objective": "Create plausible rock ribs, caprock remnant, crevices and true overhang meshes with terrain seams.",
+      "steps": [
+        "Generate or author cliff/undercut geometry beyond heightfield limitations.",
+        "Build collision proxies, rock/ground blend masks and rooted crevice anchor zones.",
+        "Check scaled juvenile/large-beast passability and foot clipping."
+      ],
+      "deliverables": [
+        "rock mesh kit",
+        "neutral rock bundle",
+        "collision checks"
+      ],
+      "acceptance": [
+        "No prominent floating boulders or terrain/mesh cracks.",
+        "Undercuts actually exist as 3D geometry and preserve collisions."
+      ]
+    },
+    {
+      "id": "WRD-004",
+      "title": "Streams, wetness and habitat suitability data",
+      "lane": "world",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "WRD-002",
+        "CON-007"
+      ],
+      "write_paths": [
+        "toolkit/world/habitat.py",
+        "scenes/splitstone/masks/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Generate map-side water surfaces and cheap moisture/sun/substrate habitat input fields.",
+      "steps": [
+        "Encode stream direction, banks and flood/wetness masks as precomputed fields.",
+        "Derive forest/sun/shade/rock seep/wetland placement guidance.",
+        "Export traceable masks and deterministic checks."
+      ],
+      "deliverables": [
+        "water/habitat sidecars",
+        "material masks",
+        "validation report"
+      ],
+      "acceptance": [
+        "Water direction agrees with elevation and bank orientation.",
+        "Masks are static inputs; no runtime groundwater/erosion simulation."
+      ]
+    },
+    {
+      "id": "WRD-005",
+      "title": "Fixed animal-scale camera and weather test routes",
+      "lane": "world",
+      "wave": 2,
+      "size": "M",
+      "depends_on": [
+        "WRD-002",
+        "CON-007"
+      ],
+      "write_paths": [
+        "scenes/splitstone/routes/",
+        "toolkit/world/camera_routes.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Provide exact repeatable juvenile-height routes that stress foliage, reveal and streaming.",
+      "steps": [
+        "Author forward travel, rapid turns, rock-bank approach, stream crossing, detached near-hill reveal and storm comparison.",
+        "Record frame positions, camera orientation and weather time in neutral route manifest.",
+        "Include high and low occlusion intervals and deliberate near-far tree passes."
+      ],
+      "deliverables": [
+        "camera path manifests",
+        "route diagnostics"
+      ],
+      "acceptance": [
+        "Identical camera route samples in repeated Wicked builds preserve the intended world camera transforms.",
+        "Occluding ridge reveal tests wildlife/foliage readiness separately from frustum."
+      ]
+    },
+    {
+      "id": "CRE-006",
+      "title": "Creature growth stages, rig import and QA batch",
+      "lane": "creatures",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "CRE-003",
+        "CRE-004",
+        "CRE-005",
+        "ART-004",
+        "ART-009",
+        "QA-003"
+      ],
+      "write_paths": [
+        "benchmarks/manifests/smalltrotter.json",
+        "toolkit/tests/test_smalltrotter.py"
+      ],
+      "capabilities": [
+        "windows",
+        "blender",
+        "python"
+      ],
+      "objective": "Round-trip Smalltrotter juvenile/adult rig, materials, LODs and clips into published neutral bundle.",
+      "steps": [
+        "Build both stages under pinned seed and tool fingerprints.",
+        "Run geometry, rig/socket/animation QA and turntable/motion evidence.",
+        "Publish candidate only with rights and explicit visual review."
+      ],
+      "deliverables": [
+        "Smalltrotter neutral bundle",
+        "QA and motion receipts"
+      ],
+      "acceptance": [
+        "Stages, socket placement, integument and clips survive export.",
+        "Failure in one stage doesn't promote an incomplete two-stage bundle."
+      ]
+    },
+    {
+      "id": "MAT-002",
+      "title": "Wicked PBR channel mapping, DDS compression and alpha mip validation",
+      "lane": "assets",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "MAT-001",
+        "ART-006",
+        "ART-009",
+        "RND-001"
+      ],
+      "write_paths": [
+        "toolkit/adapters/wicked/materials/",
+        "toolkit/qa/wicked_materials.py"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "python"
+      ],
+      "objective": "Build a tested material conversion layer from neutral metallic/roughness/normal/occlusion/thickness to Wicked's currently supported shader channels and texture compression formats.",
+      "steps": [
+        "Inspect actual pinned Wicked material/shader source and document byte/channel mappings, sRGB vs linear and normal green sign.",
+        "Emit platform-tested DDS/BC5/BC7 or supported fallback assets, alpha test thresholds and mip-coverage preservation data.",
+        "Verify neutral/opaque bark, double-sided leaf, thin fern leaflet, wet rock and skin swatches against Blender reference under identical lighting context."
+      ],
+      "deliverables": [
+        "Wicked material converter",
+        "compression receipts and before/after captures",
+        "alpha/roughness/normal QA fixtures"
+      ],
+      "acceptance": [
+        "No swapped roughness/metallic/AO channels, lost alpha cutoff or inverted tangent normals in tested import.",
+        "No assumption all compression/alpha variants work on GTX 1080 without test."
+      ]
+    },
+    {
+      "id": "PFA-005",
+      "title": "PlantFactory presets, seeded variants and unattended batch export",
+      "lane": "assets",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "PFA-002",
+        "PFA-003"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/batch.py",
+        "toolkit/adapters/plantfactory/presets/",
+        "toolkit/tests/test_plantfactory_batch.py"
+      ],
+      "capabilities": [
+        "windows",
+        "plantfactory",
+        "python"
+      ],
+      "objective": "Extend the agent-controlled PlantFactory driver to autonomously generate batches of valid botanical variants and growth stages from profiles, preserving native sources and branch wind semantics.",
+      "steps": [
+        "Map approved profile parameters onto PlantFactory published parameter controls/presets; record unsupported morphology controls and deterministic seed behavior.",
+        "Queue plant opens/edits/saves/exports through serialized desktop automation or tested plugin API, while parallel workers prepare input manifests, references and post-export Blender processing.",
+        "Use per-export checksum, completion/timeout detection, thumbnails/silhouette snapshots, output isolation, restart/resume and crash recovery. Never treat an unchanged export as a regenerated success.",
+        "Complete a representative multi-seed, multi-stage Splitcrown/Softbough batch, then validate geometry/material/pivot/rights in Blender before potential publication."
+      ],
+      "deliverables": [
+        "agent-driven batch production CLI",
+        "seeded/native PlantFactory sources and neutral exports",
+        "restart/resume manifests and batch receipts"
+      ],
+      "acceptance": [
+        "A batch request regenerates multiple distinct named variants with correct seed/stage bookkeeping and does not require repeated human clicks.",
+        "Repeated invocation is resumable; a UI crash yields explicit per-asset failure and no partial published bundle.",
+        "Branch/hierarchy and material conversion is verified rather than assumed from a bundled Unreal plugin."
+      ]
+    },
+    {
+      "id": "PLT-011",
+      "title": "Six reference plants reproducible batch",
+      "lane": "plants",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "PLT-002",
+        "PLT-003",
+        "PLT-005",
+        "PLT-006",
+        "PLT-008",
+        "PLT-009",
+        "PLT-010",
+        "ART-009",
+        "QA-002"
+      ],
+      "write_paths": [
+        "benchmarks/manifests/six-plants.json",
+        "toolkit/tests/test_reference_plants.py"
+      ],
+      "capabilities": [
+        "windows",
+        "blender",
+        "python"
+      ],
+      "objective": "Prove the complete plant workshop on all six original reference specimens.",
+      "steps": [
+        "Create stable profile/seed/stage manifest and batch generation.",
+        "Validate, render visual sheets and report failing assets without publishing partial results.",
+        "Deliver independently editable masters and engine-neutral bundles."
+      ],
+      "deliverables": [
+        "six-plant reference batch",
+        "full run receipts",
+        "silhouette sheets"
+      ],
+      "acceptance": [
+        "All six are structurally identifiable and pass schema/export/QA.",
+        "A clean documented command reproduces outputs on prepared Windows workstation."
+      ]
+    },
+    {
+      "id": "RND-001",
+      "title": "Wicked neutral asset, rig and terrain import adapter",
+      "lane": "renderer",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "ART-009",
+        "CON-007"
+      ],
+      "write_paths": [
+        "toolkit/adapters/wicked/import.py",
+        "toolkit/adapters/wicked/fixtures/",
+        "benchmarks/wicked/import/"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "python"
+      ],
+      "objective": "Script deterministic import of validated neutral GLB/terrain/scene bundles into a derived Wicked scene, preserving editable masters.",
+      "steps": [
+        "Pin tested Wicked Engine revision, Windows build/compiler and command-line/editor import routes; report features that require editor automation rather than inventing an API.",
+        "Map meters/axes, geometry, UVs, skinned rig/clip/socket metadata, terrain/instances and camera paths; store only derived WISCENE/cooked outputs.",
+        "Audit loss/unsupported attributes, alpha/render states and missing source dependencies with asset-specific diagnostics."
+      ],
+      "deliverables": [
+        "Wicked-only import adapter and reproducible fixture",
+        "unit/rig/terrain import report",
+        "WISCENE derivation and source-hash receipt"
+      ],
+      "acceptance": [
+        "1 m calibrated geometry, one skinned rig and a plant alpha fixture import at correct scale on an actually tested Wicked build.",
+        "Unmapped/unsupported fields are listed and cannot silently pass; source masters remain untouched."
+      ]
+    },
+    {
+      "id": "RND-002",
+      "title": "Wicked standalone scene/build smoke and tool integration",
+      "lane": "renderer",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "RND-001",
+        "MAT-002"
+      ],
+      "write_paths": [
+        "toolkit/adapters/wicked/build.py",
+        "toolkit/adapters/wicked/smoke/",
+        "benchmarks/wicked/build/"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "python"
+      ],
+      "objective": "Compile/run repeatable Wicked native scene previews after asset/material packing, with test logs and without manual asset fixing.",
+      "steps": [
+        "Provide isolated Windows build, editor/runtime launch and derived asset-cache recipe pinned to Wicked source/build revision.",
+        "Run a known geometry, foliage transparency, material roughness, normal/tangent, animation and camera fixture.",
+        "Record version, build options, shader compilation, missing GPU features and import/runtime errors; never force RTX features on Pascal."
+      ],
+      "deliverables": [
+        "standalone Wicked scene smoke runner",
+        "working test scene and logs",
+        "capability/feature-loss checklist"
+      ],
+      "acceptance": [
+        "The tested Wicked build can render known static/skinned/alpha fixtures with calibrated units, normals and material channels.",
+        "If local engine is unavailable, mark run unmeasured/blocked; don't record an imaginary success."
+      ]
+    },
+    {
+      "id": "WRD-006",
+      "title": "Instance population using habitat masks and stable seeds",
+      "lane": "world",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "WRD-004",
+        "PLT-011",
+        "CON-007"
+      ],
+      "write_paths": [
+        "toolkit/world/placement.py",
+        "scenes/splitstone/placements/"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Compose a believable, dense plant/rock community in shared neutral scene without scene-specific hand edits per engine.",
+      "steps": [
+        "Place common canopy/understory and rare forms with stable IDs and multi-scale clustering.",
+        "Use wet/shade/soil/rock mask relationships and material/height constraints.",
+        "Emit density, rendered coverage and seed/instance manifest."
+      ],
+      "deliverables": [
+        "stable placement file",
+        "coverage and similarity report"
+      ],
+      "acceptance": [
+        "Wicked imports the specified neutral transforms, seeded IDs and density without manual reinterpretation.",
+        "No all-forms-everywhere random scatter or obvious grid repetition."
+      ]
+    },
+    {
+      "id": "WRD-007",
+      "title": "Neutral Splitstone full benchmark scene package",
+      "lane": "world",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "WRD-003",
+        "WRD-004",
+        "WRD-005",
+        "WRD-006",
+        "CRE-006",
+        "ART-009"
+      ],
+      "write_paths": [
+        "scenes/splitstone/manifest.json",
+        "toolkit/world/package.py"
+      ],
+      "capabilities": [
+        "python"
+      ],
+      "objective": "Assemble reproducible terrain/rock/foliage/water/animal test environment independent of renderer.",
+      "steps": [
+        "Resolve published assets and animated creature into scene package.",
+        "Include material intent, lighting modes, weather states, camera routes and activation stress fixtures.",
+        "Validate source manifests, hashes, collisions and completeness."
+      ],
+      "deliverables": [
+        "scene master manifest",
+        "neutral scene bundle",
+        "scene QA report"
+      ],
+      "acceptance": [
+        "Wicked receives the same immutable neutral source/geometry/placement inputs on every reproducible build.",
+        "No missing content silently omitted by benchmark runner."
+      ]
+    },
+    {
+      "id": "MAT-003",
+      "title": "Wicked thin-leaf translucency and dynamic wetness material family",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "MAT-002",
+        "RND-001",
+        "PLT-003"
+      ],
+      "write_paths": [
+        "toolkit/adapters/wicked/shaders/foliage/",
+        "toolkit/adapters/wicked/shaders/wetness/",
+        "benchmarks/materials/"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "gpu-target"
+      ],
+      "objective": "Implement targeted foliage thin-surface lighting, thickness transmission and distinct material wetness responses in Wicked, validated with moving animal-height evidence.",
+      "steps": [
+        "Use double-sided front/back foliage normals, constrained transmission and thickness masks; preserve silhouette and alpha mip quality.",
+        "Blend dry/wet response differently for leaf cuticles, bark cavities, porous stone, moss and mud (roughness, absorption and specular).",
+        "Capture daylight, shade, rain/wet, dusk and backlit moving-camera shots, material channels and GPU frametime on Pascal."
+      ],
+      "deliverables": [
+        "Wicked shader/material family",
+        "backlit and wet A/B reels",
+        "measured GPU cost and defects"
+      ],
+      "acceptance": [
+        "Thin leaves remain readable backlit and in shade without uniformly glowing.",
+        "Wet surfaces are not mere color darkening; every material family retains characteristic roughness and measured cost."
+      ]
+    },
+    {
+      "id": "RND-003",
+      "title": "Wicked Splitstone scene fidelity and import audit",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "M",
+      "depends_on": [
+        "RND-001",
+        "RND-002",
+        "WRD-007"
+      ],
+      "write_paths": [
+        "benchmarks/wicked/scene-audit/",
+        "toolkit/bench/wicked_fidelity.py"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "python"
+      ],
+      "objective": "Prove the complete neutral Splitstone scene arrives in Wicked with correct count, dimensions, placement, visual coverage and interaction metadata.",
+      "steps": [
+        "Cross-check published bundle hashes, source instance IDs, botanical silhouettes, wildlife clips, terrain/stream and weather/camera routes.",
+        "Capture fixed camera and material renders against neutral Blender references; report legitimate lighting differences separately from lost geometry/shader features.",
+        "Require no silent omission of imported content, lowering density, changing quality presets or dropping rig/plant-contact semantics."
+      ],
+      "deliverables": [
+        "Wicked scene fidelity audit",
+        "side-by-side neutral-vs-Wicked images",
+        "import-loss and coverage report"
+      ],
+      "acceptance": [
+        "All expected scene IDs and required material/animation features are accounted for.",
+        "Wicked presentation preserves botanical/terrain geometry intent with any unavoidable loss made explicit."
+      ]
+    },
+    {
+      "id": "RND-004",
+      "title": "Wicked shader-driven shrub contact and recovery prototype",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "PLT-003",
+        "CRE-005",
+        "RND-001",
+        "RND-002"
+      ],
+      "write_paths": [
+        "benchmarks/contact/",
+        "toolkit/bench/contact_spec.py",
+        "toolkit/adapters/wicked/shaders/contact/"
+      ],
+      "capabilities": [
+        "windows",
+        "wicked",
+        "gpu-target"
+      ],
+      "objective": "Build Wicked-local shader/vertex and optional branch-bone contact fields so shrubs move out of an animal's way rather than clipping.",
+      "steps": [
+        "Translate source branch pivots, wind masks and stiffness/return-to-rest data into Wicked shader/instance attributes.",
+        "Drive contact with creature body capsules and mouth contact, not camera proximity.",
+        "Compare local deformation against static vegetation and wind-only baseline at juvenile camera height with real frame traces."
+      ],
+      "deliverables": [
+        "Wicked contact implementation",
+        "timecoded deformation/recovery videos",
+        "profiling traces"
+      ],
+      "acceptance": [
+        "Softbough branches visibly deflect around animal and recover without pervasive clipping.",
+        "Per-leaf rigid-body physics is not required and performance is directly measured."
+      ]
+    },
+    {
+      "id": "RND-005",
+      "title": "Windows repeatable performance capture harness",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "RND-001",
+        "RND-002",
+        "WRD-005"
+      ],
+      "write_paths": [
+        "toolkit/bench/capture.py",
+        "benchmarks/manifests/capture.json"
+      ],
+      "capabilities": [
+        "windows",
+        "gpu-target"
+      ],
+      "objective": "Run repeatable native 1080p standalone builds and collect raw frame/hitch/hardware traces.",
+      "steps": [
+        "Wrap PresentMon for Wicked native standalone builds where supported; capture clocks, GPU busy, P50/P95/P99, 1% lows, VRAM and CPU render data.",
+        "Preserve cold vs warm stream runs, driver, API, binary hash and 3+ route repeats.",
+        "Gracefully mark profiler features unavailable on Pascal rather than fabricating counters."
+      ],
+      "deliverables": [
+        "benchmark runner",
+        "raw frame receipts",
+        "run comparability report"
+      ],
+      "acceptance": [
+        "Logs show below-30 FPS events, spikes and streaming hitches.",
+        "When no reference hardware is connected, result is blocked/unmeasured."
+      ]
+    },
+    {
+      "id": "RND-006",
+      "title": "Wicked foliage geometry, overdraw and LOD experiments",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "RND-003",
+        "RND-005",
+        "PLT-011"
+      ],
+      "write_paths": [
+        "benchmarks/experiments/foliage/"
+      ],
+      "capabilities": [
+        "windows",
+        "gpu-target"
+      ],
+      "objective": "Tune native Wicked foliage material/card/mesh treatment and shading for stable silhouette, low overdraw and minimal shimmer on the reference GPU.",
+      "steps": [
+        "Use the same neutral plant coverage and fixed camera paths across native Wicked geometric leaf, alpha foliage and tiered LOD variants.",
+        "Measure GPU timings, overdraw, draw submissions and Pascal VRAM; record branch/contact attribute survival after gltfpack/meshoptimizer.",
+        "Pair raw captures with moving before/after images; never declare quality improvements from triangle reduction alone."
+      ],
+      "deliverables": [
+        "Wicked foliage V1–V4 recipes",
+        "visual/cost tradeoff matrix"
+      ],
+      "acceptance": [
+        "At equivalent camera/path and source coverage, evidence identifies viable LOD/shading treatment per foliage architecture.",
+        "Skinny fern pinnae and broad leaves are evaluated separately."
+      ]
+    },
+    {
+      "id": "RND-007",
+      "title": "Wicked leaf transmission, wetness, water and creature motion trials",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "RND-004",
+        "RND-005",
+        "WRD-007",
+        "MAT-003"
+      ],
+      "write_paths": [
+        "benchmarks/experiments/appearance/"
+      ],
+      "capabilities": [
+        "windows",
+        "gpu-target"
+      ],
+      "objective": "Measure sun/ambient/transmission, wind/contact, water/wetness and creature skinning against visual goals.",
+      "steps": [
+        "Measure branch wind/bending, thin-leaf transmission, individual surface roughness/wetness, shadows and scene weather in Wicked.",
+        "Profile Smalltrotter skinning/IK and authored waterbank appearance.",
+        "Capture repeated route differences with FPS/VRAM and look-quality comparisons."
+      ],
+      "deliverables": [
+        "V5–V8 raw trials",
+        "motion and lighting clips",
+        "performance report"
+      ],
+      "acceptance": [
+        "Dense woodland close views remain plausible in shade/wetness and contact.",
+        "Regressions recorded; 30 FPS not assumed."
+      ]
+    },
+    {
+      "id": "RND-008",
+      "title": "V9–V10 appearance/streaming continuity stress tests",
+      "lane": "renderer",
+      "wave": 4,
+      "size": "L",
+      "depends_on": [
+        "RND-005",
+        "RND-003",
+        "WRD-007"
+      ],
+      "write_paths": [
+        "benchmarks/experiments/continuity/"
+      ],
+      "capabilities": [
+        "windows",
+        "gpu-target"
+      ],
+      "objective": "Validate cached scenery and pre-staged fauna before camera reveal without implementing deep live ecology.",
+      "steps": [
+        "Mock identity-preserving prepared animals beyond full detached-camera tether.",
+        "Run fast chunk crossing/reload and short hill revisit against seeded trees and sparse damage overrides.",
+        "Time activation/upload spikes and check visible pop/known-animal duplication."
+      ],
+      "deliverables": [
+        "V9–V10 stress harness",
+        "visual continuity video",
+        "hitch and duplicate report"
+      ],
+      "acceptance": [
+        "Camera frustum alone never causes wildlife to materialize in view.",
+        "No full-world hidden biology polling or historical weather replay."
+      ]
+    },
+    {
+      "id": "OPS-001",
+      "title": "End-to-end toolkit handoff and release audit",
+      "lane": "integration",
+      "wave": 5,
+      "size": "L",
+      "depends_on": [
+        "CLI-005",
+        "PLT-011",
+        "CRE-006",
+        "RND-003",
+        "QA-004",
+        "CLI-007"
+      ],
+      "write_paths": [
+        "docs/implementation/toolkit-release-checklist.md",
+        "benchmarks/manifests/toolkit-smoke.json"
+      ],
+      "capabilities": [
+        "windows",
+        "blender",
+        "python"
+      ],
+      "objective": "Hand off a reproducible Windows asset factory and actual Wicked scene/benchmark integration, with honest QA and provenance.",
+      "steps": [
+        "Replay first-time bootstrap/profile/generation/QA/preview/publish on prepared Windows machine.",
+        "Validate fresh worktree, corrupted input, license rejection, missing optional dependencies and hash repeatability.",
+        "Record operator instructions, known limits, storage footprint and unfinished benchmarks."
+      ],
+      "deliverables": [
+        "release checklist",
+        "smoke manifest",
+        "reproduction receipts"
+      ],
+      "acceptance": [
+        "New worker can generate the six plants and proxy via documented commands.",
+        "No unsupported claim that the final game or the complete biodiversity catalog exists."
+      ]
+    },
+    {
+      "id": "RND-009",
+      "title": "Wicked target-PC performance and readiness report",
+      "lane": "renderer",
+      "wave": 5,
+      "size": "M",
+      "depends_on": [
+        "RND-006",
+        "RND-007",
+        "RND-008",
+        "QA-004"
+      ],
+      "write_paths": [
+        "docs/implementation/wicked-readiness.md"
+      ],
+      "capabilities": [
+        "windows",
+        "gpu-target",
+        "wicked"
+      ],
+      "objective": "Evaluate visual suitability and measured Wicked renderer readiness for the Rauken production pipeline, without requiring a competing engine.",
+      "steps": [
+        "Aggregate full-scene native 1920x1080 P50/P95/P99, below-30 events, cold/warm scene streaming, shader spikes, VRAM, CPU/GPU occupancy and build reproducibility.",
+        "Review juvenile-height foliage/material/wetness/water contact reels against actual photographic reference and uncompromised geometry/instance coverage.",
+        "If Wicked misses P99<=33.3 ms or visual requirements, record measured bottlenecks and prioritized Wicked optimizations; do not reopen engine comparison automatically."
+      ],
+      "deliverables": [
+        "Wicked readiness decision and blocker ledger",
+        "reference-hardware proof index",
+        "tested optimization backlog"
+      ],
+      "acceptance": [
+        "Every claim cites native Wicked run manifest, driver/hardware and raw trace or clearly states missing evidence.",
+        "No competing renderer build is required for this gate."
+      ]
+    }
+  ]
+}

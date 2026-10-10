@@ -1,0 +1,39 @@
+name: Toolkit task graph validation
+
+on:
+  push:
+    paths:
+      - 'tasks/**'
+      - 'tools/taskgraph.py'
+      - 'tools/tests/**'
+      - '.github/workflows/taskgraph-ci.yml'
+  pull_request:
+    paths:
+      - 'tasks/**'
+      - 'tools/taskgraph.py'
+      - 'tools/tests/**'
+      - '.github/workflows/taskgraph-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  task-graph:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate DAG
+        run: python tools/taskgraph.py validate
+      - name: Read initial ready queue
+        run: python tools/taskgraph.py ready --max 3
+      - name: Verify task packet generation
+        run: python tools/taskgraph.py packet CON-001
+      - name: Stdlib scheduler tests
+        run: python -m unittest discover -s tools/tests -v

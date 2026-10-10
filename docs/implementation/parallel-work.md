@@ -1,6 +1,7 @@
 # Parallel agent work packages and integration rules
 
-**Status:** Ready-to-assign specifications, **not dispatched agent executions**.  
+**Status:** Ready-to-assign specifications, **not dispatched agent executions**.
+**Execution interface:** [Toolkit task graph](../../tasks/README.md) is the detailed machine-readable dependency queue and worker packet generator; these lane guidelines govern review and cross-domain integration.  
 **Parent:** [Roadmap](README.md); [Toolkit breakdown](toolkit.md).  
 **First integration rule:** one worker owns v0.1 interface decisions; other workers may prototype in parallel but cannot silently invent contradictory production contracts.
 
@@ -14,18 +15,19 @@ Three concurrent *active implementers* plus a lightweight review/test lane is a 
 
 | Lane | Branch suggestion | Owns | Must not edit without contract review |
 |---|---|---|---|
-| A integration/tooling | work/toolkit-core | tools/stalthos.ps1, toolkit/cli, toolkit/schemas, toolkit/tests, conventions | fauna/flora spec authority; engine decision |
+| A integration/tooling | work/toolkit-core | tools/stalthos.ps1, toolkit/cli, toolkit/schemas, toolkit/tests, conventions | fauna/flora spec authority; Wicked shader decisions |
 | B botanical geometry | work/plant-families | toolkit/generators/plants, plant profiles and source/preview fixtures | CLI/schemas, game biology |
 | C creature and animation | work/smalltrotter-proxy | toolkit/generators/creatures, creature rig profiles/fixtures | HeroSim intent, shared schema without approval |
 | D landscape and references | work/splitstone-neutral | scenes/splitstone, terrain/export and placement packages, reference metadata | living ecology scheduler, renderer-specific source |
-| E adapters/benchmark | work/engine-comparison | benchmarks, toolkit/adapters/flax, toolkit/adapters/wicked | common source profiles, selective biological save rules |
+| E Wicked adapters/benchmark | work/wicked-visuals | benchmarks/wicked, toolkit/adapters/wicked | common source profiles, source art and biological save rules |
+| G authoring/material adapters | work/authoring-pbr | toolkit/adapters/plantfactory, toolkit/materials, toolkit/adapters/photogrammetry | common geometry/export and license schemas; Wicked import internals |
 | F QA/provenance | work/visual-qa | toolkit/qa, reference/index, golden visual rubric | schema versions without change proposal |
 
-**Parallelism:** A begins first; while A freezes contract v0.1, B/C/D/F can research and make disposable sketches from agreed example profiles. B/C/D/E can implement on accepted v0.1 in parallel; E needs enough published geometry to run an honest parity test. F continues throughout. Do not pretend a prototype with manually imported files is a completed CLI or quality gate.
+**Parallelism:** A begins first; while A freezes contract v0.1, B/C/D/F can research and make disposable sketches from agreed example profiles. B/C/D/E can implement on accepted v0.1 in parallel; E needs enough published geometry to run honest Wicked visual and frame-timing tests. F continues throughout. Do not pretend a prototype with manually imported files is a completed CLI or quality gate.
 
 ## Global agent packet — prepend to every assignment
 
-> You are implementing a bounded piece of The Stalthosian Archipelago (repository historically named Rauken-Archipelago). Read docs/README.md, docs/vision-and-principles.md, docs/research-register.md, docs/asset-toolkit.md, docs/visual-direction.md, and the two docs/implementation plans before editing. Preserve display-first/cheap-invisible-ecology priorities, agent-accessible Windows-first workflow, no forced playable vertical slice, unselected Flax/Wicked engine, reference GTX 1080 / first-gen Ryzen 1080p target, no invented scientific evidence and no hidden paid API dependency. Work only within your declared file ownership or submit an interface-change request. Include commands actually executed, source/test receipts, known limitations, and visual proof when appearance matters. Do not claim benchmarks ran if the reference hardware or tools were unavailable.
+> You are implementing a bounded piece of The Stalthosian Archipelago (repository historically named Rauken-Archipelago). Read docs/README.md, docs/vision-and-principles.md, docs/research-register.md, docs/asset-toolkit.md, docs/visual-direction.md, and the two docs/implementation plans before editing. Preserve display-first/cheap-invisible-ecology priorities, agent-accessible Windows-first workflow, no forced playable vertical slice, Wicked as the single current renderer, with neutral source masters, reference GTX 1080 / first-gen Ryzen 1080p target, no invented scientific evidence and no hidden paid API dependency. Work only within your declared file ownership or submit an interface-change request. Include commands actually executed, source/test receipts, known limitations, and visual proof when appearance matters. Do not claim benchmarks ran if the reference hardware or tools were unavailable.
 
 This packet intentionally does not select a programming language for the game runtime or settle tool versions before TOOL-01 measurement.
 
@@ -71,15 +73,26 @@ This packet intentionally does not select a programming language for the game ru
 
 **Integration:** geometry and placement exports are engine neutral. Keep flora generation and renderer shader assumptions external. Connect to B1 botanical publish IDs, not unversioned local .blend file paths.
 
-## Packet E1 — engine adapter and benchmarking scaffold
+## Packet E1 — Wicked import, shaders and benchmark scaffold
 
-**Can scaffold against primitive fixtures after A0; definitive parity waits for B/C/D.** Covers BENCH-01/02/03.
+**Can scaffold against primitive fixtures after A0; representative full-scene benchmarks wait for B/C/D.** Covers RND-001 through RND-009 and MAT-002/003 as their prerequisites allow.
 
-**Deliver:** isolated Flax and Wicked build/import recipes, same neutral scene manifest, matching camera/lighting route, captured runtime version/driver/binary hashes, scene coverage equivalence checks, basic capture automation and raw result schema. Measure on the actual GTX 1080/Ryzen target where accessible.
+**Deliver:** Wicked source build/import recipe and neutral-to-Wicked scene conversion, material packing/DDS and shaders with traceable version/channel mappings, camera/lighting route, captured runtime/driver/binary hashes, comparison to neutral Blender reference frames, basic capture automation and raw timing report. Measure on the actual GTX 1080/Ryzen target where accessible.
 
-**Acceptance:** both engines can consume an identical core fixture; import conversions and unsupported features are reported; repeated runs preserve conditions; reports include CPU/GPU/VRAM, P95/P99 and hitches rather than just average FPS. No engine winner until representative full scenes and animated shrubs/hero exist. No unsupported claim of Pascal profiler compatibility.
+**Acceptance:** Wicked consumes core fixtures at correct scale with verified roughness/normal/alpha mapping; unsupported material/rig/plant-pivot features are reported; repeated runs preserve conditions. Reports include CPU/GPU/VRAM, P95/P99 and hitches rather than just average FPS. No unsupported claim of Pascal profiler compatibility.
 
-**Integration:** E1 consumes A0/B1/C1/D1 artifacts as immutable bundles. Renderer-specific WISCENE/Flax cooked assets remain derived copies. For engine issues, file a minimal reproducer with screenshot, raw timing and exact import settings.
+**Integration:** E1 consumes A0/B1/C1/D1 artifacts as immutable bundles. Wicked-specific WISCENE/shader/DDS assets remain derived copies. For engine issues, file a minimal reproducer with screenshot, raw timing and exact import settings.
+
+
+## Packet G1 — PlantFactory and procedural surface tools
+
+**Can start with capability/version/rights audits after CFG-001; automated import requires actual installed exporters and the approved neutral schema.** Covers PFA-001/004/002/003/005, MAT-001 and GEO-001. Collaborates with E1 for MAT-002/003. **If no CLI exists, build an automation bridge.** Evaluate supported plugins/scripting first, then Windows UI Automation (pywinauto/UIA/Win32 or comparable) for published parameters, preset changes, native saves and exports. Do not invent native flags, but GUI-only is an engineering constraint, not an excuse to stop.
+
+**Deliver:** agent-controlled PlantFactory authoring/exports (script, native plugin or robust UI controller), resumable seeded variant batches, PlantCatalog provenance matrix, source-to-Blender asset conversion with branch/wind/pivot sidecars, Material Maker or Blender-node PBR graphs for leaf/bark/rock/skin and correctly tagged roughness/thickness/normal channels, scanned-rock cleanup and rights records.
+
+**Acceptance:** actual source fixtures preserve UV/scale/leaves/branch-group data or disclose losses; material swatches show controlled lighting comparisons; optimization cannot silently discard interaction attributes. If an actual PlantFactory install is available, automation must perform repeated parameter edits and batch exports without manual clicking. If unavailable, keep implementing and unit-testing the controller against mocks, mark real verification blocked, and continue Blender-native six-reference-plant production.
+
+**Ownership:** G1 uses its own worktree and only the PFA/MAT/GEO paths listed by the machine graph. E1 owns Wicked shader conversion and target-PC measurement; shared interfaces are versioned through A0/INT review.
 
 ## Packet F1 — reference/provenance and visual QC
 
@@ -126,7 +139,7 @@ When two agents disagree, create a *small representative fixture* that reveals t
 | 1 | A0 finalizes schema v0.1 and primitive export | approved fixture contract and receipts |
 | 2 | B1, C1, D1, E1 and F1 (isolated branches) | six botanical forms, animal proxy, terrain, import/scaffold, review tools |
 | 3 | B1 + C1 refinements, E2, TOOL-08 optimization | bending/contact reel, optimized exports, moving silhouette captures |
-| 4 | INT + E1 full parity/benchmark | measured Flax/Wicked comparison, selected or explicitly undecided engine |
+| 4 | INT + E1 Wicked fidelity/benchmark | neutral-to-Wicked import proof; measured visual/frametime regressions and targeted fixes |
 
 Do not require artificial weekly deadlines or fixed asset polygon/texture budgets before benchmark data. Track **blocked by contract**, **in progress**, **fixture passed**, **visual review passed**, **measured** separately.
 
