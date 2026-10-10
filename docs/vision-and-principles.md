@@ -50,6 +50,12 @@ A forest can display dozens of botanical forms whose hidden 'biology' uses a few
 
 **Reference images:** the desired overall photographic/artistically realistic look is not locked until the user selects suitable visual references.
 
+## High-density landscape, without prescribed attractions
+
+**Accepted:** natural realism is subordinate to enjoyable creature-scale traversal. Dramatic and modest features may be shorter, closer together and more frequent than a real upland/island could statistically sustain. This applies across all islands and to small details as much as famous cliffs and gorges. The place should remain locally coherent and visually convincing, **not** metrically or probabilistically faithful.
+
+The goal is a higher frequency of **places that could be good to somebody**, where the player or an uncommanded Hero Beast may naturally rest, feed, shelter, watch, nest, cross or linger. No objective ranking, icons, quotas, guaranteed encounters, predetermined reward sites or specially scripted "Good Spot" AI is implied. Preserve both ambient stretches and landmark contrast; judge pace and density from the animal's traveling viewpoint.
+
 ## Design pillars
 
 1. **Lived landscape.** Sheltered mossy ravines, drowned valleys, mineral outcrops, resilient forests, floodplains and real landmarks. Recognizable places matter more than raw area.
