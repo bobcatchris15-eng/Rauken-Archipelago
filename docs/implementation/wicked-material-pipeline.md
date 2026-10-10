@@ -4,7 +4,7 @@
 
 **Preserve reversibility:** Blender and PlantFactory native masters, neutral GLB/FBX geometry, PBR texture recipes and semantic manifests remain independent of Wicked. WISCENE/compiled shaders/DDS and GPU-ready foliage attributes are derived. Switching engines later must not require recreating source assets.
 
-**Canonical executable task IDs:** `tasks/toolkit-graph.json` (RND-001 through RND-009, PFA-001 through PFA-003, MAT-001 through MAT-003, GEO-001). This document describes contract and art decisions, not alternative scheduling.
+**Canonical executable task IDs:** `tasks/toolkit-graph.json` (RND-001 through RND-009, PFA-001 through PFA-005, MAT-001 through MAT-003, GEO-001). This document describes contract and art decisions, not alternative scheduling.
 
 ## 1. Practical tool priorities
 
@@ -18,18 +18,20 @@
 | Runtime textures | Engine-verified DDS/BC formats, tested Compressonator/NVIDIA tools | KTX or fallback as supported | Wicked-supported channel packing, alpha/mip, normal orientation and real memory footprint |
 | Native GPU proof | Wicked standalone, PresentMon/RenderDoc/Tracy where supported | other evidence-gathering utilities | Measured on exact GTX 1080 / first-gen Ryzen; no speculative performance or Pascal-only nonexistent counters |
 
-**External-tool rule:** an option is evaluated, not silently treated as a required dependency. Do not invent PlantFactory command-line flags, Unreal Pivot Painter compatibility, Material Maker APIs, compression settings or scanner export paths. First probe installed version and executable behavior; if an operation is GUI-only, label it manual and offer a Blender-native fallback. Never force users to buy software or approve a third-party license just to pass G0.
+**External-tool rule:** an option is evaluated, not silently treated as a required dependency. Do not invent PlantFactory command-line flags, Unreal Pivot Painter compatibility, Material Maker APIs, compression settings or scanner export paths. **When an operation is GUI-only, agents should build Windows desktop automation or a supported native extension to control it.** Test the installed version, document actual exported results, and keep a Blender-native fallback for users without PlantFactory. Never bypass licensing or force paid dependencies to pass G0.
 
 ## 2. PlantFactory -> Blender -> Wicked
 
-1. **Audit** PlantFactory edition and native source/export format. Bentley's sunset/perpetual versions and separate PlantCatalog distribution constraints need exact version-specific license evidence before any assets are redistributed. PlantCatalog-derived and fully custom PlantFactory assets receive different provenance tags.
-2. **Author** credible woody plants with structured trunks, branches, needles/leaves and age variants. Preserve editable PlantFactory project where licensing permits, plus exported branch/submesh hierarchy.
+1. **Audit** PlantFactory edition and native source/export format, then discover native scripting/plugin/host mechanisms and published parameter/preset controls. Bentley's sunset/perpetual versions and separate PlantCatalog distribution constraints need exact version-specific license evidence before any assets are redistributed. PlantCatalog-derived and fully custom PlantFactory assets receive different provenance tags.
+2. **Build a controllable wrapper**: use supported plugins/native scripting when available, or a Windows UIA/Win32/pywinauto desktop driver to open an owned plant, change published parameters/presets, save a native project, export with a repeatable dialog sequence, capture proof and recover from timeouts. **Author** credible woody plants with structured trunks, branches, needles/leaves and age variants through that driver. Preserve editable PlantFactory projects and exported branch/submesh hierarchy.
 3. **Normalize** meter scale, pivots, axes, UVs, opacity, double-sided surface intent and material IDs via Blender. Keep sidecar source-to-derived IDs.
 4. **Retain wind semantics**: root influence, parent branch IDs, local bend pivots/axes, mass/stiffness, leaf tip/fold regions, wind masks and mouth/browse collision regions. Treat Pivot Painter-style attributes as a *data design*, not an expectation that an Unreal exporter runs in Wicked.
 5. **Optimize carefully**: after meshoptimizer/gltfpack/LOD generation, compare custom attributes and branch IDs against source. If unsupported attribute data is stripped, store and verify the exact remap/sidecar. Reject or explicitly flag irrecoverable pivot loss.
 6. **Consume in Wicked**: GPU instancing, shader vertex bending and a local animal contact field; avoid a physics body per leaf. Camera proximity by itself must never bend leaves or stage an animal.
 
-**G1 fallback:** Native Blender botanical generators are the guaranteed implementation path for all six reference plants. An absent or GUI-only PlantFactory cannot prevent publishing those bundles. PlantFactory adapters may remain blocked awaiting local installation without stopping the backbone.
+**Automation mandate:** PFA-004 and PFA-005 are real construction assignments: an agent-operated PlantFactory control bridge and reliable seeded batch production. GUI-only is a reason to build a GUI controller, *not* to abandon automation. Desktop focus and PlantFactory sessions must be serialized; profiles, screenshots, actual exported files and source hashes establish success. Bentley recommends the 2023 release for production stability; 2024 is supplied as a beta, so version-specific UI regression tests are important. <The '2023/2024 guidance' should be verified against the official Bentley archive during implementation.>
+
+**G1 fallback:** Native Blender botanical generators remain the guaranteed route for all six reference plants. Missing PlantFactory blocks only PlantFactory-dependent empirical acceptance; mock-controlled automation code and fixtures can still be authored. No desktop automation may silently report success from stale outputs.
 
 ## 3. Material semantics, not a generic texture pile
 
@@ -82,7 +84,7 @@ For roughness: image-derived \"roughness\" is an estimate, not a measurement. Ev
 ## 6. Repo-backed working contracts
 
 - `profiles/materials/` and `reference/materials/` — procedural source and rights metadata, not downloaded unlicensed photography.
-- `toolkit/adapters/plantfactory/` — opt-in source exporter/importer, wind pivot semantics and actual feature probes.
+- `toolkit/adapters/plantfactory/` — version-scoped native/plugin/UI automation with reliable seeded batch export, source import, wind pivots and actual installed-application proofs.
 - `toolkit/materials/` and `toolkit/adapters/wicked/materials/` — neutral recipe and tested derived packing.
 - `toolkit/adapters/wicked/shaders/foliage/`, `shaders/wetness/`, `shaders/contact/` — authored Wicked shader variants, only when tested.
 - `toolkit/adapters/photogrammetry/` — scanned rock/roots/logs with CC0/self-authored provenance, plus Blender fallback.
