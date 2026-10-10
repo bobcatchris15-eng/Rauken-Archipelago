@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "title": "The Stalthosian Archipelago — Wicked-first toolkit execution graph",
   "branch_baseline": "planning/toolkit-first-implementation",
-  "description": "Agent-assignable DAG to build Windows-first, neutral source assets with a Wicked Engine runtime/renderer target, PlantFactory and PBR material adapters, visual QA, and measured benchmarks. No competing renderer integration is scheduled. Planning graph; none of these tasks is complete by virtue of appearing here.",
+  "description": "Agent-assignable DAG to build Windows-first, neutral source assets with a Wicked Engine runtime/renderer target, agent-operated PlantFactory automation (native/plugin/UI desktop bridge) and PBR material adapters, visual QA, and measured benchmarks. No competing renderer integration is scheduled. Planning graph; none of these tasks is complete by virtue of appearing here.",
   "conventions": {
     "canonical_source": "tasks/toolkit-graph.json",
     "required_instruction_docs": [
@@ -38,7 +38,8 @@
       "renderer": "Wicked-only build, import, shader/contact tests and actual full-scene hardware benchmarks"
     },
     "primary_renderer": "wicked",
-    "asset_source_policy": "Keep original .blend/native PlantFactory sources, profiles, GLB/FBX and PBR textures as neutral masters. Build WISCENE and GPU-compressed materials as derived Wicked artifacts only."
+    "asset_source_policy": "Keep original .blend/native PlantFactory sources, profiles, GLB/FBX and PBR textures as neutral masters. Build WISCENE and GPU-compressed materials as derived Wicked artifacts only.",
+    "plantfactory_automation": "Agents are authorized to implement supported PlantFactory plugins, native scripting or safe Windows desktop/UI automation to enable deterministic source editing and exports. No CLI is assumed. Preserve real installation/version evidence, reversible workflows and native projects; never bypass licensing or misstate export rights."
   },
   "gates": [
     {
@@ -1045,7 +1046,7 @@
     },
     {
       "id": "PFA-001",
-      "title": "PlantFactory version, licensing and automated export capability audit",
+      "title": "PlantFactory automation surface discovery and license/version survey",
       "lane": "assets",
       "wave": 1,
       "size": "M",
@@ -1061,20 +1062,23 @@
         "windows",
         "python"
       ],
-      "objective": "Determine whether the installed perpetual PlantFactory edition can be controlled unattended, what formats it exports and which source/PlantCatalog rights apply.",
+      "objective": "Identify the strongest **buildable** automation surface for PlantFactory 2023/2024, including official plugin/export hooks, published parameters, preset files, project formats and Windows desktop control; do not stop when a native CLI is absent.",
       "steps": [
-        "Probe actual executable location/version and supported batch/CLI/automation mechanisms without inventing a command-line interface.",
-        "Document native plant project retention, output formats, leaf/stem grouping, branch pivot/wind attributes and scale conventions.",
-        "Distinguish original PlantFactory creations from PlantCatalog-derived source assets and non-redistributable purchased models; provide Blender-native fallback."
+        "Inspect locally installed 2023 and/or 2024 editions, help/docs, Export Central, presets/published parameters and bundled host-integration plugins. Separate actual programmable hooks from assumptions. Record compatibility differences and 2024 beta stability risk.",
+        "Prototype bounded no-install interactions through any officially documented local scripting/plugin/host bridge, or Windows UI Automation (pywinauto/UIA/Win32) if that is the practical interface. Inspect export dialogs and select likely supported mesh/material output.",
+        "Design a staged, reversible automation bridge and test with one legally usable simple authored plant; document GUI-session/headless constraints, crash handling, rights, fallback and expected maintenance costs.",
+        "Never modify licensing, bypass copy protection, patch proprietary executables, or distribute PlantCatalog source content contrary to terms."
       ],
       "deliverables": [
-        "real installed-tool compatibility report or missing-tool blocker",
-        "license/source provenance test records",
-        "documented fallback workflow"
+        "automation surface capabilities matrix with actual run evidence",
+        "chosen native/plugin/GUI wrapper integration approach",
+        "Windows prototype control and export trace",
+        "versioned license/PlantCatalog source policy"
       ],
       "acceptance": [
-        "Claims of unattended export are supported by actually run commands; a GUI-only edition is marked manual/blocked rather than faked.",
-        "No requirement to install discontinued or licensed software in order to validate unrelated profiles."
+        "Report documents whether *our agents can build an automation driver*, not merely whether PlantFactory advertises a CLI.",
+        "If PlantFactory is present, at least one creation/open/parameter/edit/export operation is experimentally attempted with logs; failures and UI-only constraints are explicit.",
+        "Absent software blocks empirical proof only, not the architecture/prototype work; 2023 production and 2024 beta differences are documented."
       ]
     },
     {
@@ -1422,7 +1426,7 @@
       "wave": 2,
       "size": "L",
       "depends_on": [
-        "PFA-001",
+        "PFA-004",
         "ART-002",
         "CON-005"
       ],
@@ -1436,11 +1440,12 @@
         "plantfactory",
         "python"
       ],
-      "objective": "Consume actual PlantFactory-produced mesh/leaf/branch exports in Blender without losing units, leaf identity, age structure or editable source provenance.",
+      "objective": "Build the end-to-end automated PlantFactory -> neutral Blender asset import route, not just a manual 'export if available' bridge.",
       "steps": [
-        "Import supported file formats with axis/units/UV/material/alpha checks and source native project links.",
-        "Recover or supply authored branch parent/pivot and leaf stiffness data where export supports it; document unavoidable loss.",
-        "Export controlled Splitcrown/Softbough fixture and compare Blender native appearance with upstream PlantFactory snapshots."
+        "Drive PFA-004 to author/load one parameterized plant and export through an actually verified format; accept changes in native PlantFactory project with authorship/provenance.",
+        "Blender background-import neutralizes units, axes, UVs, material/alpha groups, basic leaf/branch identity, collision/browse tags and source paths.",
+        "Validate material/geometry fidelity and original plant editability with deterministic named export receipt; preserve unrecoverable metadata separately.",
+        "If native GUI export fails, improve the controller/plugin or document exact blocker. Do not silently replace this task with a manual click guide; separate Blender source fallback keeps unrelated G1 plants moving."
       ],
       "deliverables": [
         "PlantFactory exporter/import adapter",
@@ -1448,8 +1453,9 @@
         "neutral GLB and source fixture"
       ],
       "acceptance": [
-        "A real PlantFactory-produced test plant survives round-trip without silent scale, normals, alpha or leaf collapse.",
-        "Unsupported attributes fail with a feature-loss report; no Unreal-only plugin is treated as a portable adapter."
+        "One PlantFactory-authored plant can be driven through exporter and Blender import with agent-issued commands; files/metadata/rights verified.",
+        "Source unit scale/leaf alpha/shape matches PlantFactory reference or losses are documented.",
+        "Unavailable installed PlantFactory may block this task but must not halt Blender-native botanical reference builds."
       ]
     },
     {
@@ -1474,9 +1480,9 @@
       ],
       "objective": "Keep bending hierarchy and stiffness data through compression/LOD/GLB and derived Wicked-import sidecars.",
       "steps": [
-        "Define parent branch IDs, per-vertex stiffness masks, independent leaf bend pivots and deterministic branch coordinate basis.",
-        "Test meshoptimizer/gltfpack handling of custom attributes and node hierarchy; use lossless sidecars or mapping if necessary.",
-        "Compare unoptimized/optimized pivot location, stage/instance IDs, wind result and contact recovery."
+        "Define parent branch IDs, per-vertex stiffness, independent leaf bend pivots and deterministic branch coordinate basis, derived from PlantFactory hierarchy or restored in Blender.",
+        "Test meshoptimizer/gltfpack handling of custom attributes and node hierarchy; use exact remap/sidecars if native export lacks metadata.",
+        "Compare unoptimized/optimized pivots, stage/instance IDs, wind result and contact recovery against original native-PlantFactory export; feed back missing attributes into PFA-004 automation."
       ],
       "deliverables": [
         "wind/pivot interchange spec",
@@ -1486,6 +1492,45 @@
       "acceptance": [
         "Compression cannot silently delete or reorder semantic attributes without detection.",
         "Parent stem and leaf deformation remain locally coherent across near/mid LOD boundaries."
+      ]
+    },
+    {
+      "id": "PFA-004",
+      "title": "PlantFactory agent-operated automation bridge",
+      "lane": "assets",
+      "wave": 2,
+      "size": "L",
+      "depends_on": [
+        "PFA-001",
+        "CFG-002",
+        "CON-005"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/automation/",
+        "toolkit/tests/test_plantfactory_automation.py"
+      ],
+      "capabilities": [
+        "windows",
+        "python"
+      ],
+      "objective": "Implement a real Windows automation adapter that agents can drive to create/open plants, set published parameters/seeds, save a native project and export a bounded geometry/material package, even if PlantFactory exposes no command-line API.",
+      "steps": [
+        "Prefer supported native plugin/scripting/host integration when demonstrated; otherwise use a dedicated Windows desktop/UI Automation controller (pywinauto, UIA, Win32, or equivalent) with accessible controls, window IDs and image-verification fallback where needed.",
+        "Implement command JSON input/output, version-scoped UI workflow profiles, process ownership, foreground/interactive-session detection, screenshot-on-error, timeout/retry, file-dialog targeting and safe cancellation. Avoid brittle fixed screen coordinates when semantic controls exist.",
+        "Use isolated input/output workspace and **one PlantFactory application instance per actual GUI desktop session**; serialize batch operations and avoid parallel agents stealing UI focus. Keep Windows session unlocked only where explicitly authorized.",
+        "Create non-destructive fixture for opening an owned plant, changing a published shape parameter, saving native source and exporting FBX/OBJ/other tested format; emit exact output hashes and visual/structural receipts.",
+        "Discover better native integration during implementation? Replace GUI driver behind the same contract without changing agent commands. Explicitly prohibit license/DRM bypass, undocumented system alteration or fake success."
+      ],
+      "deliverables": [
+        "versioned local automation driver",
+        "documented JSON operation contract",
+        "native project plus tested exported fixture",
+        "stderr/log/screenshot failure proof"
+      ],
+      "acceptance": [
+        "A real PlantFactory installation is controllable from one reproducible script, without a human manually clicking through every export.",
+        "All operations fail cleanly on missing desktop/app/mismatched UI; worker sees diagnosis, not 'success' on unchanged outputs.",
+        "Agent can switch tested native/plugin/UI strategies without changing source asset/seed contracts."
       ]
     },
     {
@@ -2128,6 +2173,44 @@
       "acceptance": [
         "No swapped roughness/metallic/AO channels, lost alpha cutoff or inverted tangent normals in tested import.",
         "No assumption all compression/alpha variants work on GTX 1080 without test."
+      ]
+    },
+    {
+      "id": "PFA-005",
+      "title": "PlantFactory presets, seeded variants and unattended batch export",
+      "lane": "assets",
+      "wave": 3,
+      "size": "L",
+      "depends_on": [
+        "PFA-002",
+        "PFA-003"
+      ],
+      "write_paths": [
+        "toolkit/adapters/plantfactory/batch.py",
+        "toolkit/adapters/plantfactory/presets/",
+        "toolkit/tests/test_plantfactory_batch.py"
+      ],
+      "capabilities": [
+        "windows",
+        "plantfactory",
+        "python"
+      ],
+      "objective": "Extend the agent-controlled PlantFactory driver to autonomously generate batches of valid botanical variants and growth stages from profiles, preserving native sources and branch wind semantics.",
+      "steps": [
+        "Map approved profile parameters onto PlantFactory published parameter controls/presets; record unsupported morphology controls and deterministic seed behavior.",
+        "Queue plant opens/edits/saves/exports through serialized desktop automation or tested plugin API, while parallel workers prepare input manifests, references and post-export Blender processing.",
+        "Use per-export checksum, completion/timeout detection, thumbnails/silhouette snapshots, output isolation, restart/resume and crash recovery. Never treat an unchanged export as a regenerated success.",
+        "Complete a representative multi-seed, multi-stage Splitcrown/Softbough batch, then validate geometry/material/pivot/rights in Blender before potential publication."
+      ],
+      "deliverables": [
+        "agent-driven batch production CLI",
+        "seeded/native PlantFactory sources and neutral exports",
+        "restart/resume manifests and batch receipts"
+      ],
+      "acceptance": [
+        "A batch request regenerates multiple distinct named variants with correct seed/stage bookkeeping and does not require repeated human clicks.",
+        "Repeated invocation is resumable; a UI crash yields explicit per-asset failure and no partial published bundle.",
+        "Branch/hierarchy and material conversion is verified rather than assumed from a bundled Unreal plugin."
       ]
     },
     {
