@@ -1943,7 +1943,7 @@
       "objective": "Author detailed animal-scale ravine, descending stream, sheltered hollow and open valley.",
       "steps": [
         "Use deliberate offline layering/procedural composition to form traversable 1 km landscape.",
-        "Include a dense renderer comparison patch around 512x512 m.",
+        "Include a dense Wicked material-and-foliage benchmark patch around 512x512 m.",
         "Validate downhill stream and plausible animal routes, with some inaccessible rock."
       ],
       "deliverables": [
@@ -2051,7 +2051,7 @@
         "route diagnostics"
       ],
       "acceptance": [
-        "Identical route sampled in both engines yields same world camera parameters.",
+        "Identical camera route samples in repeated Wicked builds preserve the intended world camera transforms.",
         "Occluding ridge reveal tests wildlife/foliage readiness separately from frustum."
       ]
     },
@@ -2634,7 +2634,7 @@
       ],
       "acceptance": [
         "Every claim cites native Wicked run manifest, driver/hardware and raw trace or clearly states missing evidence.",
-        "No Flax or alternative engine build is required for this gate."
+        "No competing renderer build is required for this gate."
       ]
     }
   ]
