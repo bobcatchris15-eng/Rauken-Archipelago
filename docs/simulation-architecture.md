@@ -2,6 +2,14 @@
 
 **Status:** Agreed logical boundaries; algorithms, distances and implementation framework remain provisional. These are **modules**, not independent network services.
 
+## Fidelity policy — believable on the outside, cheap on the inside
+
+**Decided:** this is a staged natural-history illusion, not a scientifically closed ecology. Prioritize (1) visual and physical contact quality, (2) observable animal behavior and immediate responses, (3) continuity of conspicuous changes and relationships, and only then (4) approximate hidden environmental/population state. A sophisticated invisible model needs a demonstrated improvement over a cheap proxy before implementation.
+
+**A useful simulation state is the smallest state that prevents noticeable contradictions.** Regions may be generated from seeds and a few habitat/season/occupancy variables. Nearby creatures become detailed actors before they enter view; distant ones remain approximate densities. Most plants are static or low-rate display variants; only visibly important individual damage, death or recovery needs persistence. Do not use scientific internal accuracy as a proxy for visual quality.
+
+Keep the existing domain names and ownership rules to prevent double rendering, duplicate known animals and forgotten player-visible effects. Those correctness constraints are *targeted*, not permission to build complete nutrient, thermodynamic, weather, population or metabolic ledgers. See [Vision](vision-and-principles.md).
+
 ## Named components
 
 | Component | Owns | Does not own |
@@ -83,57 +91,50 @@ Death terminates the current animal, **not the persistent world**. A new hatchli
 
 ## Resolution is not a single distance-based level
 
-Apply three **independent design considerations** to each domain process:
-- **Causal retention:** which effects must remain true, even when no individual is instantiated? Examples: population/cohort totals, forage depletion, an old tree's lost limb, persistent flood damage.
-- **Temporal evaluation:** when does that process next have to be reconciled, or how much time may be aggregated? Regional browsing may integrate by week; local collisions must resolve immediately.
-- **Representation:** what geometric, behavioral or physical detail is currently needed? A distant herd can be only a cohort ledger; a nearby transient animal can be richly animated.
+Use **three practical presentation levels**, not an abstract general-purpose fidelity solver:
 
-Proximity influences **deadlines and visual detail**, not whether significant resource accounting exists. Do **not** implement a general-purpose causal-importance predictor or three-axis runtime LOD manager. Define domain-specific invariants and work queues: immediate contact, population/resource settlements, environmental interval integration, chunk prewarm, and graphics creation. Most scheduling can use a small number of priority/deadline classes.
+1. **Observed/contacting:** full animation, physically valid reach, movement and collisions, immediate reactions and directly visible outcomes. A browsed shrub changes; an encountered animal behaves continuously.
+2. **Nearby but hidden:** simple actors, reduced-rate behavior and prewarming far enough beyond the full HeroView tether to prevent on-camera spawning. No detailed lifelong history.
+3. **Remote/forgotten:** regional population density, habitat condition, season, seeded variation and a *small list of conspicuous exceptions* (e.g. a fallen landmark tree or surviving bonded companion). No offscreen individual activity replay.
 
+Render detail is still chosen separately from animal sensing and activation. Save only information a return visit or ongoing relationship could expose. A small number of coarse counters and timestamped exception records is sufficient for most regions. Never implement a generalized importance predictor or force accurate distant ecological accounting.
 ## Four cross-domain contracts before implementation
 
-1. **Counts and resources:** FaunaSim's demographic cohorts, active reservations and retained individuals balance. FaunaSim's aggregate browsing causes finite FloraSim resource debits through InteractionsCore; aggregate input/output need not conserve exact biological energy.
-2. **Chronological environment:** StalthosSim provides time-ordered environmental intervals plus discrete damaging events. Averages alone are insufficient. Records may be compacted once all dependent state has safely passed them.
-3. **Bounded catch-up:** Every region and durable organism/patch tracks evaluation time and version. SimCore amortizes reconciliation ahead of both Smalltrotter and the full HeroView tether; render work cannot trigger an unbounded biological replay.
-4. **Stable structural edits:** Significant tree/shrub segment IDs survive growth and asset regeneration. InteractionsCore commits a precisely addressed finite change; FloraSim stores the resulting structural state, not every historic bite.
+1. **Visible contacts commit once:** InteractionsCore validates local physical reach/contact and updates the relevant *visible* food, injury or structural state without duplicate application. Patch-level foliage depletion is enough where individual bites are not distinguishable.
+2. **Recognizable exceptions survive:** StalthosState keeps identities/state for the current Hero Beast, eligible existing social/dependent animals, destroyed or conspicuously altered trees, important nests/carcasses and other player-observable changes. Ordinary organisms remain seed/patch based.
+3. **No obvious generation seams:** SimCore prepares plausible local animals beyond the complete detached-camera envelope and keeps recent occupancy long enough to avoid on-camera appearance/disappearance. Promotion/retirement of an encountered or retained individual must not create a duplicate.
+4. **Bounded cheap updates:** StalthosSim supplies current seasonal/weather conditions and **occasional consequential event records**, not compulsory ordered climate chronology. FloraSim and FaunaSim resolve distant changes via elapsed-time formulas, probabilities or coarse region updates. No long historical replay on a camera turn.
 
-These are **contracts across existing modules, not new standalone subsystems**. See [FaunaSim](fauna-sim.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md) and [Spatial activation](spatial-activation.md).
-
+These are small contracts among the **existing modules**, not new systems. Stable branch IDs, detailed demographic reservations, event journals and resource conservation are *optional targeted techniques*, justified only by an observable failure of simpler representations. See [FaunaSim](fauna-sim.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md) and [Spatial activation](spatial-activation.md).
 ## Time and update rates
 
-SimCore owns global world-time progression (which may be accelerated through uneventful/rest periods). StalthosSim derives sun, seasons and weather from that timeline. Species-specific developmental pacing can make juvenile growth meaningfully noticeable without forcing animation/reflex speed to match accelerated years; HeroSim and FaunaSim use the same underlying BeastCore developmental laws. **Four meanings of time:** realtime physical controls/contacts; shared SimCore world/calendar time; physiology integrated over world intervals plus actual activity/event costs; and species life-history development derived from world time and condition. Physiology and development aren't independent hidden clocks.
+SimCore owns **one shared calendar/world clock**, optionally sped up for rest and nesting. Realtime controls, body motion, collision and startle remain responsive. A few species parameters drive age, stage-specific appearance, reproductive maturity and late-life decline. Approximate condition (food/water/comfort/fatigue/injury) may affect behavior, but no exact digestion chemistry, energy conservation or multi-variable heat equation is required. Nearby HeroSim and FaunaSim use **compatible simple BeastCore rules**, with different update frequencies.
 
-- Direct physical response, collision, pain/startle: prompt real-time/event-driven.
-- Local animal orientation and movement: active high-rate as needed.
-- Thermal discomfort, attention and continuing pain: medium-rate.
-- Hunger, thirst, gut, fatigue, health: slower or event-integrated.
-- Growth, reproduction, botanical senescence: coarse/lazy.
-- Inactive environment: compact time-window weather summaries retained for FloraSim and cohort catch-up.
+- **Immediate:** player input, collision, visible bites, near-animal reactions and danger.
+- **Occasional:** active animal activity selection, condition changes, weather presentation and visible resource patch updates.
+- **On demand / elapsed-time:** growth stage, seasonal variation, dormant population density and coarse vegetation recovery.
+- **Exceptional events:** explicit flood, injury, dead tree, persistent nest or other conspicuous state changes.
 
-Exact frequencies are unknown; don't demand one timer per internal variable.
-
+Rest/time-skips should check for meaningful interrupts without replaying every hidden frame. Tune one set of affordable rates by observable tests rather than requiring every background physiological quantity to integrate continuously.
 ## Environment and cross-domain changes
 
-The map generator establishes mostly fixed streams, springs, terrain, soil, drainage and plant moisture suitability. StalthosSim handles day/night, weather and temporary storm-driven water level changes with **no routine erosion or detailed groundwater transport**.
+World generation supplies stable terrain, streams, soil/habitat and baseline plant distributions. StalthosSim drives simple seasonal weather and temporary flood/wetness masks, not actual fluid balance or erosion. FloraSim chooses growth/coverage variants and changes visible plants using stable seeds, patch state and saved exceptions. FaunaSim uses habitat occupancy and a few condition/behavior rules, not a complete food-web economy.
 
-FloraSim catches up plant health/age from stable suitability, environmental interval summaries and discrete browsing/storm events. InteractionsCore validates finite transfers (food into stomach, biomass removed; rain/damage effects; carcasses/deadwood), preventing double consumption and duplicated live/dead resources.
-
-The renderer can animate foliage wind and wetness each frame while biological state advances only on appropriate events/requests.
-
+InteractionsCore coordinates only local or conspicuous cross-domain results (e.g. food visually removed, a physical injury, a felled tree, a nest lost), with just enough protection against double application. Offscreen browsing and decomposition may be cheap changes to patch appearance or habitat tendency, without proving conservation of biomass. Rendering wind/wetness animation need not cause biology updates.
 ## Invariants / quality checks
 
 1. Adult trees maintain stable shape and accumulated damage after arbitrary chunk cycling.
 2. An active animal is already resting/browsing before Smalltrotter or the bounded camera sees it; the renderer's visibility does not generate it.
 3. No remote island-wide individual wildlife registry. Long-term retained individuals are eligible **only after actual instantiation**, for bounded social, dependent and notable reasons.
-4. Retiring and reinstantiating cohorts preserves demographic accounting (abstract + active reservations + retained), resource debits and age-class transitions; statistical expectations may be approximate, but bookkeeping must not fabricate animals.
+4. Encountered or retained wildlife never doubles, visibly respawns or resurrects at activation boundaries; remote background population estimates may be approximate rather than exactly balanced.
 5. HeroView may observe unseen predators; **HeroSim does not learn of them** until Smalltrotter's own senses detect them.
 6. From a front-facing orbit camera, W moves Smalltrotter toward camera; moving sideways across the view leads to camera translation, not forced heading recenter.
 7. A locally detached camera can inspect a nearby hill but is physically bounded from remote-island flight.
 8. Ordinary thirst/hunger do not hijack direct steering or an active destination. Strong fear/pain can interrupt, especially during autonomous travel.
 9. A comfortable, recently fed large predator may simply watch a juvenile sauropod and return to resting.
 10. A flood affects movement/plant conditions/rendering consistently, then recedes with familiar terrain intact.
-11. Changes to time scale keep developmental/physiological accounting consistent across HeroSim and FaunaSim.
-12. Test modules headlessly with fixed seeds, region cycling and interaction logs, including rain/drought ordering, bounded reconciliation cost, stable tree segment IDs, equivalent player/NPC developmental curves, social follower strait travel and multi-life individual persistence.
+11. Time acceleration preserves a consistent visible aging/development rhythm for the player and comparable NPCs, without requiring exact internal metabolic accounting.
+12. Test deterministic scene reconstruction, continuity across region cycling, visible bite/damage effects, bounded activation cost, comparable stage progression, physical follower strait travel and multi-life individual persistence. Test deep climate-history or branch-segment bookkeeping only if the simpler scheme visibly fails.
 
 ## Related specifications
 
