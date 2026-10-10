@@ -10,6 +10,16 @@ Reference target: **NVIDIA GTX 1080 8 GB (Pascal)**, **first-generation Ryzen** 
 
 No hardware ray tracing, path tracing or frame generation as the baseline. Software GI, foliage upscaling and modern GPU-driven techniques must earn a measured visual/performance benefit.
 
+## Where the frame budget goes
+
+**Give the pixels the budget; starve the invisible simulation.** The 33.3 ms/frame 30 FPS objective is an *entire-scene* measurement including the Hero Beast, visible fauna, dense plant silhouettes, wind, terrain, shadows, water, weather and scene preparation. A candidate rendering feature is evaluated by visual improvement **per unit of measured frame time and memory**, not purely by geometric sophistication.
+
+Break profiling into CPU main/submit, GPU shading/overdraw, visibility and draw dispatch, foliage wind/shadows, character skinning/IK, local physics/contact, streaming/asset uploads and scene-activation spikes. Test steady as well as camera-turn, sudden reveal and chunk-crossing frames. Measure VRAM and memory traffic; a cheap shader with too much transparent foliage may still be expensive. Minimize CPU per-object update/draw overhead with batched instancing and caches; move structural work to offline generation or bounded background preparation.
+
+**Staged fidelity:** current player motion/contact is prompt; on-screen or potentially revealed fauna use only the animation/behavior sophistication needed to read correctly; obscured nearby fauna may maintain cheap poses/activities without full physics/IK; remote regions are visual proxies and density records. Purely decorative plants have zero individual biology ticks and usually no runtime colliders. Never sacrifice near-view silhouettes/lighting before proving that a cheaper approach cannot preserve them.
+
+Require A/B captures *and* frame-time traces for any quality compromise. Do not encode a blanket low-poly/no-shadow decision based on assumptions; optimize the actual dominant costs.
+
 ## Shortlist
 
 1. **Flax Engine** — favored for existing terrain, quadtree foliage, animation and native source access. Watch cluster rebuild cost for frequent plant edits.
