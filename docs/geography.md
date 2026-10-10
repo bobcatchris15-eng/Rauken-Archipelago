@@ -81,6 +81,14 @@ All site references guide **visual form and composition** rather than obligating
 - Small swimmers can be swept laterally, exhausted, stranded on dry islets or unable to land at cliffs. No mandatory island progression.
 - Some shallow crossings between younger islands may be rarely traversable; Outer Reach remains materially more isolated.
 
+## Intentional geographic compression — accepted
+
+**Compress the geography beyond what would be statistically typical in nature when it makes inhabiting and traversing the island more satisfying.** Gorges, valleys, ravines, cliffs, forests, transitions and the spaces between them can be **shorter, smaller or clustered more closely** than their real-world inspirations. A half-hour's travel need not be spent crossing miles of interchangeable woodland to reach the next memorable setting. Do not require a geomorphologically realistic feature frequency, complete watershed scale or an otherwise empty intervening landscape solely for credibility.
+
+The guiding measure is the **frequency of potentially good places**, not an authored quota of attractions. A good spot may be a mossy shelter, sunlit shelf, spring, grassy bank, nesting nook, viewing ridge, feeding thicket or simply an appealing quiet patch. **The player and the Hero Beast's ordinary needs/behavior decide what is good**; the map generator should not label, score or schedule mandatory Good Spots or turn them into quests, rewards or guaranteed encounters.
+
+Maintain locally believable shape, materials, drainage and scale cues. A deliberately shortened gorge should still *feel* like a gorge from the animal's body height; a smaller butte should still have convincing strata, talus and surrounding terrain. Compress the **extent and separation** first, then selectively adjust geometry for legibility and navigation. Avoid theme-park abruptness and too many dramatic landmarks visible at once: calmer ground gives the wonderful places contrast. Tune in-game via slow/normal creature travel and casual autonomous wandering, not from a geological probability model.
+
 ## Feature-density rule
 
 **Compress distances; exaggerate compelling formations; preserve geology and hydrology.** Favor engaging, fairly dense topography over exact probabilistic occurrence of every landform.
