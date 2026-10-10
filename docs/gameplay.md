@@ -42,7 +42,7 @@ Interaction algorithm (conceptual):
 - Species and learned preferences score candidates.
 - A low-cost local action begins only if compatible with player action and safety context, potentially while feet/body continue moving under player steering.
 - Movement, danger, deliberate interaction or loss of access interrupts naturally.
-- Actual calories/water/biomass are changed by the ecological model; animation only represents the event.
+- A successful physical contact updates **simple local** food/water/visible resource state; animation represents a genuine event, not an invented reward from empty foliage.
 
 Never eat undrinkable saltwater because it is water; do not vacuum biomass through rock or far outside neck reach.
 
