@@ -4,7 +4,7 @@
 
 ## Responsibility and authority
 
-StalthosSim produces the **environmental truth consumed by FloraSim, FaunaSim, HeroSim and the renderer**. SimCore owns the clock; StalthosSim advances its environmental processes on that shared timeline. StalthosState persists its current conditions and compact histories.
+StalthosSim produces **shared, approximate environmental state** consumed by FloraSim, FaunaSim, HeroSim and the renderer; it need not be meteorologically exact. SimCore owns the clock; StalthosSim advances its environmental processes on that shared timeline. StalthosState persists its current conditions and compact histories.
 
 ## Static, precomputed spatial inputs
 
@@ -14,16 +14,15 @@ Distance from water is useful for plant distribution but cannot be the sole mois
 
 ## Dynamic environmental outputs
 
-- Global solar/day-night time and seasonal phase as derived from SimCore.
-- Spatially coherent weather cells: air temperature, wind, rainfall, humidity, cloud, visibility.
-- Local modifiers: hill shading, windward/leeward exposure, canopy shelter, evaporative wetness.
-- Wetness, approximate soil-moisture modifier and temporary surface conditions.
-- Rivers/pools at typical seasonal level; storm-driven rise and decline where mapped.
-- Water depth, current class, salinity and accessibility flags for biological and traversal requests.
-- Events: storm front, exceptional wind, prolonged dry spell, heavy rain, flood/high tide where warranted.
+StalthosSim needs a **small set of presentation/behavior controls** rather than a detailed meteorology model:
 
-The environment may appear dynamic without moving the terrain or resimulating erosion.
+- Shared time of day and season (from SimCore); broad regional temperature and rain tendency.
+- Coarse, spatially coherent weather state: sunny/overcast/raining/storming, wind, approximate temperature and dampness. Smoothly interpolate appearance; no atmospheric fluid solve.
+- Static climate, terrain shelter and canopy masks add cheap local variations so a ravine looks wetter than its ridge.
+- Known waterways and floodplain masks gain a simple temporary level/unsafe-crossing state. Brackish/saltwater remains unsuitable for drinking.
+- Rare **consequential events** (e.g. damaging storm, river crossing flooded, tree knocked down) may be kept as small saved exceptions if they affect visible outcomes.
 
+Only expose extra variables when a specific visual effect, navigation decision or creature behavior genuinely uses them. The renderer gets the current presentation state; FloraSim/FaunaSim/HeroSim may consume coarse condition values without requiring scientific heat or water budgets.
 ## Storms and floods
 
 Use weather intensity, regional antecedent wetness and **precomputed drainage/flood masks** to raise water temporarily along known channels, banks and low-ground overflow paths. The result influences traversability, drowning/injury, flora stress and rendered water.
@@ -32,7 +31,7 @@ The expensive simulations to **avoid**: per-frame hydrodynamics across the archi
 
 ## Consumption contracts
 
-- **FloraSim**: baseline suitability + accumulated heat/moisture/season/exceptional event history for lazy growth and mortality.
+- **FloraSim**: baseline suitability, current season/wetness tendency and specific persistent damage outcomes for cheap growth/appearance updates.
 - **FaunaSim**: local thermal, water, visibility and wind conditions for behavior and population risks at variable cadence.
 - **HeroSim**: more frequent sampling for thermal comfort, exposure and nearby water safety.
 - **Renderer**: cached sun, clouds, wind fields, rain, wetness, stream/flood state. The renderer may interpolate appearance each frame but cannot decide whether rainfall occurred.
@@ -40,29 +39,22 @@ The expensive simulations to **avoid**: per-frame hydrodynamics across the archi
 
 ## History and bounded cost
 
-Provide interval summaries: temperature/rain accumulation, drought duration, degree-hours in suitable conditions, flood exposure and major event timestamps. Use coarse spatial grids and deterministic event seeds. Save/checkpoint history in StalthosState. Unobserved weather still advances on the world clock; plant growth can catch up later.
+For inactive regions, store little more than a seed, current season/region state, last coarse update time and occasional **persistent event outcomes**. When revisited, advance vegetation variants and habitat/population tendencies with elapsed-time rules. A dry season may reduce greenery; an explicitly saved storm-destroyed tree remains destroyed.
 
+**Do not reconstruct an exact historical sequence of heat, rainfall, drought or flood intervals for normal background ecology.** No long event journal, per-species climate-integral cache or reference-counted weather history. If an unusual event is observable and lasting, store its *result* or a small timestamped exception directly. Favor a stable current scene over numerically reconstructing its invisible past.
 ## Ordered interval-and-event history contract
 
-**A precipitation sum is not a plant-growth history.** Two regions can receive the same total rain but differ sharply if one has an extended drought then a flood. StalthosSim must preserve enough **sequence** for downstream simulation, without recording every weather frame.
+**Superseded by the display-first decision.** The previous requirement to preserve chronological weather intervals for every plant/region is not part of the baseline design.
 
-Represent regional history chronologically as compact intervals:
-- Interval start/end, season/solar phase and starting relevant wetness/thermal condition.
-- Rainfall total and intensity class; representative temperature with minima/maxima and accumulated growing degree-time.
-- Heat/cold threshold exposure, soil moisture stress and **longest uninterrupted dry/wet spells**, saturation duration.
-- Approximate peak wind/flood depth/current, duration above damaging thresholds and any persistent hazard flags.
-- Distinct timestamped exceptional events, e.g. storm damage, inundation onset/peak/recession, rare windthrow or fire if present.
+Use simple seasonal condition curves, a coarse weather event generator, optional bounded drought/wetness flags and occasional persisted damaging-event outcomes. Two unvisited regions with identical current season and habitat data may legitimately resolve to the same vegetation state even if their imagined rainfall histories differ. They need only differ when a previously visible or consequential exception demands it.
 
-**Split intervals whenever chronology changes the answer**—especially drought onset/break, flooding, seasonal transitions and damage thresholds. A single interval cannot replace drought-then-flood with averaged conditions. Evaluate long histories **in order**, using coarse analytic integration within stable stretches and precise handling at event boundaries. Species/soil threshold logic lives in FloraSim; StalthosSim supplies sufficient measurements/events, not a separate history per plant.
-
-Keep the history as shared **region or climate-cell** records in StalthosState, plus event IDs to prevent double application. Use snapshots/checkpoints and a per-consumer reconciliation watermark (or equivalent safe reference bound) before compaction: never delete an event an unevaluated tree/patch still needs. Exact interval length, number of fields and retention policy must be benchmarked against reconstruction fidelity and save size.
-
+During a rest/time skip, evaluate meaningful active-region dangers and established persistent events at coarse checkpoints; never replay a hidden century of weather frames. Add chronology only if a concrete visual/gameplay test exposes an obvious contradiction that cannot be solved by one or two cheap flags.
 ## Test cases
 
 1. Windward Rainridge wet, sheltered lee drier, without hard biome seams.
 2. Spring-fed Main Island ravine supports wetter habitat than adjacent ridge despite similar rainfall.
 3. Storm raises water on established floodplain; land and stream return close to previous state afterward.
-4. FloraSim can advance 100 days using **ordered** compact intervals/events without replaying every weather tick; equal rainfall totals but different drought/flood sequences yield different outcomes.
+4. FloraSim can advance 100 days from season, coarse weather tendency and saved exceptions at bounded cost; no ordered rainfall reconstruction required.
 5. Quiescent years do not rearrange gullies/stream courses.
 6. Renderer, HeroSim and FloraSim agree about the same rain and soil-moisture episode.
 
