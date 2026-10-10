@@ -10,11 +10,21 @@ Play a dinosaur living its ordinary life on a fictional Late Cretaceous-inspired
 
 A creature can spend its whole life in one valley. Curious players may travel much farther—even across dangerous seas—but the environment owes them neither rewards nor survival.
 
+## Fidelity mandate — theatrical ecology
+
+**Build a beautiful Potemkin village of the Cretaceous.** The experience should *look and behave* like an intricate living world without requiring intricate internal machinery. The visual result, animal animation/interaction and immediate sensory credibility have the highest fidelity priority. Observable local effects and recognizable revisits must remain coherent. Unseen ecological processes are deliberately shallow, statistical, deterministic-where-useful or staged.
+
+**Spend simulation budget only when the player can observe its benefit.** Prefer a simple seasonal moisture factor to weather-history replay; a population density and occasional movement to an exact demographic ecology; a lightweight animal condition model to rigorous metabolic accounting; and a visually changed shrub patch to per-leaf nutrient conservation. Preserve special persistent relationships and conspicuous damaged landmarks, but do not extend those exceptions to every organism.
+
+The world should not visibly contradict itself: creatures must not pop into existence when a camera turns, dead companions cannot reappear, browsed bushes should visibly respond, and familiar fallen trees must stay fallen. Those are **presentation/continuity requirements**, not proof that the invisible ecological model must be physically complete.
+
+If a complex mechanism adds no measurable visual, behavioral or gameplay improvement against a cheap approximation, **do not build it**. Scientific and ecological research is guidance for appearance and plausible behavior, not a requirement for numerical biological fidelity.
+
 ## Design pillars
 
 1. **Lived landscape.** Sheltered mossy ravines, drowned valleys, mineral outcrops, resilient forests, floodplains and real landmarks. Recognizable places matter more than raw area.
 2. **Environmental survival.** Heat, dehydration, hazardous ground, weather, flood pulses, food quality and illness should be more common problems than active predator pursuit.
-3. **Believable organisms.** Plants and animals have ecology, physical structures, growth and relationships. Eating changes plants; weather changes habitat; growth changes mobility and risk.
+3. **Believable organisms on screen.** Plants and animals have convincing structure, movement, growth and relationships. Eating visibly changes nearby plants; weather looks and feels consequential; growth changes movement and reach. Hidden ecology may be approximate.
 4. **Biological credibility with fictional freedom.** Derive anatomy/ecology from Late Cretaceous groups and extant comparators without pretending invention is fossil evidence.
 5. **Density over cartographic purity.** Compress distance and emphasize unusual landforms while retaining coherent geology, drainage and ecological causes.
 6. **No player magnet.** Avoid guaranteed encounters, scripted fauna spawning, predator omniscience and escalating threats tied to player progress.
@@ -43,7 +53,7 @@ No expectation of exact Paleogene/Maastrichtian reconstruction: this is an inven
 - Understory richness vs. fill rate, shadows and visible repetition.
 - Small animal-scale detail vs. overall world size and streaming.
 - Full animal autonomy and documentary observation vs. the immediate priority of direct player steering.
-- Rigorous life simulation vs. readable, non-nagging feedback.
+- Lightweight biological approximations vs. convincing observable consequences and readable, non-nagging feedback.
 - Fluid juvenile development vs. coherent world time and the development of neighboring wildlife.
 - Continuous ecology vs. tractable CPU/memory budgets.
 
