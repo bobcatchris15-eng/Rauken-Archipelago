@@ -39,6 +39,16 @@ An optional 'feature interest' field may bias local relief, rare formations, rav
 - Offline erosion and geometry processing only for ordinary terrain evolution; runtime floods temporarily cover preset areas, with rare discrete debris/rockfall. No routine stream migration, sediment transport or terrain erosion simulation.
 - Stable seeds and landmark identities. Don't regenerate a known rock tower into a different shape when its tile reloads.
 
+## Travel-scale compression and emergent places
+
+**Accepted direction:** intentionally increase the proximity and number of distinctive, useful or lovely places compared with natural geomorphic distributions. Shorten long gorges, bring contrasting substrates/valleys/forest openings closer together, and cluster small shelters and microhabitats where believable. Generated topography is judged by how rewarding it feels to move through as an ordinary creature, not by whether a real regional watershed would have ten times the reach.
+
+Do **not** introduce a formal “Good Spot” metric, gameplay attraction grid, timed reward interval or progression-driven point-of-interest system. Instead create many affordances: water, food, shade, defensible hollows, comfortable resting surfaces, striking views, sunning rocks, narrow passes and unusual plant assemblages. These *might* be good spots depending on player taste and the current Hero Beast's ordinary circumstances. They need not be explicitly recognized or pursued as objectives.
+
+Preserve plausible **local causality**—water flows downhill, cliffs have believable supports, boulders come from rock, forests track broad shelter/moisture and each animal encounters real passability constraints. Compression may alter absolute width, length, frequency and spacing; it should not flatten the character of a place or create jarring unrelated biome tiles. Mix quiet connective terrain with dense detail to support discovery and changing visual rhythm.
+
+Playtest with several Hero Beast sizes and movement modes. Compare memorable place discoveries per traversal, whether the camera can frame each location on its own, how often terrain blocks/opens movement, and whether any region feels like a repetitive flat spacer or an unnatural row of spectacles. Do not hardcode numerical thresholds before seeing and moving through a build.
+
 ## Player-scale composition
 
 Compose on four nested scales:
