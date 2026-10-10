@@ -13,7 +13,7 @@ HeroSim is **species-neutral**: Smalltrotter is the visual flagship, not a unive
 **Voluntary authority from strongest to least:**
 1. **Direct body-relative steering.** W requests the animal's own forward, regardless of camera; turning/backing, acceleration and sprinting obey its anatomy. Direct steering takes priority over and normally cancels autonomous destinations.
 2. **Player-invoked contextual intentions** (e.g. inspect a specific object, greet a companion, interpose, threaten, stalk, select a nesting site) and persistent destination goals. HeroSim executes a plausible attempt with actual geometry, sensory evidence, contact, hazards and changing animal state; outcomes are never guaranteed.
-3. **Uncommanded full autonomy.** Without controlling input or outstanding player-directed goals, the animal may actually travel, forage, court, breed, care for young, rest, socialize, flee or die. It is not leashed to an idle-animation radius. Direct steering can immediately interrupt voluntary autonomous actions.
+3. **Uncommanded full autonomy.** Without controlling input or outstanding player-directed goals, the animal may actually travel, forage, court, breed, care for young, rest, socialize, flee or die. This is ordinary local animal life, **not an intrinsic drive to explore distant country**: a comfortable, adequately supplied animal has little reason to leave its current habitat. There is no artificial idle-radius leash, and genuine ecological pressures can shift its range. Direct steering can immediately interrupt voluntary autonomous actions.
 
 **Autonomy remains active during direct steering.** Compatible browsing, chewing, attention, postural correction, scent investigation and vocal/social responses proceed without prompts. Normal hunger, thirst or curiosity do not wrest control of the feet from the player. Genuine severe pain, loss of balance or immediate danger can cause short involuntary reflexes; never turn these into prolonged cutscenes.
 
@@ -28,6 +28,21 @@ HeroSim owns **one** voluntary intention/execution system. An intention may aris
 Retain minimal **provenance and authority metadata** (source, priority, optionally cancellation/status) to preserve player agency. A player-suggested goal ordinarily persists through hunger, thirst, curiosity and minor interruptions; strong pain/fear, blocked passage and genuine limitations can pause, replan or abandon it. When the goal finishes/fails or the player cancels it, the animal resumes full autonomous goal selection. Direct body-relative steering remains strongest voluntary input and normally cancels outstanding selected destinations. A *detached camera* alone is not a command and never pauses the Hero Beast's life.
 
 **Information boundary:** the player may inject a desired location the animal has never seen (the Malkovich premise), but **not** a mental map of optimal terrain, an unseen predator position, or an audio/visual observation available only to the detached camera. The animal discovers hazards and responds through its own senses and physics during execution.
+
+## Short-lived working memory and home-range behavior
+
+**Decision: cap ordinary animal memory to bounded, short-term working state.** HeroSim does **not** accumulate a learned geographical map, a lifelong catalog of places or routes, a generalized experience/skill history, or a persistent homing target. Do not add a general learning system to make autonomy work.
+
+- **Immediate observations:** currently reachable food, an obstacle being negotiated, a nearby call, visible threat or social cue can inform the present action.
+- **Recent context:** a temporarily occluded predator, a recently visited drinkable pool or the course interrupted by a startle can remain relevant briefly; remembered observations decay/expire instead of persisting indefinitely. A threat must not vanish from the animal's mind the instant it leaves sight.
+- **Bounded implementation:** a small, capped collection of observation/action records with timestamps or short expiry is sufficient. Details, capacity and duration are implementation-tuning parameters. Recent-event habituation (such as Brackenback settling after repeated harmless rustling) also fades; it is not permanent conditioning.
+- **Not general memory:** physiological condition, current intentional action, pregnancy/dependence and explicitly retained social attachments are distinct state, not license to store an expanding autobiographical or spatial history. Reedcrest peer bonds and Longstride dependent-young/caregiver ties may persist through the established bounded FaunaSim/StalthosState identity rules; they do **not** imply lifelong place memory.
+
+**Home range is ecological, not a memorized territory.** An uncommanded animal usually remains around usable local food, water, shelter, compatible company and species-appropriate activity. It may range across a valley or farther when those circumstances warrant, without a magic invisible fence, but should not generate long expeditions just to find new scenery. Species differ in normal ranging scale; Longstride can roam more widely than Smalltrotter without learning a permanent trail atlas.
+
+**Player travel does not install a return-home obligation.** If the player leads Smalltrotter several valleys away and releases control, she resumes ordinary local life where she is, based on what she can currently sense and briefly remember. She does **not** plan a trip back to her former home range or require simulated geographic relearning. Resource shortage, danger, seasonal change, social needs or displacement can still cause natural movement. The *player's intention* supplies most exceptional exploration; HeroSim provides ordinary animal competence while doing it.
+
+Save/load and activation need only preserve the existing persistent biological, relationship and ecological truths plus whatever minimal current activity continuity is warranted, **not** long-term personal maps. NPCs use the same bounded-attention principle under FaunaSim; dormant cohorts do not learn offscreen routes.
 
 ### Dual hearing of shared sound events
 
