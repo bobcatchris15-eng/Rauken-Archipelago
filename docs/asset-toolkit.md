@@ -13,24 +13,26 @@ Prioritize **free/open source and no paid recurring API rates**. Paid/legacy too
 ### Essential
 - **Blender + Python/bpy**: anatomical master meshes, sculpting, procedural Geometry Nodes, branch/fern generators, rigs, bake passes, headless renders and exports.
 - **Python/PowerShell**: orchestration; scientific geometry/data tools, manifests, batch export, QA and reporting.
-- **Visual Studio C++ build tools and .NET** if chosen engine requires it.
-- **Flax and/or Wicked** source/build tooling for renderer tests.
+- **Visual Studio C++ build tools and tested Windows SDK** for the selected Wicked Engine source/build configuration; determine actual required components from the installed version.
+- **Wicked Engine** source/editor/standalone build tooling as the sole active renderer. Derived WISCENE and shader outputs must not replace authored neutral masters.
 - **Git and Git LFS**: text specs and scripts in ordinary Git; version heavyweight source assets deliberately, with provenance.
 - **meshoptimizer / gltfpack**: optimize and simplify static meshes and process glTF with rig/animation checks.
 - **AMD Compressonator**: BC texture compression with proper format selection (e.g., BC5 normals, BC7 color where suitable).
 - **RenderDoc, PresentMon, Tracy and native profilers**: visual/frametime validation.
 
 ### Strong optional candidates
-- **PlantFactory** (discontinued but free perpetual from Bentley) for procedural trees/plants **only if export and agent automation work reliably**. Its PlantCatalog assets have distinct redistributing/resale limitations.
-- **Material Maker** for procedural PBR bark, foliage, stone and animal skin material prototypes.
-- **Krita / GIMP** for mask painting, texture corrections, composites and photo processing.
+- **PlantFactory** (discontinued perpetual Bentley edition) for procedural trees/plants **when a real installed exporter works**. Probe actual automation, preserve source and branch pivot metadata; PlantCatalog-derived assets have distinct licensing/resale constraints. Blender remains mandatory fallback.
+- **Material Maker** or Blender-node recipes for procedural PBR bark, foliage, stone, moss, fungi and skin materials. Include editable roughness, albedo, tangent-space normals, AO and leaf thickness/transmission intent.
+- **Krita / GIMP**, optionally **ArmorPaint**, for mask painting, texture corrections, composites and photo processing.
 - **Inkscape** for vector diagrams and user-interface artwork.
 - **QGIS / GDAL** for terrain GIS data and drainage inspection.
-- **Gaea** for terrain experiment reference where licensing/export tiers permit.
+- **Gaea** for terrain experiment reference where licensing/export tiers permit. **RealityScan or other photogrammetry** can produce rock/root/log scans if image rights and local license permit; use CC0 Poly Haven data or own photos otherwise.
 - **ImageMagick, FFmpeg** for deterministic image/video postprocessing and render comparisons.
 - **glTF Transform, Khronos validators, KTX-Software** where target engine and data formats support them.
 
-Do not confuse asset visualization software (VUE/PlantFactory) with a runtime game engine.
+Do not confuse asset visualization software (VUE/PlantFactory) with a runtime game engine. The active renderer is Wicked; keep every source profile and editable geometry/material independent of it.
+
+**Machine work packets:** [Wicked PlantFactory/material pipeline](implementation/wicked-material-pipeline.md) and [75-node execution graph](../tasks/README.md). Implement actual version probes, shader/roughness channel mappings and pivot-preservation QA before declaring external authoring automation complete.
 
 ## Proposed command-line tool contract
 
@@ -115,7 +117,7 @@ Automate turntables at fixed angles, closeup skin/frond crops, moving-camera tes
 
 ## Initial tool-building experiment
 
-Build the six reference plants from [Flora](flora.md) and the sauropod anatomical proxy from [Creatures](creatures.md). Run generation, bake, import, turntables, LOD, and benchmark. This is an **asset/rendering experiment**, not a playable game.
+Build the six reference plants from [Flora](flora.md) and the sauropod anatomical proxy from [Creatures](creatures.md). Run generation, bake, **Wicked native import**, turntables, LOD, material shader checks, and target-PC benchmark. This is an **asset/rendering experiment**, not a playable game.
 
 ## Vendor/source leads
 
