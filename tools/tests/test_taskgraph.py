@@ -24,13 +24,22 @@ class TaskGraphTests(unittest.TestCase):
         cls.by_id, cls.order = tg.validate_graph(cls.graph)
 
     def test_real_graph_is_acyclic_complete_and_bounded(self):
-        self.assertEqual(len(self.by_id), 68)
-        self.assertEqual(len(self.order), 68)
+        self.assertEqual(len(self.by_id), 75)
+        self.assertEqual(len(self.order), 75)
         self.assertEqual([g["id"] for g in self.graph["gates"]], ["G0", "G1", "G2", "G3"])
         self.assertEqual(
             [t["id"] for t in tg.ready(self.graph, self.by_id, tg.empty_state(), 3, None)],
             ["CFG-001", "CFG-003", "CON-001"],
         )
+
+    def test_wicked_only_pipeline_and_new_material_tasks(self):
+        ids = set(self.by_id)
+        self.assertTrue({"PFA-001", "PFA-002", "PFA-003", "MAT-001", "MAT-002", "MAT-003", "GEO-001"} <= ids)
+        self.assertEqual(self.graph["conventions"]["primary_renderer"], "wicked")
+        self.assertFalse(any("flax" in t["capabilities"] for t in self.by_id.values()))
+        self.assertIn("MAT-002", self.by_id["RND-002"]["depends_on"])
+        self.assertIn("MAT-003", self.by_id["RND-007"]["depends_on"])
+        self.assertEqual(self.by_id["RND-001"]["capabilities"], ["windows", "wicked", "python"])
 
     def test_reference_capabilities_exclude_win_tasks(self):
         selected = tg.ready(self.graph, self.by_id, tg.empty_state(), 3, {"python"})
