@@ -4,7 +4,7 @@
 
 ## World model
 
-Create one persistent ecological reality with **RaukenState** storing identities/history and the domain simulations owning their facts. The renderer is a consumer, not an alternate source of biological truth.
+Create one persistent ecological reality with **StalthosState** storing identities/history and the domain simulations owning their facts. The renderer is a consumer, not an alternate source of biological truth.
 
 Causal chain: **geology → relief/substrate → exposure/drainage/water → soils/microclimate → plants → consumers/decomposers → disturbance and succession**.
 
@@ -22,7 +22,7 @@ Biomes are descriptive landscape assemblages, not abrupt boundaries. Habitat sui
 
 Watercourses, springs, permanent ponds, aquifer-influenced zones, wetlands, soil drainage and floodplain shapes are **authored or generated with the map** and remain geographically stable across ordinary game years. Distance from freshwater informs flora distribution, but must combine with **relative height above water**, soil permeability, shade, slope and baseline rainfall. Expose these as precomputed environmental suitability/moisture fields.
 
-**RaukenSim** owns day/night, seasons, regional weather, current wetness and exceptional storms/floods. Storms temporarily raise river levels and inundate **known flood-prone terrain**, then recede. Avoid continuous groundwater storage/pressure/transport simulation, channel erosion, riverbed remodeling and full fluid dynamics.
+**StalthosSim** owns day/night, seasons, regional weather, current wetness and exceptional storms/floods. Storms temporarily raise river levels and inundate **known flood-prone terrain**, then recede. Avoid continuous groundwater storage/pressure/transport simulation, channel erosion, riverbed remodeling and full fluid dynamics.
 
 Available water still has accessibility, depth, salt content, temperature and approximate current; a wet-looking inlet is not automatically drinkable. Rainfall history may influence botanical growth without actually moving terrain.
 
@@ -63,7 +63,7 @@ Most terrain remains fixed. Major storms may cause discrete treefall, debris or 
 
 ## Scale and performance
 
-Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** instantiates local wildlife from regional cohorts at simulation-chunk activation, uses multirate responsive local behavior and only retains already-instantiated eligible mature giants; it otherwise uses coarse populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using RaukenSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **RaukenState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
+Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** instantiates local wildlife from regional cohorts at simulation-chunk activation, uses multirate responsive local behavior and only retains already-instantiated eligible mature giants; it otherwise uses coarse populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using StalthosSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **StalthosState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
 
 Use event scheduling, low-frequency growth/accounting and deterministic spatial seeds. Separate render-chunk rebuild from ecological updates; batch many plant changes rather than one mesh rebuild per bite.
 
@@ -78,7 +78,7 @@ Don't equate offscreen simplification with resetting resources. Return visits sh
 - Conditions determine wildlife distributions; never hardcode predatory ambushes to player location.
 - Instrument per-tick CPU, save/load cost, memory and local detail promotion/demotion.
 
-Cross-references: [Architecture](simulation-architecture.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [HeroSim](hero-sim.md), [World generation](world-generation.md).
+Cross-references: [Architecture](simulation-architecture.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [HeroSim](hero-sim.md), [World generation](world-generation.md).
 
 ## Simulation chunks versus camera visibility
 
