@@ -23,7 +23,7 @@ DEFAULT_GRAPH = ROOT / "tasks" / "toolkit-graph.json"
 DEFAULT_STATE = ROOT / ".taskgraph-state.json"
 VALID_CAPABILITIES = {
     "python", "powershell", "windows", "blender", "github-actions",
-    "flax", "wicked", "gpu-target",
+    "wicked", "plantfactory", "gpu-target",
 }
 VALID_LANES = {
     "integration", "contracts", "assets", "research", "quality",
@@ -243,7 +243,7 @@ def task_packet(item: dict, graph: dict, json_format: bool) -> str:
         "Deliver a concrete working change and executable tests where tools are available.",
         "If required hardware/software is absent, make only portable code/fixtures, report exact blocker and do not claim empirical completion.",
         "Maintain all source masters in editable form. Do not download/commit unlicensed references or paid model/API dependencies.",
-        "No vertical slice, game engine election without measured parity, or deep hidden ecological simulation.",
+        "No vertical slice, competing renderer task, or deep hidden ecological simulation.",
         "",
         "Read before work:",
     ]
