@@ -1,6 +1,7 @@
 # Parallel agent work packages and integration rules
 
-**Status:** Ready-to-assign specifications, **not dispatched agent executions**.  
+**Status:** Ready-to-assign specifications, **not dispatched agent executions**.
+**Execution interface:** [Toolkit task graph](../../tasks/README.md) is the detailed machine-readable dependency queue and worker packet generator; these lane guidelines govern review and cross-domain integration.  
 **Parent:** [Roadmap](README.md); [Toolkit breakdown](toolkit.md).  
 **First integration rule:** one worker owns v0.1 interface decisions; other workers may prototype in parallel but cannot silently invent contradictory production contracts.
 
