@@ -8,6 +8,14 @@
 
 The map itself, persistent botanical state, and regional fauna populations remain available at coarse scale beyond activated chunks. There is no requirement to individually simulate every distant animal or tiny plant.
 
+## Activation does not mean full-rate simulation
+
+**Prepare to be seen; do not continuously compute what cannot be seen.** A simulation-region buffer around the full HeroView camera envelope holds plausible seeds, placements and a lightweight activity/pose for candidate wildlife. It does **not** require full skeleton updates, AI/path searches, accurate collision, individual physiology or every-visible-plant polling throughout the buffer.
+
+Promote individual actors to responsive movement/contact when near enough to matter; phase-stagger or reduce ordinary nearby AI and animation; return animals to pre-staged cheap state when hidden, with enough short continuity that a quick camera turn cannot expose a reset. Distant habitat state is reconstructed on demand. Process activation, geometry creation, culling-data rebuilds, physics registration and retirement in budgeted batches, not a synchronous frame spike.
+
+The player animal and immediately contacting/urgent objects remain responsive regardless of frame throttling elsewhere. Budget sizes, promotion distances and update rates are to be measured in the reference scene, not guessed from island size.
+
 ## Separate spatial interests
 
 | Region | Anchor(s) | Primary purpose |
