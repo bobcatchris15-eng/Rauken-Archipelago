@@ -9,7 +9,7 @@
 1. **Observable art is the product.** Spend offline effort on silhouettes, anatomy, branch hierarchy, textures, normals, LODs, believable placement and movement. Do not develop hidden growth/energy/food-web solvers to prove the toolkit.
 2. **An agent must operate it without clicking.** Every essential operation has a documented CLI path, machine-readable result, deterministic seed handling, actionable diagnostic and a test fixture. Blender GUI can remain available for expert manual revisions.
 3. **Source is recoverable.** Declare morphology in human-editable profiles, preserve .blend or similar native masters and bake optimized exports as derived, hash-addressed artifacts.
-4. **One neutral canonical handoff.** Blender/source producers do not emit Flax-only or Wicked-only authored masters. Engine adapters transform a shared interchange/manifest after asset QA.
+4. **One neutral canonical handoff.** Blender/source producers do not emit Flax-only or Wicked-only authored masters. The current Wicked adapter transforms a shared interchange/manifest after asset QA; other engines are deferred.
 5. **Aesthetic acceptance is separate from schema validity.** Renders, moving reviews, silhouette contact sheets and human scrutiny decide whether something is good-looking; validators decide whether it is repeatable, importable and correctly licensed.
 6. **No unbudgeted dependencies.** Prefer free/open-source tools and local inference/production. A third-party package, cloud API or proprietary asset library cannot become mandatory without a version/license/provenance review.
 7. **Do not certify performance by topology alone.** Test overdraw, shadowing, draw calls, skinning, upload/streaming and GPU memory on the stated reference computer when available.
@@ -26,7 +26,7 @@ Implement a single PowerShell entry point with a read-only discovery command. In
 Probe and report:
 - OS build, architecture, processor, RAM, GPU, dedicated VRAM, graphics driver and current display modes;
 - Git, Git LFS, Python executable/version, Blender executable/version and supported Blender background mode;
-- available C++ compiler, Windows SDK, .NET/Flax build dependencies, optional Wicked/Flax source locations;
+- available C++ compiler, Windows SDK, locally installed Wicked Engine source/executables and actual compiler/build dependencies;
 - meshoptimizer/gltfpack or glTF Transform, Khronos glTF Validator, Compressonator, Material Maker, KTX tools if available;
 - RenderDoc, PresentMon, Tracy and optional image/video tooling;
 - optional PlantFactory, without making it a blocking dependency;
@@ -144,6 +144,13 @@ Evaluate geometry-vs-masked-card leaf treatments *per morphology family*: broadl
 
 **QA:** neutral diffuse/material passes, tangent seams, invalid UV/tangent/normal detection, texture paths/content hashes, silhouette continuity across LODs, shimmer in moving imagery, material/draw-call and VRAM cost in engine. Real asset quality never receives an unconditional fixed triangle count invented in advance.
 
+
+### Wicked-focused material and third-party authoring work
+
+The **active executable DAG** additionally assigns PFA-001/002/003 (PlantFactory version/license/export test, Blender import and preserved wind pivots), MAT-001/002/003 (procedural PBR and honest roughness authoring, Wicked channel packing/DDS/alpha mips, foliage transmission and wetness shader), and GEO-001 (legally usable photographed rock/root/log inputs). These are first-class bounded worker tasks, not a general suggestion to install software.
+
+Keep Material Maker, PlantFactory, InstaMAT, ArmorPaint and photogrammetry tools **optional and version-audited**; only a tested supported export path is an accepted automation feature. Protect per-branch wind/animal-contact attributes from mesh optimization and maintain a separate native Blender generator route for all mandatory G1 plant forms. Native plant source and neutral texture recipes persist independently of derived Wicked materials. See [Wicked material pipeline](wicked-material-pipeline.md).
+
 ## D. Hero reference and interactions: TOOL-09, TOOL-10
 
 ### TOOL-09 — Smalltrotter anatomical proxy, shared rig contract and contact clips
@@ -182,7 +189,7 @@ References are **source material and evidence**, not automatically redistributab
 
 Reference families to gather for eventual review: Main Island (Driftless/Baraboo, Wisconsin sand plain and buttes, Catskills/Appalachians, Scottish Highlands, pine barrens, selected South African terrains); Rainridge (Olympic temperate rainforest and Great Smoky Mountains humid coves); Stone Island (Yucatán/cenote and Costa Rican karst); Outer Reach (tsingy-like pinnacles and badlands). Treat these as **form/lighting references, not species or geology prescriptions**. Attach actual high-resolution originals only when reuse terms permit; otherwise store citations/links and separately authored derivative instructions.
 
-For optional PlantFactory: record exact installer/version, test scripted batch export availability, verify provenance of every PlantCatalog-derived asset, and do not confuse permitted inclusion in a game with unrestricted asset marketplace resale. No hidden dependency on deprecated plugins or GUI-only projects. Independently modeled Blender/PlantFactory plants should be flagged distinctly from PlantCatalog variants.
+For optional PlantFactory: record exact installer/version, test actual unattended export rather than inventing a CLI, verify provenance of every PlantCatalog-derived asset, preserve branch/pivot/wind metadata where exported, and do not confuse permitted inclusion in a game with unrestricted asset marketplace resale. **Agent DAG:** PFA-001/PFA-002/PFA-003; Blender-native vegetation remains mandatory fallback. No hidden dependency on deprecated plugins or GUI-only projects. Independently modeled Blender/PlantFactory plants should be flagged distinctly from PlantCatalog variants.
 
 **QA:** publication halts on missing legal provenance for external base meshes/textures, not on purely linked documentary references requiring no redistribution. No invented scientific sources, exact fossil claims or assumed public-domain status for modern photos.
 
@@ -211,13 +218,13 @@ A reproducible neutral terrain package: visible ravine and stream grading into o
 
 Required sidecars: material/strata masks, precomputed moisture/sun/substrate fields, stable landmarks/instance IDs, coarse accessibility/collision data, stream surfaces and water direction, placement seeds, dense comparison patch bounds, camera routes. Document blend seams, physics contact surfaces and asset unit convention.
 
-### BENCH-01 — comparable engine import fixtures
+### BENCH-01 — neutral-to-Wicked import and material fixtures
 
-Import same package to isolated Flax and Wicked projects. Adapter consumes **published** toolkit neutral bundles, not author-only .blend scene assumptions. Both must identify missing/unsupported shader/rig features, apply documented substitutions and report whether visual parity survives. WISCENE and Flax-native cooked formats are **outputs** of adapters, never the sole source master.
+Import the neutral package into the **one active Wicked project**. The Wicked adapter consumes **published** toolkit-neutral bundles, not author-only .blend scene assumptions. It must identify missing/unsupported shader/rig/plant-pivot/material-channel features, document substitutions and compare Wicked image/scene results to neutral source/Blender reference evidence. Derived WISCENE, compiled shaders and DDS are outputs, never sole source masters. Implement RND-001/002/003; see [Wicked materials pipeline](wicked-material-pipeline.md).
 
 ### BENCH-02/03 — visual + frame timing
 
-Profile after representative dense lighting/wind/foliage and hero movement exist. Preserve capture manifests, standalone build hashes, driver/API, resolution, actual CPU/GPU clocks, benchmark camera path, cold/warm distinction, PresentMon frame data where supported, RenderDoc captures and Tracy/engine CPU measurements. Show separate medians/P95/P99, low-FPS events, GPU busy, CPU cost, allocations, upload spikes, VRAM and scene parity checklist. Prefer measured frame traces over intuition about draw-call/triangle counts.
+Profile after representative dense lighting/wind/foliage and hero movement exist. Preserve capture manifests, standalone build hashes, driver/API, resolution, actual CPU/GPU clocks, benchmark camera path, cold/warm distinction, PresentMon frame data where supported, RenderDoc captures and Tracy/engine CPU measurements. Show separate medians/P95/P99, low-FPS events, GPU busy, CPU cost, allocations, upload spikes, VRAM and neutral-to-Wicked import fidelity checklist. Prefer measured frame traces over intuition about draw-call/triangle counts.
 
 ## G. Proposed command and artifact examples
 
@@ -265,15 +272,14 @@ T5 visible-depletion semantics can use temporary demonstration fixture values un
 - **Pass 1, integration spine:** TOOL-01 doctor, TOOL-02 profile/common receipt schemas, TOOL-03 CLI validate/build/QA with a primitive geometric fixture, clean failure path and documented local invocation. No external texture or large asset purchase.
 - **Pass 2, structural breadth:** TOOL-04 Softbough/Splitcrown, TOOL-05 Jointreed/Royal frond/Basketfern and TOOL-06 bracket fungus in parallel using frozen v0.1 schema. Each returns source, neutral export, anchors and fixed-camera previews. TOOL-08 bakes/LODs and TOOL-11 rights ledger can proceed alongside.
 - **Pass 3, movement and publication:** TOOL-09 Smalltrotter proxy/animations, TOOL-10 contact bending, TOOL-12 validation montage/review and atomic publish receipts.
-- **Pass 4, scene test:** WORLD-01 neutral Splitstone export, BENCH-01 consistent Flax/Wicked import; fix format losses at producer or adapter boundaries with versioned tests.
-- **Pass 5, measured engine selection:** BENCH-02/03 repeatable full-scene runs and written engine decision. Only thereafter approve broad runtime implementation.
+- **Pass 4, scene test:** WORLD-01 neutral Splitstone export, BENCH-01 reproducible neutral-to-Wicked import and explicit missing-feature report; fix format losses at producer or adapter boundaries with versioned tests.
+- **Pass 5, measured Wicked readiness:** BENCH-02/03 repeatable Wicked full-scene runs and written shader/foliage/memory bottleneck report. Continue optimizing Wicked against reference-PC visuals and frame timings rather than spending effort on a second engine.
 
 **Suggested first agent task:** implement TOOL-01 plus a one-page actual machine report and dependency pin proposal; in parallel have another agent *draft*, not land, TOOL-02 schemas and sample Softbough/Smalltrotter manifests. After the first schema approval, fan out geometry, creature, terrain and QA work. Do not ask five independent workers to choose five incompatible profile formats.
 
 ## J. Vendor verification pointers (snapshot, verify at execution)
 
 - Blender official manual: background Python and command-line rendering supported; keep exact installed version in receipt. https://docs.blender.org/manual/en/latest/advanced/command_line/
-- Flax official build/headless CLI docs (e.g. editor headless Game Cooker); confirm local source and export/import automation. https://docs.flaxengine.com/manual/editor/advanced/command-line-access.html
 - Wicked official repository: Windows source build, editor and GLTF/GLB imports; test actual conversion to WISCENE. https://github.com/turanszkij/WickedEngine
 - Bentley e-on/PlantFactory: perpetual editions and PlantCatalog-derived distribution limitations; verify exact FAQ. https://www.bentley.com/products/e-on-software/
 - meshoptimizer: https://github.com/zeux/meshoptimizer
@@ -287,4 +293,4 @@ These links are leads for implementers, not proof that installed releases, licen
 
 ## K. Definition of complete for the toolkit *experiment*
 
-G1 may be accepted when every one of the six reference botanical assets and the Smalltrotter proxy has an editable source, pinned input manifest, neutral importable export, suitable semantic sidecar, preview/contact/animation evidence as appropriate, license provenance, structural QA result and hash-stable receipt; a clean worker can reproduce them from documented Windows commands; and important failures are diagnosable without hand editing. **Good visual quality is a separate human gate.** The *final production-grade library, engine choice, full archipelago and complete actor roster are deliberately beyond G1*.
+G1 may be accepted when every one of the six reference botanical assets and the Smalltrotter proxy has an editable source, pinned input manifest, neutral importable export, suitable semantic sidecar, preview/contact/animation evidence as appropriate, license provenance, structural QA result and hash-stable receipt; a clean worker can reproduce them from documented Windows commands; and important failures are diagnosable without hand editing. **Good visual quality is a separate human gate.** The *final production-grade library, completed Wicked rendering integration, full archipelago and complete actor roster are deliberately beyond G1*.
