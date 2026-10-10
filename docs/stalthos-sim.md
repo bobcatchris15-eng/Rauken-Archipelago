@@ -4,7 +4,7 @@
 
 ## Responsibility and authority
 
-StalthosSim produces **shared, approximate environmental state** consumed by FloraSim, FaunaSim, HeroSim and the renderer; it need not be meteorologically exact. SimCore owns the clock; StalthosSim advances its environmental processes on that shared timeline. StalthosState persists its current conditions and compact histories.
+StalthosSim produces **shared, approximate environmental state** consumed by FloraSim, FaunaSim, HeroSim and the renderer; it need not be meteorologically exact. SimCore owns the clock; StalthosSim advances its environmental processes on that shared timeline. StalthosState persists current broad conditions and exceptional visible outcomes, not general climate histories.
 
 ## Static, precomputed spatial inputs
 
@@ -42,7 +42,7 @@ The expensive simulations to **avoid**: per-frame hydrodynamics across the archi
 For inactive regions, store little more than a seed, current season/region state, last coarse update time and occasional **persistent event outcomes**. When revisited, advance vegetation variants and habitat/population tendencies with elapsed-time rules. A dry season may reduce greenery; an explicitly saved storm-destroyed tree remains destroyed.
 
 **Do not reconstruct an exact historical sequence of heat, rainfall, drought or flood intervals for normal background ecology.** No long event journal, per-species climate-integral cache or reference-counted weather history. If an unusual event is observable and lasting, store its *result* or a small timestamped exception directly. Favor a stable current scene over numerically reconstructing its invisible past.
-## Ordered interval-and-event history contract
+## No mandatory climate chronology (supersedes earlier design)
 
 **Superseded by the display-first decision.** The previous requirement to preserve chronological weather intervals for every plant/region is not part of the baseline design.
 
