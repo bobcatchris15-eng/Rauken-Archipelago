@@ -7,6 +7,8 @@
 
 Read [Toolkit implementation](toolkit.md) for work items and exact handoffs, and [Parallel work packages](parallel-work.md) for bounded concurrent assignments.
 
+**Squad execution:** [Machine-readable 68-task DAG, dispatcher and acceptance gates](../../tasks/README.md) translates this plan into agent-ready bounded work. The graph is canonical for dispatch; this document remains rationale and design authority.
+
 ## 1. Baseline and priority order
 
 The existing 20 topical documents, planning index, and root README describe a coherent game direction but no code, chosen language, locked content schema or completed renderer benchmark. Their authority is:
