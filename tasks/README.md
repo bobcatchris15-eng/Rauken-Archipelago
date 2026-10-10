@@ -3,9 +3,9 @@
 This directory defines the **toolchain build**, not a new game feature list. The deliverable is an agent-operated Windows-first workshop that can author, rig, bake, validate, version, preview, publish and benchmark engine-neutral landscape/plant/creature assets.
 
 **Canonical plan**: [toolkit-first roadmap](../docs/implementation/README.md) and [detailed toolkit spec](../docs/implementation/toolkit.md).  
-**Canonical agent DAG**: [toolkit-graph.json](toolkit-graph.json) (68 detailed work nodes).  
+**Canonical agent DAG**: [toolkit-graph.json](toolkit-graph.json) (75 detailed work nodes; sole renderer target Wicked).  
 **Coordinator tool**: [taskgraph.py](../tools/taskgraph.py).  
-**Status**: none of the 68 implementation tasks is complete merely because the planning files exist.
+**Status**: none of the 75 implementation tasks is complete merely because the planning files exist.
 
 ## Start in one shell
 
@@ -20,7 +20,7 @@ To ask for only jobs an environment can run:
     python tools/taskgraph.py ready --max 3 --capabilities python
     python tools/taskgraph.py ready --max 3 --capabilities python,windows,powershell,blender
 
-Omitting \`--capabilities\` **does not check whether the worker has tools**; it displays potential jobs. \`gpu-target\` means access to **the actual reference machine** for claims of measured performance, not simply any GPU. Flax and Wicked capabilities mean tested local engine installs.
+Omitting \`--capabilities\` **does not check whether the worker has tools**; it displays potential jobs. \`gpu-target\` means access to **the actual reference machine** for claims of measured performance, not simply any GPU. The `wicked` capability means a tested local Wicked build; `plantfactory` means a genuinely operable installed PlantFactory edition. Neither is inferred from docs alone.
 
 ## Coordinator-owned state: never use git branches as a race-prone status database
 
@@ -69,6 +69,14 @@ Use the CLI \`packet\` output as the full agent assignment, **not only the title
 
 When agents encounter undefined shared fields, they must request an interface change; they must **not** rename schema IDs, rigs, neutral asset interchange or renderer policies in their own task branch. The integration lead owns those decisions. Changes to the DAG itself go through review.
 
+## Wicked-first authoring paths
+
+The active renderer path runs **RND-001 Wicked import → MAT-002 channel packing/DDS → RND-002 native smoke scene → RND-003 neutral-to-Wicked scene audit → RND-005/006/007/008 capture experiments → RND-009 hardware readiness**. Material production and scanned rocks have dedicated tasks; read [Wicked materials and PlantFactory pipeline](../docs/implementation/wicked-material-pipeline.md).
+
+The additional work packets are **PFA-001/002/003** (PlantFactory license/export probe, Blender interchange, preserved leaf/branch pivot/wind attributes), **MAT-001/002/003** (procedural PBR + roughness, Wicked texture packing, thin-leaf wetness/transmission shaders), and **GEO-001** (legally sourced photogrammetry and rock/root/log cleanup). PlantFactory and photogrammetry exporters may remain optional/blocked if they aren't installed. Blender-native plant generation remains the reliable G1 fallback.
+
+Avoid giving a shader-only worker a high-level `Wicked integration` job until the branch/core material contracts are accepted; request its specific task packet. Equivalent art coverage is checked against original Blender renders and instance manifests rather than a second renderer.
+
 ## First three assignments
 
 With an empty status journal, the independent roots are:
@@ -87,10 +95,10 @@ Suggested allocation with a flash-heavy harness: up to **three active coding wor
 
 - **G0 – foundation:** environment, coordinates, schemas, CLI and CI recognized; actual Windows doctor and invalid-input behavior verified.
 - **G1 – asset workshop:** six distinct reference plants and juvenile/adult Smalltrotter pass source -> build -> export -> art preview -> QA -> approved bundle, with no silent license violation.
-- **G2 – fair renderer comparison:** neutral Splitstone scene and identical source manifests/placements/routes successfully imported into Flax and Wicked with visible loss reports.
-- **G3 – evidence-based engine decision:** on the GTX 1080 / first-gen Ryzen, compare dense full-scene native 1080p appearance **and** P95/P99/hitches/VRAM; explicitly leave undecided if evidence is lacking.
+- **G2 – Wicked asset fidelity:** full neutral Splitstone terrain/plant/rig/scene material source imported into Wicked with validated placements, surface channels, pivots and observable unsupported features.
+- **G3 – measured Wicked readiness:** on the GTX 1080 / first-gen Ryzen, record dense full-scene native 1080p appearance, P95/P99/hitches/VRAM, and actual shader/streaming bottlenecks. Wicked remains the planned renderer if further optimization is needed.
 
-The **68 tasks are construction tasks**. The 50+ wildlife and 200 plant-form directions are expansion goals, not mandatory standalone full simulators or initial-toolkit release blockers. No engine selection or playable vertical slice has been requested as part of these tasks.
+The **75 tasks are construction tasks**. The 50+ wildlife and 200 plant-form directions are expansion goals, not mandatory standalone full simulators or initial-toolkit release blockers. Flax integration is not scheduled; the asset masters remain neutral. No playable vertical slice is requested as part of these tasks.
 
 ## Integration and file ownership
 
@@ -111,6 +119,6 @@ The graph intentionally distinguishes **portable implementation** from **referen
 
 Give the coordinator the branch and these instructions:
 
-> Read \`tasks/README.md\`. Use \`python tools/taskgraph.py validate\`, \`ready\`, \`packet\`, \`claim\` and \`status\` to manage bounded work. Allocate no more than three simultaneous coding workers initially. Each worker receives one complete packet, its isolated branch/worktree, and only permitted write paths. Prefer independent short-to-medium work with explicit test artifacts. Do not infer capabilities, licenses, benchmark results or successful installs. Integrate only after review, merge and receipt verification; then call \`accept\` and dispatch newly ready nodes. Preserve engine neutrality through G2; do not create a playable vertical slice. If tools or approval are unavailable, return exact blocker and do not manufacture success.
+> Read \`tasks/README.md\`. Use \`python tools/taskgraph.py validate\`, \`ready\`, \`packet\`, \`claim\` and \`status\` to manage bounded work. Allocate no more than three simultaneous coding workers initially. Each worker receives one complete packet, its isolated branch/worktree, and only permitted write paths. Prefer independent short-to-medium work with explicit test artifacts. Do not infer capabilities, licenses, benchmark results or successful installs. Integrate only after review, merge and receipt verification; then call \`accept\` and dispatch newly ready nodes. Build Wicked as the sole active renderer; preserve neutral editable asset masters. Do not create a playable vertical slice. If tools or approval are unavailable, return exact blocker and do not manufacture success.
 
 **No agents are launched by these files.** This repo supplies a ready-to-run orchestration interface and full construction specification; running or connecting the agents requires the user's harness.
