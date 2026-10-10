@@ -69,7 +69,7 @@ class TaskGraphTests(unittest.TestCase):
     def test_packet_is_self_contained_and_printable(self):
         item = self.by_id["PLT-003"]
         packet = tg.task_packet(item, self.graph, False)
-        for value in ("PLT-003", "Softbough", "docs/asset-toolkit.md", "deliverables", "integrator"):
+        for value in ("PLT-003", "Softbough", "docs/asset-toolkit.md", "deliverables", "integration lead"):
             self.assertIn(value.lower(), packet.lower())
         structured = json.loads(tg.task_packet(item, self.graph, True))
         self.assertEqual(structured["task"]["id"], "PLT-003")
