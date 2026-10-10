@@ -91,7 +91,7 @@ def validate_graph(graph: dict) -> tuple[dict, list[str]]:
         if not isinstance(item, dict) or not required.issubset(item):
             raise GraphError(f"task lacks required fields: {item!r}")
         tid = item["id"]
-        if not isinstance(tid, str) or not re.fullmatch(r"[A-Z]{3}-[0-9]{3}", tid):
+        if not isinstance(tid, str) or not re.fullmatch(r"[A-Z]{2,3}-[0-9]{3}", tid):
             raise GraphError(f"invalid task id: {tid!r}")
         if tid in by_id:
             raise GraphError(f"duplicate task {tid}")
