@@ -7,7 +7,7 @@
 1. Hatch as an otherwise ordinary individual of the selected Hero Beast species, inside an established wild population and its species-specific nesting/social circumstances.
 2. Directly steer or select deliberate intentions when desired; otherwise watch HeroSim live the animal's normal life.
 3. Let instinctive routines exploit appropriate nearby affordances: feeding when hungry and within reach of suitable plants, drinking when thirsty beside accessible freshwater, grooming and posture adjustments during downtime.
-4. Experience physiological consequences over credible time, not arcade hunger countdowns.
+4. Experience believable visible physical consequences at comfortable timescales, not precise hidden metabolism or arcade hunger countdowns.
 5. Live an ordinary local animal life around usable food, water, shelter and companions; confront weather and terrain, encounter other animals and grow. Larger adventures mainly arise from player intention or genuine ecological pressure, not an autonomous exploration drive.
 6. Remain free to leave: new valleys and marine crossings are feasible but risky.
 7. Mature, optionally court/mate/nest/tend young, age and die; hatch a new animal in the same continuing world with no inherited player progress.
@@ -74,18 +74,15 @@ Camera detachment is **an observation choice, not a switch to puppet or idle mod
 
 ## Physiological model
 
-Maintain internal quantities separate from UI semantics:
-- Energy balance and metabolic expenditure; gut fill, digestion queue, food fiber/quality and available reserves.
-- Hydration, water content in forage, temperature-related loss, salinity and fluid status.
-- Body temperature, radiant exposure, shade, wind, size and activity heat budget.
-- Fatigue, stress and recovery, sleep/rest opportunity.
-- Physical injuries, mobility effects, infections/parasites where tractable.
-- Growth state, anatomical proportions, reproductive condition and senescence.
+The player should see **convincing bodily needs and consequences**, not the machinery of a detailed biological simulation. BeastCore may use a few inexpensive species-tuned quantities:
 
-Values and mechanisms must be based on documented ranges or transparent experimental assumptions. Sim time should support long calm periods without constant button presses. Environmental temperatures affect physiology, not simply an 'overheated' damage meter.
+- **Food condition:** rough hunger/satiety and forage suitability, without detailed gut chemistry or calorie conservation.
+- **Water and thermal comfort:** simple thirst/heat/cold/exposure cues; actual fresh versus saline water matters.
+- **Rest/stamina:** plausible exertion, slowdown and resting.
+- **Injury/stress:** immediate responses with an affordable lingering severity/recovery timer when noticeable.
+- **Age/reproduction:** simple species growth-stage curves, maturity and late-life decline.
 
-Avoid assuming one food offers immediate calorie transfer. A fermenting herbivore can have gut contents with delayed energetic payback. Taste/food preferences need not equal true digestibility.
-
+These variables can be combined or split only if that improves **visible** behavior. Do not begin with a metabolic organ model, digestion queue, precise body heat budget, infection ecology or exact nutrition equation. Feedback stays legible and restrained; ordinary comfortable animals should spend long periods doing very little.
 ## UI and animal legibility
 
 Prefer **diegetic-first, optional contextual HUD**:
@@ -99,10 +96,11 @@ Playtest whether players can distinguish *hungry* from *digesting but low stomac
 
 ## Development and time compression — deliberate tradeoff
 
-World/calendar time may accelerate while **physical input, collisions and startle remain realtime-responsive**. BeastCore integrates metabolism across relevant world-time intervals, also adding actual movement/intake costs and avoiding double-charging travel during acceleration. Development is shared species-level nonlinear progression constrained by approximate nutritional condition, *not* an independent secret growth clock for Smalltrotter. No exact real-world mass-balance claim is made for deliberately compressed early growth.
+**One SimCore world/calendar clock**, with a pleasant accelerated day/night cycle and faster advancement during rest or nesting. Realtime controls, movement, collisions and acute danger remain responsive. Species have simple staged life histories—hatchling, juvenile, subadult, adult, aging—with sufficiently continuous visual/movement transitions. Exact lifespans, reproduction windows and time multipliers are **playtest tunables**.
 
-Choose numerical time acceleration and juvenile-development curves **after observing play**, not from abstract realism alone. Too much acceleration makes hunger, weather and seasons rush past; too much independent growth risks implausibly cheap body mass. HeroSim and equivalent wild juveniles obey comparable rules, though distant FaunaSim cohorts integrate them statistically.
+Adequate food permits growth; prolonged shortage may slow it. No exact kilograms gained or metabolic integration required. Player and active wild conspecifics should **appear to age comparably**, while remote cohorts use coarse stage probabilities. Time-skips check meaningful threats and save important outcomes instead of simulating every unseen day.
 
+Judge pacing by the *experience*: juvenile growth is noticeable, adulthood lasts, seasonal changes register and parenting stays interesting. Biological precision is not a goal.
 ## Growth and long play
 
 Life stages are overlapping continuous processes, not XP thresholds:
@@ -135,7 +133,7 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 
 - Implement persistent time, weather and ecology without simulating every leaf offscreen at full fidelity.
 - Favor meaningful days, seasonal shifts and generational lifespan rather than arcade timing.
-- **Fluid time:** visible juvenile growth should emerge within a reasonably short play session. SimCore can accelerate world time/rest and shared species developmental curves may compress early growth; exact pacing remains under test.
+- **Fluid time:** visible juvenile growth should emerge within a reasonably short play session using a simple species life-stage curve on SimCore's shared clock; exact pacing remains under test.
 - Real-time controls and acute sensory reactions cannot slow down just because world/developmental time advances faster. Comparable NPC juveniles must have compatible BeastCore growth rules.
 - World and botanical state, nests, corpses, cohorts and eligible previously instantiated wildlife continue across player deaths. Most wildlife is not a durable individual, but relevant bonded peers, dependent offspring and selected notable giants may retain compact identity that advances coarsely or later expires.
 - New player lives are **ordinary hatchlings from existing species populations**, not designated descendants, reincarnations or recipients of inherited traits.
