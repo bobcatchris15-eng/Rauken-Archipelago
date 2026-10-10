@@ -59,7 +59,7 @@ High-resolution source masters are retained; game assets are optimized derivativ
 
 ## Authority boundary
 
-**RaukenSim** determines actual weather, wetness and flood; **FloraSim** owns plant condition; **HeroSim** and **FaunaSim** own animal states using **BeastCore**. The renderer may animate each frame but cannot alter biological time, resource ownership or current weather. Plant chunk loading uses **RaukenState** snapshots; **InteractionsCore** publishes changes. See [Architecture](simulation-architecture.md).
+**StalthosSim** determines actual weather, wetness and flood; **FloraSim** owns plant condition; **HeroSim** and **FaunaSim** own animal states using **BeastCore**. The renderer may animate each frame but cannot alter biological time, resource ownership or current weather. Plant chunk loading uses **StalthosState** snapshots; **InteractionsCore** publishes changes. See [Architecture](simulation-architecture.md).
 
 ## Render-cost-independent acceptance
 
