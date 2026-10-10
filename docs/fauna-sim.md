@@ -4,7 +4,7 @@
 
 ## Intent
 
-**FaunaSim exists to populate The Stalthosian Archipelago with convincing animals, not to reconstruct their complete lives.** Wildlife should mostly be living ordinary lives: resting, browsing, basking, yawning, wandering a little, observing without reacting dramatically. Predators should often be sated, cautious or simply uninterested. Comfortable animals are allowed to remain inactive for long periods.
+**FaunaSim exists to populate The Stalthosian Archipelago with convincing animals using cheap staged populations, not to reconstruct their complete lives or balance a closed food web.** Wildlife should mostly be living ordinary lives: resting, browsing, basking, yawning, wandering a little, observing without reacting dramatically. Predators should often be sated, cautious or simply uninterested. Comfortable animals are allowed to remain inactive for long periods.
 
 Example: a well-fed adult megalosaurid reclines in shade on a hill. It notices Smalltrotter crossing the valley, lifts its head to watch, then lies back down. Hunting is not compelled by an AI update. An animal is not a player-centered event dispenser.
 
@@ -12,11 +12,11 @@ Example: a well-fed adult megalosaurid reclines in shade on a hill. It notices S
 
 | State | Meaning | Persistence |
 |---|---|---|
-| **Regional population** | Species/age cohorts, habitat suitability and approximate ecological pressure | Persistent **aggregate**, no individual identity |
-| **Active instantiated animal** | Locally relevant animal with body, sensory state, behavior and nearby contacts | Reserved from a cohort, active only while needed |
-| **Dormant retained individual** | A **previously instantiated** animal whose specific identity still matters | Compact identity, age, appearance, condition, broad location and essential ties; coarsely advanced |
+| **Regional population** | Species abundance, habitat suitability, broad age mix and occupancy hints | Cheap **approximate aggregate**, no individual identity |
+| **Active instantiated animal** | Locally relevant animal with body, sensory state, behavior and nearby contacts | Selected from regional availability; active only while needed |
+| **Dormant retained individual** | A **previously instantiated** animal whose identity still matters | Compact identity, age/appearance, broad location and essential ties; coarsely advanced |
 
-Ordinary wild animals retire to the cohort ledger when no longer locally relevant. **Selected previously instantiated notable giants are not the only retention case**: Reedcrest's bonded peers, dependent Longstride young or an active caregiving parent (including a wild parent of a playable hatchling), and similarly justified animals may retain compact identity. This is bounded and must not become a global list of personal histories.
+Ordinary wild animals retire to approximate regional availability when no longer locally relevant. **Selected previously instantiated notable giants are not the only retention case**: Reedcrest's bonded peers, dependent Longstride young or an active caregiving parent (including a wild parent of a playable hatchling), and similarly justified animals may retain compact identity. This is bounded and must not become a global list of personal histories.
 
 A retained individual is **not** continuously simulated in full detail. It advances coarsely from its last evaluated world-time timestamp: aging, plausible movement between regions, condition, mortality and essential social/dependence changes. Reinstantiation is possible only where this continuation places a *survivor*. It may die, lose its identifying relationship, disperse or **decay to cohort state** when retaining its identity no longer matters. Following a player across terrain or sea is neither a teleport nor a guarantee of success.
 
@@ -26,36 +26,22 @@ No daily route logs, detailed lifelong memory graphs, pre-generated giant regist
 
 ## Population accounting
 
-Regions define species/age-cohort occupancy and suitability using geology, climate, flora productivity, water and general habitat. They need not instantiate anyone until a local simulation region is activated.
+**Regions contain approximate wildlife availability, not an exact balanced headcount.** A region/species can use habitat suitability, coarse density, broad age mix, season and short occupancy hints. When locally activated, select plausible animals and let them begin lightweight responsive behavior *before* the player or detached camera sees them.
 
-- On activation, budget/reserve actual local animals from population distributions.
-- Active individuals interact with local flora and fauna through InteractionsCore; they may consume food or sustain injuries.
-- On retirement, release an individual's demographic slot back to its population (or mark its birth/death/exit) so it cannot be counted twice.
-- A retained individual is **still accounted for** against its population. It does not appear in addition to a sampled animal of the same cohort.
-- Short-lived disturbance/occupancy/cooldown of a locality may prevent immediate replacement when a Hero Beast turns away.
-- Avoid minute-by-minute virtual population biographies offscreen; a coarse ecological accounting is sufficient for changing numbers, energy pressure and seasonal habitats.
+**Promotion safety matters more than cohort arithmetic:** a currently active or retained creature must not also be sampled as a new animal. Track a small active/retained-ID exclusion and locality cooldown. On retirement, ordinary nonretained animals can disappear into approximate region density; known deaths and other conspicuous changes should influence immediate revisits.
 
+There is no requirement for a global conservation law covering every regional birth, death, crossing, migration or predator meal. Coarse populations must look plausible, resist repeated camera-turn repopulation and respect retained individual identities.
 ## Durable population ledger — not individual biographies
 
-**The region/species/age cohort is the durable demographic unit.** Distinguish:
-- **Abstract available** cohort count or statistical density.
-- **Active reserved** local instantiated animals, counted as members of the same cohort.
-- **Retained reserved** eligible **previously instantiated** individuals (bonded peers, dependent young, selected notable mature animals), still drawn from—not added on top of—the cohort.
+**Durable background state** is mostly species density/abundance by region, habitat suitability and recent occupancy/disturbance. Retain an individual identity only after instantiation and only for established social, dependent or notable cases.
 
-For discrete animals, an accounting invariant is **total = abstract + active + retained** within a region/species/cohort, accounting for any transfers in flight. Only births, deaths, immigration and emigration change a region's total; age transitions move members between cohorts. A moved animal debits one region and credits another once. Large populations of tiny creatures may instead use density/expected abundance with explicit rounding/sampling rules.
+For locally active/retained wildlife, a simple exclusion check prevents visible duplication and resurrection. An already retained companion cannot exist in two places at once; a documented death stays dead. Distant populations may change through coarse seasonal probabilities. Do not require the sum of abstract + active + retained entities to reconcile exactly across the archipelago, precise migratory debit/credit bookkeeping, per-cohort calorie models or historical event journals.
 
-Use stable operation IDs or region version checks on activation/retirement so overlapping prewarm/release operations cannot double-reserve. **Repeated crossings of a chunk boundary must not repeatedly generate new animals.** Keep short activation grace time, active-set hysteresis and coarse local occupancy/disturbance/cooldown, not lifelong individual memory.
+### Approximate forage and predation pressure
 
-An individual can disappear forever as a named object while **its demographic and ecological contributions remain**. Preserve cohort totals/age structure, approximate reproductive and mortality outcomes, and regional foraging/occupancy pressure. Precision of rates is a tunable ecological approximation; exact headcounts are not required for insects.
+Active animals use plausible food interactions with visible outcomes. Distant animals can exert a simple seasonal forage/depletion bias on regional plant cover and a broad predation/mortality tendency on species density. Resource scarcity can make local animals sparser or prompt plausible relocation; it need not balance exact calories, biomass and birth/death rates.
 
-### Aggregate resource consequences
-
-For each habitat/cohort interval, derive bounded **forage demand by plant resource class**, water requirements and coarse browsing pressure. InteractionsCore applies batched, finite debits to FloraSim patch/organism resources, with actual granted amount returned to FaunaSim. No invisible herd may consume unavailable biomass twice, and consumption must affect what a Hero Beast later encounters.
-
-A cohort's feeding and energy state can use approximate budgets; we do **not** reconstruct specific remote bites, routes, gut histories, matter cycles or every death. Mass removed from vegetation is not equal to body mass gained. If a region lacks enough forage, model a coarse consequence (e.g. poorer condition, dispersal pressure, lower reproduction or mortality risk), not magical replacement food.
-
-Test demographic/resource invariants after repeated enter/leave, offscreen season advancement and retained-individual reactivation.
-
+**Acceptance:** repeated visits and chunk boundary crossings never duplicate a known animal, revive a confirmed death, spawn a herd at a camera turn or erase visible recent depletion. Mathematical population balance beyond that observable result is not a goal.
 ## Short-lived attention, local ranging and limited memory
 
 Active wildlife uses the same **small, expiring working-memory principle** as HeroSim: keep current sensory focus, immediate goals and a bounded amount of recent context (such as a predator briefly passing behind cover), without building learned landmark maps, lifelong routes or generalized experience histories. Short-lived habituation can prevent repeated Brackenback false alarms but naturally fades. Ordinary individuals need no long-term geographic memory records when returned to cohorts.
@@ -92,7 +78,7 @@ In contrast, no requirement exists to instantiate every animal on Outer Reach wh
 ## Interactions and outputs
 
 - **StalthosSim:** weather, local temperature/wind/water and extreme conditions.
-- **FloraSim/InteractionsCore:** finite vegetation and water/resource outcomes, plant damage and other organism interactions.
+- **FloraSim/InteractionsCore:** local feeding/contact outcomes and visible plant changes, not exact hidden resource balancing.
 - **HeroSim:** receives only relevant sensed or contacted stimuli; the player animal is another organism, not an NPC omniscience target.
 - **StalthosState:** maintains population/cohort records, local occupancy/cooldowns and a bounded set of **previously instantiated** retained individuals with active social, dependent or notable reasons.
 - **Renderer/HeroView:** receive body pose, movement, behavioral intent and appearance, not private future plans or complete internal biographies.
@@ -116,9 +102,9 @@ In contrast, no requirement exists to instantiate every animal on Outer Reach wh
 2. Nearby grazing animals continue activity while occluded or outside the camera frustum.
 3. Small/juvenile animals can disappear from long-term individual tracking after deactivation without causing visible popping or mass duplication.
 4. Eligible previously instantiated bonded peers, dependent offspring and notable mature animals can reappear with recognizable shape/condition after coarse catch-up; **never-instantiated** animals have no identity record.
-5. Fauna regional populations and active/retained counts reconcile across visits.
+5. Known individuals and visible occupancy remain coherent across visits; background densities need only be plausible.
 6. Startle and acute pain affect active animals promptly without long-term psychological history tracking.
-7. FaunaSim and HeroSim use compatible BeastCore rules, but FaunaSim chooses lower fidelity when adequate.
+7. FaunaSim and HeroSim use compatible **simple** BeastCore rules, but FaunaSim chooses lower fidelity when adequate.
 8. Wildlife instantiation remains independent from the player camera's instantaneous orientation.
 
 Related: [Spatial activation](spatial-activation.md), [HeroView](hero-view.md), [HeroSim](hero-sim.md), [Simulation architecture](simulation-architecture.md).
