@@ -8,6 +8,12 @@ FloraSim owns living trees, shrubs, ferns, herbaceous populations, moss-like col
 
 A plant may be ecologically elaborate while rendered with one simple distant mesh. A thousand dense grass blades may be one population-patch record.
 
+## Wide morphology catalogs, inexpensive living state
+
+**FloraSim must support a visually rich catalog (working ambition: about 200 distinct plant forms) without a corresponding increase in per-species biological machinery.** Most profiles are **renderable morphology + habitat/season tags + inexpensive optional browse/cover state**, not independent clocked organisms. Multiple very different-looking plants can use the same patch regrowth rule, foliage visibility mask or lightweight life-stage curve. A new plant the user wants must not require a new ecological solver.
+
+Foliage, branching, growth-stage geometry and scene richness are primarily handled by [Plant visual catalog](plant-visual-catalog.md), plant assets and the renderer. FloraSim maintains only enough persistent state for visible changes: a nearby browsed bush, conspicuously snapped stem, fallen landmark tree, or recognizable cover shift. No arbitrary per-plant nutrient budget, fine botanical demography or exact species competition solely to 'justify' diversity.
+
 ## Representation
 
 **Individuals:** prominent/long-lived trees, significant shrubs, large ferns/cycads and plants with distinctive browsing scars. Each substantial tree has a stable *logical identity* (region/placement ID or durable ID), species, location, deterministic branching seed, establishment/growth information and any meaningful structural overrides. **Identity does not imply a separate heavyweight persisted row or per-tree update loop:** unchanged baseline trees can be reconstructed from world/region seeds; only meaningful mutable differences need compact records. New trees established later receive durable identities.

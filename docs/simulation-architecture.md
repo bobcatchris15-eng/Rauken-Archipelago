@@ -10,6 +10,12 @@
 
 Keep the existing domain names and ownership rules to prevent double rendering, duplicate known animals and forgotten player-visible effects. Those correctness constraints are *targeted*, not permission to build complete nutrient, thermodynamic, weather, population or metabolic ledgers. See [Vision](vision-and-principles.md).
 
+## Catalog scale does not imply simulator scale
+
+The **visual catalogs** may contain about fifty non-hero fauna actors and about two hundred plant morphology profiles initially, with arbitrary user additions. FaunaSim loads actor definitions into a **small number of reused behavior/sensory/locomotion families**; FloraSim loads plant morphology and appearance tags through simple shared seed/habitat/season rules. A new species is not a new simulation subsystem.
+
+A cheap food-web mapping provides coarse producer/consumer/predator and habitat relations for plausible placement and local action prompts, **not** an exact population-energy ledger. Maintain immediate physical truth and conspicuous continuity, but don't require that unseen remote ecology perfectly balances every visible actor. The catalog/species-profile responsibility lives in [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md); systems still own local mutable events.
+
 ## Named components
 
 | Component | Owns | Does not own |

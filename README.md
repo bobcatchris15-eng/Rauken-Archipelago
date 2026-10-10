@@ -14,6 +14,8 @@ Start with the **[planning index](docs/README.md)** and **[simulation architectu
 
 An expensive ecological mechanism is **opt-in**, only when a cheaper approximation demonstrably fails an observable gameplay/visual test. Do not turn an impressive visual requirement into a demand for full physiology, hydrology, nutrient budgets, population dynamics or weather-event replay.
 
+**Biodiversity production priority:** An expandable first creative palette of roughly **50 distinctive non-hero wildlife actors** and **200 varied plant silhouettes/leaf systems** is preferable to a tiny roster with exhaustive simulated ecology. Specific requested species are always welcome; neither number is a cap. See [Fauna actor catalog](docs/fauna-actor-catalog.md) and [Plant visual catalog](docs/plant-visual-catalog.md).
+
 ## Current guiding choices
 
 - Four major, irregular islands and smaller islets; each island supports multiple connected ecological landscapes.

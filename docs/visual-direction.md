@@ -36,6 +36,16 @@ Distinct gait/body plans by niche. Feathers use modeled outer feathers where sil
 ### Plants
 An actual fern has a rachis, pinnae, curved fronds and age diversity. Trees have defensible branching and crowns; shrubs display branching hierarchies and young vs mature shoots; horsetails have recognizable segments and colonies. Avoid ubiquitous flat crossed cards.
 
+## Species richness as a visual acceptance criterion
+
+**Fauna breadth:** about 50 non-hero species is an initial flexible actor palette, not a limit. Distinguish species through anatomy, mass, gait, posture, integument, movement rhythms, calls and signature routines. No recolored shared rig counted as a convincing distinct animal without actual structural/movement changes.
+
+**Flora breadth:** about 200 botanical silhouettes/leaf architectures is the expandable working ambition, **not** 200 deep growth simulations. Evaluate branching/crown envelope, frond/pinna shape, leaf outline, venation and placement, rosettes, bark, fruiting structure and habitat form. Make local communities coherent, with repeated dominant species balanced by uncommon discoveries; don't distribute every plant everywhere or fill forests with uniform random noise.
+
+**Mandatory artistic review method:** species silhouette/contact sheets without texture colors, leaf shape/arrangement atlases, life-scale turntables, motion samples and realistic densely planted camera walks. A specimen that looks unique only when labeled has not yet supplied meaningful biodiversity. Judge from the Hero Beast's height and at ordinary travel distance, not just studio macro views. Performance and asset representation must scale with quantity without reducing near-view credibility.
+
+The numbers are **creative directional targets, not fixed limits or release blockers**, and do not constrain requested special animals/plants. See [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md).
+
 ## Material standards
 
 Physically based textures calibrated under neutral test illumination:

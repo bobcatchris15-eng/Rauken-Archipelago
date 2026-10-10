@@ -90,14 +90,13 @@ All five are fictional descendants or composites informed by Cretaceous anatomy.
 
 ## Nonplayer animals
 
-Develop food-web roles before a species list:
-- Herbivores of varied reach, size and food chemistry.
-- Small leaf-litter/shoreline opportunists and insectivores.
-- Flying animals that can disperse between islands.
-- Ambush shoreline/crocodyliform analogues and occasional terrestrial predators.
-- Detritivores, invertebrates, pollinators, burrowers and carrion scavengers.
+**Actors first, food-web accounting second.** Treat the animal community as a large, evolving visual cast. For each non-Hero Beast, define an anatomical reference, visually distinct shape, characteristic animation/routines, habitat presence, lightweight diet/prey tags and simple responses. Animals need not all have full reproduction, individual histories, neural simulation or exact calorie/resource budgets.
 
-Predators do not possess player-location information. They have territories, energy needs, routines, attention limits and avoidance. Most animal interactions end without combat.
+A few ecological categories remain useful: browsers, small opportunists, fliers, amphibians and fish, shoreline/crocodyliform hunters, detritivores, pollinators, scavengers and conspicuous invertebrates. These categories are **presentation/placement guidance**, not limits on the number or types of species.
+
+**The user may add any specific desired critter** irrespective of catalog size, family allocation or whether it changes the food web. Record it as a new proposed actor and give it believable visuals and behavior. Keep scientific inspiration marked separately from fictional novelty.
+
+See [Fauna actor catalog and food web](fauna-actor-catalog.md) for the expandable working candidate roster and artist/agent-facing profile contract.
 
 ## Island evolution
 

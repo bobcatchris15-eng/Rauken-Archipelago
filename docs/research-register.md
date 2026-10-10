@@ -20,6 +20,14 @@
 
 **Evaluation:** demand an in-scene visual/behavioral/continuity improvement before adopting more complex ecology. Test cinematic quality, natural-feeling ordinary life, return visits, observed causality and frame-time/activation performance; not scientific numerical precision. This new decision takes precedence over dated detailed contracts preserved below as history.
 
+## Biodiversity breadth and open-ended catalogs — 2026-10-10
+
+**New explicit preference:** the "beautiful Potemkin village of an imagined Cretaceous" means an **abundant roster of visually convincing actors and plants**, not a small mathematically complete ecosystem. Roughly **50 varied non-hero actor species** are more valuable than sixteen detailed ecologically consistent animals. Roughly **200 distinct believable plant silhouettes/leaf systems** are more valuable than twenty intricate botanical simulations. These are **expandable, nonbinding creative benchmarks**, not caps or required instant delivery. Any specifically desired critter or plant may be added, irrespective of diet/role quota.
+
+**Approved planning response:** add [Fauna actor catalog](fauna-actor-catalog.md) with a fifty-name *provisional* slate and lightweight morphology/behavior/location/food-tag profiles; add [Plant visual catalog](plant-visual-catalog.md) with a two-hundred-form illustrative diversity allocation, reference/leaf/branching profile contract and automated variation QA. The candidate names and category allocations do not become individually approved taxonomy or species lists. Preserve Hero Beast designs and no camera-based instantiation.
+
+**Implementation priority:** maximize convincing close-to-medium silhouette, locomotion, foliage structure, sound, atmosphere and ordinary animal activity; reuse a few cheap underlying behavior and appearance systems, and simulate only observable consequences and essential retained ties. Diet/predation graphs are explanatory and approximate, **never** a gate on user-requested fauna/flora. Supersede the obsolete 25–35 types per watershed and 80–120 entire-archipelago vascular plant targets in flora.md.
+
 ## Accepted creative direction
 
 - **Name (superseding earlier Rauken-era direction):** **The Stalthosian Archipelago**, with **Stalthos** as a convenient informal regional shorthand and **Stalthosian** as adjective. Name is invented, loosely inspired by early Germanic/Old English foundation/stone vocabulary; do **not** present Stalthos as an attested historical word. Repository slug stays Rauken-Archipelago until explicitly renamed.

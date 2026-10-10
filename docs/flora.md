@@ -10,6 +10,14 @@ Invent derived species and common names for The Stalthosian Archipelago. Fossil 
 
 The flagship sauropod is a **generalist browser with real preferences and consequences**, primarily using shrubs, tender herbs, horsetails, accessible fern species, young conifer shoots and some fruit/reproductive parts. It cannot eat arbitrary 'green biomass' equally well.
 
+## Visual biodiversity mandate — around 200 recognizable plant forms
+
+The aim is not twenty biologically elaborate simulated plants. It is **a luxuriant catalog of about 200 convincing, visually distinctive plant forms/species-level morphotypes**, expandable without limit, distributed plausibly across island habitats. Prioritize silhouette, branching, leaf/frond shapes, venation, arrangement, layering and near-photoreal surface response. One hundred indistinguishable recolors do **not** satisfy that goal.
+
+The [Plant visual catalog](plant-visual-catalog.md) owns morphology-profile fields, an illustrative 200-form spread across plant architectures, distribution principles and visual QA. The table below is **a sample community and foundation for asset tooling**, not the whole species roster. Add any specific requested plant without requiring it to pass a food-web niche test. Fungi, bryophytes and background vegetation can add further diversity.
+
+**Plant biology depth is optional** unless nearby browsing, prominent damage, a fallen tree or other visibly consequential interaction needs it. Most species can share habitat/season appearance and edible-tag templates with seeded instances or coarse patches. Morphological fidelity is the priority.
+
 ## Plant community — flagship Main Island woodland
 
 Working organisms (names optional/provisional):
@@ -78,7 +86,7 @@ Do not use the same geometry technique for all plants. Woody trees, ferns, segme
 
 Before the full flora catalog, build six reference assets/species to exercise production: Splitcrown (tree), Softbough (interactive edible shrub), Jointreed (dense stems), Royal frond (fine leaflets), Basketfern (large architectural fronds), and bracket fungus on decomposing wood (substrate integration).
 
-Target **roughly 25–35 recognizable vascular plant types in the first local watershed** (a dozen visually dominant), and **roughly 80–120 types across the entire archipelago** as distant aspirational planning. Scale only after generator/renderer tests.
+**Superseded breadth targets:** the former 25–35-per-watershed / 80–120-archipelago estimates are no longer the catalog ambition. Target **around 200 visually recognizable plant morphotypes across the archipelago**, with any additional requested taxa welcome; see [Plant visual catalog](plant-visual-catalog.md). A local watershed should still have coherent dominant plants rather than all 200 at once. Begin with six reference species to prove the authoring pipeline, then expand visual families progressively; this is **not** 200 detailed biological simulators or a mandatory immediate production gate.
 
 ## Research needed
 

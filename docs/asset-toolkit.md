@@ -76,6 +76,16 @@ Every produced asset should have:
 
 Avoid proprietary binary-only source state where agent-controlled serialization is feasible. Keep Blender project files for high-detail editing and declarative configs for reproducibility.
 
+## Breadth-scale production — catalogs are data, not fifty or two hundred separate engines
+
+Plan for **~50 recognizable non-Hero Beast fauna actor profiles and ~200 distinct visual botanical profiles**, with no fixed upper cap. Agents should create and maintain machine-readable manifests, reference images/source metadata, procedural morphology parameters and review sheets. Adding a favorite creature or plant should normally entail adding a profile/assets and habitat tags, not modifying SimCore, FaunaSim or FloraSim.
+
+**Batch tools to support:** silhouette montages at controlled scale; animal pose/walk/rest/feeding/contact reels; plant foliage silhouette and leaf/venation atlases; near/far/wet/dry/season comparisons; procedural variety/duplicate detection; ecological placement previews by island/terrain; per-family shared rig/generator exports. Count forms only when distinguishable by shape/motion, not texture swaps.
+
+**Prioritize generator coverage of genuinely different structures:** quadrupeds, birdlike bipeds, snakes, small mammals, crocodyliforms, flying pterosaurs/birds and conspicuous invertebrates; plant crowns, branching shrubs, ferns with true pinnae, rosettes, jointed stems, vines and aquatics. Share tooling and generic behaviors while protecting each actor's appearance and characteristic movement.
+
+Keep the original six flora reference builds and flagship animal as **pipeline verification only**. They are neither the final vegetation roster nor a reason to restrict subsequent species additions. See [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md).
+
 ## Special plant production
 
 Create branch-aware trees, true rachis/pinna ferns, segmented horsetails, stiff cycads, broadleaf shrubs, moss/lichen surfaces and fruiting fungi as different morphology generators sharing a common export contract. Batch plant instances spatially. For interactive shrubs, retain usable branch/leaf resource targets; for tiny grasses use ecological density patches rather than many individually scripted game objects.

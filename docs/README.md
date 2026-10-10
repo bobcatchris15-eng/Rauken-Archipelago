@@ -11,13 +11,15 @@ These are **planning documents**, not implementation code. They are separated by
 | Architecture | [Simulation architecture](simulation-architecture.md) | Named systems, ownership, time, interactions and persistence |
 | Environment simulation | [StalthosSim](stalthos-sim.md) | Weather, seasonal conditions, floods, environmental history |
 | Plant simulation | [FloraSim](flora-sim.md) | Persistent trees, shrubs, herbs, fungi; lazy growth and browsing |
-| Animal simulation | [FaunaSim](fauna-sim.md) | Regional cohorts, transient locally instantiated animals, bounded retention of previously instantiated, relevant individuals |
+| Animal simulation | [FaunaSim](fauna-sim.md) | Cheap region-level wildlife availability, staged local actors and limited relevant individual retention |
 | Player animal | [HeroSim and BeastCore](hero-sim.md) | Bodily condition, perception and player-intent execution |
 | Player interface | [HeroView](hero-view.md) | Body-relative WASD, contextual intentions adopted by HeroSim, bounded detached/documentary camera, independent camera-centered audio, alarm recall |
 | Spatial lifecycle | [Spatial activation](spatial-activation.md) | Simulation regions buffered beyond perception and camera visibility |
 | Ecology | [Ecology and hydrology](ecology-and-hydrology.md) | Cross-domain habitats and ecological processes |
 | Flora | [Flora](flora.md) | Plant/fungal organisms, anatomical families, foods and plant life histories |
 | Creatures | [Creatures](creatures.md) | Five playable lineages, growth, sociality, reproduction and ecological niches |
+| Fauna actor catalog | [Fauna catalog and food web](fauna-actor-catalog.md) | Expandable ~50 non-hero actor palette, observable routines and lightweight food-web links |
+| Plant visual catalog | [Plant visual catalog](plant-visual-catalog.md) | Expandable ~200 plant morphology profiles, leaf/branching diversity and habitat composition |
 | Visual design | [Visual direction](visual-direction.md) | Appearance and motion quality contract, independent of renderer |
 | Engineering research | [Rendering experiments](rendering-experiments.md) | Engine comparison, hardware targets, instrumentation and gates |
 | Production tooling | [Asset toolkit](asset-toolkit.md) | Agent-accessible source-art and asset production pipeline |
@@ -28,6 +30,8 @@ These are **planning documents**, not implementation code. They are separated by
 **Display fidelity beats internal fidelity.** The archipelago is a visually ambitious natural-history illusion with shallow, inexpensive ecological internals. Use the simplest plausible proxy/heuristic that produces convincing observable behavior; preserve only the conspicuous consequences and continuity that a player can actually notice. No exact population energy ledger, hydrological reconstruction, weather chronology, full nutrient cycle or complex individual physiology is required by default. Existing detailed algorithms in domain documents are proposals **subordinate to this rule**.
 
 Retain real spatial collision, correct camera/player agency, responsive animal interactions, recognizable landmarks, surviving social bonds and conspicuous persistent changes. These are the places where a hollow simulation must *not look hollow*.
+
+**Breadth direction:** creative working palettes of approximately **50 non-hero animal actors** and **200 visually distinguishable plant forms**, both open-ended. The candidate roster is editable and every desired special species can be added without an ecological accounting veto. Morphological/behavioral richness **does not require** 50+200 independent full biological simulations.
 
 ## Current status
 

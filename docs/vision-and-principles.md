@@ -20,6 +20,14 @@ The world should not visibly contradict itself: creatures must not pop into exis
 
 If a complex mechanism adds no measurable visual, behavioral or gameplay improvement against a cheap approximation, **do not build it**. Scientific and ecological research is guidance for appearance and plausible behavior, not a requirement for numerical biological fidelity.
 
+## Biodiversity is an authored spectacle, not an ecology budget
+
+Prefer **fifty convincingly different non-hero wildlife actors** over sixteen deeply and quantitatively simulated animal species. Prefer **around two hundred recognizably different plant silhouettes, branching systems and leaf/frond designs** over a handful of highly detailed botanical simulators. These are **expandable creative starting ambitions, not caps, mandatory completion gates or a reason to reject an animal or plant the user specifically wants**.
+
+The fauna's distinguishing value is its appearance, characteristic behavior, voices and credible natural placement; the flora's is shape, variety, layering, surface detail and rootedness in a believable habitat. The food web supplies an **approximate, stage-setting explanation for encounters** and a few observable local consequences, not an equilibrium model whose mathematical requirements restrict the cast. Reuse body-plan animation families and habitat/season display templates rather than writing a deep individual simulation for every actor.
+
+A forest can display dozens of botanical forms whose hidden 'biology' uses a few common growth/condition/cover rules. An animal can be compelling while basking or foraging without having a simulated lifelong biography. **Never trade away the convincing appearance of abundance merely to make the invisible ecology more rigorous.** See [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md).
+
 ## Design pillars
 
 1. **Lived landscape.** Sheltered mossy ravines, drowned valleys, mineral outcrops, resilient forests, floodplains and real landmarks. Recognizable places matter more than raw area.

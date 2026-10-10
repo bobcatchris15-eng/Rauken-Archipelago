@@ -8,6 +8,14 @@
 
 Example: a well-fed adult megalosaurid reclines in shade on a hill. It notices Smalltrotter crossing the valley, lifts its head to watch, then lies back down. Hunting is not compelled by an AI update. An animal is not a player-centered event dispenser.
 
+## Breadth-first wildlife actor policy
+
+The intended bestiary is **broad**: approximately fifty varied non-Hero Beast actor species is a sensible initial creative palette, and more are explicitly welcome. The **[Fauna actor catalog](fauna-actor-catalog.md)** is not a closed roster. **Visual recognition, convincing locomotion, signature behavior and expressive ordinary inactivity outrank individual physiological or trophic depth.**
+
+Implementation should support adding a fictional species primarily through **data and assets**: anatomical/animation family, morphology, calls, habitat/season appearance weighting, food/resource tags, simple condition/attention thresholds, and two to five characteristic routines. Reuse shared BeastCore/FaunaSim activity primitives (rest, browse, bask, preen, search, inspect, feed, flee, follow, perch, swim), giving each species distinct timings, poses, body mechanics and responses. Avoid one heavyweight planner per actor.
+
+The food web may be coarse: insects and small prey can be aggregated resource pools, background predation can be density tendencies, and plant pressure a visual cover parameter. Realistic-looking local interactions and **conspicuous continuity** still matter: animals must already be present before the camera reveals them, witnessed kills/deaths shouldn't vanish or duplicate, and directly browsed foliage visibly changes. **Do not gate adding species on achieving statistical trophic equilibrium.**
+
 ## Three representations and bounded individual retention
 
 | State | Meaning | Persistence |

@@ -28,11 +28,17 @@ Substrate/soil/habitat tags guide convincing vegetation distribution, rooting/co
 
 Prominent trees, important shrubs and directly observed damage/death can retain compact identities and visual exception records. Ordinary herbs, ground cover, moss, fungi and litter remain mostly patch/variant state. A changed canopy opening can cheaply change surrounding cover. No detailed seedling competition, seed bank, nutrient conservation or per-leaf accounting.
 
-## Food webs
+## Food webs — a convincing stage, not a closed solver
 
-Represent plausible niches: herbivores, small omnivores/insectivores, flying animals, terrestrial/shore predators, scavengers and detritivores. Choose regional occupancy from habitat suitability, coarse abundance and season. Local visible animals must have convincing routines, limited senses, hunger/rest cues, simple interactions and no omniscient player hunting.
+The archipelago should look as though it supports **many more varied species than its simulation genuinely models**. The working creative goal is roughly **50 distinguishable non-hero animal actors** in addition to the five playable Hero Beasts, and roughly **200 visually distinct plant forms**, both explicitly expandable and not upper limits. Their visual anatomy, silhouettes, sounds, routine actions and habitat composition take priority over deep trophic accuracy.
 
-Offscreen population change, browsing pressure, dispersal, mortality and small-animal food availability may be stochastic, approximate and occasional. Do not model exact energy flows or complete demographic balances. Retain distinctive social/dependent individuals under the bounded FaunaSim policy; prevent visibly duplicated or resurrected encountered animals.
+Use a **small resource/relationship vocabulary** instead of precise energy balance: tender/tough leaves and shoots, fruit/seeds, aquatic plants, insects/larvae, mollusks/crustaceans, fish, small vertebrates/eggs, carrion, litter/deadwood, shelter, freshwater. An animal profile declares roughly what it eats, may be eaten by, and does when comfortable. A habitat profile weights when and where its actors appear. This creates plausible relationships **without** requiring a numerically stable predator/prey graph or one individually simulated organism per population member.
+
+The food web should be *visible*: birds/fliers catching insects, herbivores changing nearby foliage, crocodyliforms basking and sometimes eating, scavengers finding carcasses, wetland prey shifting with temporary drying, or invertebrates disturbed by a browsing dinosaur. The majority of time animals simply rest, watch, browse, perch, groom or travel. No mandatory combat treadmill.
+
+Persist **observed/relevant exceptions**: a witnessed death or nest loss, recognizable injury or companion, important browsed shrub, fallen tree or carcass. Far regions use cheap abundance/presentation tendencies and seed+season/habitat changes. No exact birth/death ledger, total food joules, detailed animal history or perpetual hidden interactions. Do not use ecological bookkeeping as a veto against **adding a user's desired plant or critter**.
+
+See [Fauna actor catalog](fauna-actor-catalog.md), [Plant visual catalog](plant-visual-catalog.md), [Creatures](creatures.md) and [Flora](flora.md).
 
 ## Seasonal change and disturbance
 
