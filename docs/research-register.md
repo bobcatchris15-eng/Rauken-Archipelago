@@ -136,6 +136,14 @@ In future updates, append dated decisions with reasons, alternatives considered,
 
 **Remain open to research/testing:** taxonomy, exact developmental/parental intervals, physical speed/mass, activation and identity budgets, camera alarm thresholds and animation/feeding compatibility, nested world-time scaling, terrain sizes, renderer. These are tuning/research topics rather than additional creative-direction approvals. No source evidence is asserted for invented species parenting.
 
+## Bounded animal working memory and ordinary home-range behavior — 2026-10-10
+
+**Decision:** HeroSim/BeastCore animal memory is a capped, short-lived working set for current attention, temporarily hidden dangers, interrupted actions and nearby resources. Observations expire; there is no cumulative landmark/route map, generalized learning system or long-term home-position target. Recent habituation may temporarily suppress repeated false alarms but fades. Exact item count and expiry time remain tunable rather than fixed requirements.
+
+**Autonomy:** an adequately supplied, comfortable Smalltrotter is an ordinary animal in a local ecological range, not an independent explorer. The player supplies most intentions for exceptional journeys. Uncommanded animals can travel among local resources and may shift range under real environmental, social or physiological pressure; no artificial idle-radius fence. When released after player-directed relocation, the Hero Beast resumes living where it is instead of automatically navigating back to an old range.
+
+**Important distinction:** persistent body state, nests, population ecology and explicitly bounded socially significant identities (e.g. Reedcrest peers, dependent Longstride young) remain authoritative under their existing systems. They are **not** an excuse for durable geographic/biographical memory. FaunaSim ordinary wildlife follows the same transient-attention policy. Do not implement an animal learning/history subsystem.
+
 ## Detached HeroView listening and owned intentions — 2026-10-10
 
 **Decision:** The detached camera carries the *player's ears* (camera-centered world audio), while BeastCore/HeroSim retains the Hero Beast's **anatomically located sensory hearing**. Both interpret shared positioned sound sources from fauna, weather/water and inexpensive habitat ambience. A predator call heard from the detached camera may not be heard or reacted to by the Hero Beast. Player-only audio never causes HeroSim alarm or an alarm-driven camera recall. Body/physiology cues can be mixed unobtrusively without ignoring distance.
