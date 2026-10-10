@@ -1,87 +1,67 @@
-# Ecology and hydrology — shared ecological principles
+# Ecology and hydrology — shared display-level principles
 
-**Domain:** Interactions among terrain, water, living systems and disturbance. **Status:** Revised planning direction. Ownership is defined in [Simulation architecture](simulation-architecture.md) and its domain documents.
+**Domain:** Habitat appearance, nearby ecological interactions and the minimum persistence needed for a convincing world. **Status:** Display-first direction; engineering parameters remain experimental. Ownership stays in [Simulation architecture](simulation-architecture.md).
 
 ## World model
 
-Create one persistent ecological reality with **StalthosState** storing identities/history and the domain simulations owning their facts. The renderer is a consumer, not an alternate source of biological truth.
+**The archipelago is a visually ambitious, deliberately shallow natural-history illusion.** Geological/habitat references help determine where plants, water and animals *look and behave* plausible; there is no obligation to solve a closed ecosystem. Preserve immediately observable interactions and conspicuous changes across visits, but use densities, seasonal variants, seeds and simple probabilities for most offscreen processes.
 
-Causal chain: **geology → relief/substrate → exposure/drainage/water → soils/microclimate → plants → consumers/decomposers → occasional disturbance and lightweight recovery**. This is a guide to plausible appearance and consequences, **not** a commitment to detailed ecosystem succession.
-
-Biomes are descriptive landscape assemblages, not abrupt boundaries. Habitat suitability emerges from continuous variables, including sunlight, temperature, rainfall, soil depth, moisture and chemistry, salinity, wind shelter, slope and disturbance.
+The guiding visual relationship is **terrain/substrate → plausible water/exposure → plant composition → animal presence/behavior**. This drives placement and presentation, not a complete dynamic nutrient or energy system.
 
 ## Climate
 
-- Broadly warm, Late Cretaceous-inspired seasonal regime; local rain shadows, upland mist and sheltered ravine microclimates.
-- Wet and dry seasons, with year-to-year anomalies; storms localized by weather patterns, not triggered by player proximity.
-- Track coarse-grid temperature, rainfall, solar exposure, humidity, wind, cloud and evaporation.
-- Microclimate from canopy, slope aspect, rock exposure, proximity to water, cold/moist air drainage and salt spray.
-- Fog and dampness can be plausible in Rainridge valleys; exposed Outer Reach plateaus contrast with spring-fed basins.
+Give each island/terrain region a coarse climate profile, a seasonal curve and smooth current weather state. Precomputed modifiers create sheltered damp ravines, exposed rocky ridges, lee-side drying and rainward mist without a high-resolution atmospheric model. Weather should look and sound coherent and affect obvious animal behavior or traversal.
+
+No fine-grained microclimate thermodynamics or long chronological rain/heat histories. Save only exceptional events with visible durable consequences.
 
 ## Hydrology — primarily a map property
 
-Watercourses, springs, permanent ponds, aquifer-influenced zones, wetlands, soil drainage and floodplain shapes are **authored or generated with the map** and remain geographically stable across ordinary game years. Distance from freshwater informs flora distribution, but must combine with **relative height above water**, soil permeability, shade, slope and baseline rainfall. Expose these as precomputed environmental suitability/moisture fields.
+Rivers, streams, springs, marshes, baseline water availability, salinity and drainage are offline world-generation outputs. Map-generated moisture suitability considers elevation above water, soil permeability, shelter and broad rainfall tendency instead of just distance to a river.
 
-**StalthosSim** owns day/night, seasons, regional weather, current wetness and exceptional storms/floods. Storms temporarily raise river levels and inundate **known flood-prone terrain**, then recede. Avoid continuous groundwater storage/pressure/transport simulation, channel erosion, riverbed remodeling and full fluid dynamics.
+Runtime water uses simple seasonal level adjustments, approximate current/tide/depth where relevant, and predefined floodable areas. A swollen creek may block a familiar crossing; wet soil may affect footing; drinking from sea/brackish water remains inappropriate.
 
-Available water still has accessibility, depth, salt content, temperature and approximate current; a wet-looking inlet is not automatically drinkable. Rainfall history may influence botanical growth without actually moving terrain.
+Do not solve groundwater transport, watershed water budgets, long-term erosion, sediment advection or general fluid dynamics. Persistent damage comes from a rare explicit event, not replayed flood history.
 
-## Soil, substrates and plants
+## Soil, substrate, plant communities
 
-Each region has substrate texture/chemistry, soil thickness, drainage and organic matter. Mineral-rich Outer Reach soils may strongly constrain plant adaptations. Limestone Stone Island soils and karst hydrology vary sharply at small scales.
+Substrate/soil/habitat tags guide convincing vegetation distribution, rooting/contact and visual condition. Stable procedural seeds and current season produce most flora; patch-level cover, browse/depletion and recovery drive inexpensive changes.
 
-Plant individuals or population patches track:
-- Identity/functional group and phenology.
-- Establishment requirements and growth potential.
-- Edible standing biomass by accessible layer/type.
-- Age, stress, damage, browsing history, death and decomposition.
-- Coarse establishment/regeneration opportunity where it materially affects habitat appearance; detailed propagule dispersal and individual seedling life histories are not required.
-- Coarse response to canopy openness, drought, flooding and physical disturbance; no mandatory individual competition solver.
-
-Persistent prominent trees and conspicuous plants keep identities. Low ground vegetation may be regenerated from population-state patches and deterministic seeds.
+Prominent trees, important shrubs and directly observed damage/death can retain compact identities and visual exception records. Ordinary herbs, ground cover, moss, fungi and litter remain mostly patch/variant state. A changed canopy opening can cheaply change surrounding cover. No detailed seedling competition, seed bank, nutrient conservation or per-leaf accounting.
 
 ## Food webs
 
-Animals do not spawn only because the player is nearby. Maintain plausible populations and home ranges for herbivores, opportunists, predators and decomposers.
+Represent plausible niches: herbivores, small omnivores/insectivores, flying animals, terrestrial/shore predators, scavengers and detritivores. Choose regional occupancy from habitat suitability, coarse abundance and season. Local visible animals must have convincing routines, limited senses, hunger/rest cues, simple interactions and no omniscient player hunting.
 
-Broad ecology groups: primary producers, browsers/grazers, insectivores/omnivores, terrestrial or shoreline predators, carrion users, detritivores, soil/fungal decomposers, pollinators and seed dispersers.
+Offscreen population change, browsing pressure, dispersal, mortality and small-animal food availability may be stochastic, approximate and occasional. Do not model exact energy flows or complete demographic balances. Retain distinctive social/dependent individuals under the bounded FaunaSim policy; prevent visibly duplicated or resurrected encountered animals.
 
-A low-detail ecological population may be simulated statistically offscreen; locally observed or individually notable animals become detailed entities while preserving continuity.
+## Seasonal change and disturbance
 
-Predation matters, but hunger, dehydration, flood, terrain, infection and accidental interactions should more frequently threaten the player.
+- Seasonal leaf density/color, fruiting, shedding and habitat appearance from species/region profiles.
+- Temporary weather, water levels, mud and exposed/wet surfaces affecting immediate behavior and navigation.
+- Visible browse removal or a reduced shrub-patch density, followed by plausible delayed recovery.
+- Occasional fallen trees, branch loss, deadwood, carcasses or local canopy openings with **saved recognizable results**.
+- Coarse decomposition and regrowth stages chosen for visual credibility, not a detailed microbial or nutrient model.
 
-## Seasonal processes and disturbance
+The appearance of a living environment matters; simulating the complete invisible process does not. Mechanistic fire spread, complex succession and continuously evolving riverbeds remain out of scope.
 
-- Seasonal shoot growth, plant dormancy/stress, fruiting and shedding.
-- Temporary floodwater across established channels/floodplains; a crossing may become unsafe and later recover.
-- Drought-driven changes in usable forage and drinking locations.
-- Occasional storm windthrow, branchfall and rare localized landslips, preserving affected tree identities, deadwood and conspicuous canopy openings.
-- Local browsing creates recognizable depletion and possibly bushier regrowth where biologically reasonable.
-- Dead vegetation becomes litter, wood and microbial/fungal substrate; nutrients recycle.
+## Spatial fidelity and cost
 
-Most terrain remains fixed. Major storms may cause discrete treefall, debris or rare local rockfall, but should not progressively remake riverbeds. Familiarity relies on persistence.
+**Observed/contacting:** excellent vegetation, lighting, anatomy, movement, collision/reach, locally consistent feeding and responses.
 
-**Provisional limit on forest change:** use existing deterministic adult-tree seeds and compact damage/death overrides, plus coarse cover patches that can respond to a canopy opening and occasionally establish new durable trees. The goal is visible, recognizable change across revisits—not a succession, seed-bank, competition or wildfire-spread simulator. Wildfire is a **deferred possibility**, not required scope. Add sophistication only after a simple in-engine demonstration shows a worthwhile appearance/gameplay improvement; see [FloraSim](flora-sim.md).
+**Nearby/hidden:** believable lightweight animal states prepared beyond the entire HeroView camera tether so turning the camera does not spawn creatures. Stable flora patches support quick reveals.
 
-## Scale and performance
+**Remote:** region profile, species density, current season, simple elapsed-time condition and a few durable exceptions. Recreate an acceptable present scene without historical replay. Exact hidden biographies, rainfall chronologies, food-energy ledgers and lifetime tree physiological models are not required.
 
-Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** instantiates local wildlife from regional cohorts at simulation-chunk activation, uses multirate responsive local behavior and retains only bounded, previously instantiated individuals while identity matters (bonded peers, dependent young or selected notable adults); it otherwise uses coarse populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using StalthosSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **StalthosState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
+SimCore schedules activation; StalthosSim supplies coarse weather; FloraSim owns plant presentation/patch state; FaunaSim animals/occupancy; HeroSim uses shared simple BeastCore rules; InteractionsCore coordinates visible contacts; StalthosState stores observable persistent facts. **No additional ecology runtime subsystems.**
 
-Use event scheduling, low-frequency growth/accounting and deterministic spatial seeds. Separate render-chunk rebuild from ecological updates; batch many plant changes rather than one mesh rebuild per bite.
+## Acceptance tests
 
-Don't equate offscreen simplification with resetting resources. Return visits should show plausible consequences.
+- A striking local habitat looks coherent from a juvenile's perspective, with enough visual variety to reward lingering.
+- An approached animal was already resting or feeding before it came into view.
+- Browsed vegetation responds visibly and does not instantly pop back on camera or reload.
+- A recognizable storm-felled tree, injured companion, offspring, nest or corpse remains consistent upon revisit.
+- Drought and flooding visibly affect landscape and traversal using cheap weather signals.
+- Revealing a region after long absence is bounded in CPU, memory and latency.
+- A complex ecological algorithm is adopted **only if** a simpler proxy demonstrably produces an observable failure.
 
-## Tests and measures
-
-- Ecological viability for the flagship juvenile throughout a normal seasonal cycle in a local watershed.
-- Regional water balance without unexplained permanent ponds or absurd flood magnitudes.
-- Food patches recover at appropriate timescales and browsing leaves visible traces.
-- An island changes in player's absence without hitches on revisit.
-- Conditions determine wildlife distributions; never hardcode predatory ambushes to player location.
-- Instrument per-tick CPU, save/load cost, memory and local detail promotion/demotion.
-
-Cross-references: [Architecture](simulation-architecture.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [HeroSim](hero-sim.md), [World generation](world-generation.md).
-
-## Simulation chunks versus camera visibility
-
-FaunaSim and FloraSim prepare locally appropriate organisms in **simulation chunks extending beyond Smalltrotter's senses and the entire bounded HeroView camera envelope**. Organisms are not created by the render frustum. Long-term identity belongs to significant trees/the Hero Beast and selectively to *already-instantiated* socially relevant or notable wildlife (including bonded peers and dependent young)—not to every regional fauna cohort. See [Spatial activation](spatial-activation.md) and [HeroView](hero-view.md).
+See [Simulation architecture](simulation-architecture.md), [StalthosSim](stalthos-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [World generation](world-generation.md), and [Vision](vision-and-principles.md).
