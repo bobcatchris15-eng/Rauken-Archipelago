@@ -25,6 +25,12 @@ These are **planning documents**, not implementation code. They are separated by
 | Production tooling | [Asset toolkit](asset-toolkit.md) | Agent-accessible source-art and asset production pipeline |
 | Evidence and decisions | [Research register](research-register.md) | Research leads, hypotheses, open questions and decision process |
 
+## Implementation planning (new; proposals, not completed code)
+
+The design-to-execution bridge starts with a Windows-first, engine-neutral asset workshop. Review [Toolkit-first implementation roadmap](implementation/README.md) for dependency stages and acceptance gates, [Detailed toolkit work breakdown](implementation/toolkit.md) for executable agent tasks and CLI/schema/QA contracts, and [Parallel agent work packages](implementation/parallel-work.md) for independent branches, integration gates and ready-to-assign packets.
+
+These are **proposed implementation specifications**. They do not mean an engine has been selected, agents have been dispatched, benchmark results exist, or a playable vertical slice is authorized.
+
 ## Project-wide simulation depth rule
 
 **Display fidelity beats internal fidelity.** The archipelago is a visually ambitious natural-history illusion with shallow, inexpensive ecological internals. Use the simplest plausible proxy/heuristic that produces convincing observable behavior; preserve only the conspicuous consequences and continuity that a player can actually notice. No exact population energy ledger, hydrological reconstruction, weather chronology, full nutrient cycle or complex individual physiology is required by default. Existing detailed algorithms in domain documents are proposals **subordinate to this rule**.
