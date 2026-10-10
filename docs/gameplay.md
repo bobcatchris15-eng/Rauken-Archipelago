@@ -8,7 +8,7 @@
 2. Directly steer or select deliberate intentions when desired; otherwise watch HeroSim live the animal's normal life.
 3. Let instinctive routines exploit appropriate nearby affordances: feeding when hungry and within reach of suitable plants, drinking when thirsty beside accessible freshwater, grooming and posture adjustments during downtime.
 4. Experience physiological consequences over credible time, not arcade hunger countdowns.
-5. Learn a home range, exploit familiar resources, confront weather and terrain, encounter other animals and grow.
+5. Live an ordinary local animal life around usable food, water, shelter and companions; confront weather and terrain, encounter other animals and grow. Larger adventures mainly arise from player intention or genuine ecological pressure, not an autonomous exploration drive.
 6. Remain free to leave: new valleys and marine crossings are feasible but risky.
 7. Mature, optionally court/mate/nest/tend young, age and die; hatch a new animal in the same continuing world with no inherited player progress.
 
@@ -54,7 +54,7 @@ Never eat undrinkable saltwater because it is water; do not vacuum biomass throu
 
 Routine eating, drinking, looking about, calling and locomotion-compatible behavior **never need an interaction prompt**. The player may optionally open a small slow-time response chooser to express a specific intention that is not already emerging organically: inspect *that* unusual object, greet *this* companion, interpose against *that* predator, select *this* nest site, or commit to stalking prey. Offered options derive from actual senses, species anatomy and situation; the chooser never pops up by itself. Its selection produces a **HeroSim intent**, not a guaranteed animation, attack, social outcome or magically reachable target. SimCore owns the slowdown of the immediate world and resumes shared time without desynchronizing wildlife.
 
-With neither active steering nor a maintained player intent, **HeroSim governs the entire animal**. It may forage, roam beyond the current clearing, react socially, avoid hazards, reproduce or die. There is no arbitrary idle-radius leash. Direct steering immediately recovers control, subject to real physical limits and brief genuine involuntary responses.
+With neither active steering nor a maintained player intent, **HeroSim governs the entire animal**. It may forage, travel among nearby resources, react socially, avoid hazards, reproduce or die. It behaves like an ordinary creature within a practical ecological home range, not an adventurer seeking the next valley. There is no arbitrary idle-radius leash: shortage, danger, dispersal or other real pressures may shift its whereabouts. Direct steering immediately recovers control, subject to real physical limits and brief genuine involuntary responses.
 
 When the player also leaves the camera alone, **HeroView gradually enters documentary composition**: gentle body-centered orbit/follow, coherent continuous physical camera motion and well-framed portrait, social or environmental shots. It need not spin constantly or cut to unrelated action; direct camera input immediately interrupts. Alarms can briefly focus attention without inventing sensed information. Documentary observation is the real simulation, not a risk-free spectator variant. A useful acceptance target is thirty minutes of engaging animal behavior with no player commands.
 
@@ -121,7 +121,8 @@ Early life begins at hatching; parental protection and developmental acceleratio
 - Real traversable terrain: cliffs are cliffs, some ravines have one-way-feeling descent, tidal crossings can close, narrow passes and headlands matter.
 - No automatic fast-travel island teleport. Swimming and rare rafting or favorable shallows can enable crossings for appropriately capable species.
 - Distance is meaningful because the player is small and usually not marching continuously.
-- Memory/familiarity: world and creatures persist so recognizable feeding grounds, landmarks, nest sites and individuals remain identifiable. Optional animal-local memory influences preferences but not forced player decisions.
+- **Animal memory is short-term only:** keep a small expiring working set of recently sensed objects, hazards and immediate action context (so an occluded predator is not forgotten instantly). Do not accumulate a learned map, stored routes, lifelong familiarity scores or a remembered home-location objective. The *player* may recognize persistent landmarks and places, but the animal need not learn them.
+- **Relocation:** after the player takes an animal to an unfamiliar valley and releases control, it lives locally from its current senses and needs instead of automatically attempting to return home. Durable social/dependence ties remain narrow biological exceptions, not general geographic memory.
 - Camera should serve juvenile body height; third-person and any alternate inspection perspectives should retain scale.
 
 ## Hazards
