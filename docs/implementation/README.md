@@ -7,7 +7,7 @@
 
 Read [Toolkit implementation](toolkit.md) for work items and exact handoffs, and [Parallel work packages](parallel-work.md) for bounded concurrent assignments.
 
-**Squad execution:** [Machine-readable 75-task Wicked-first DAG, dispatcher and acceptance gates](../../tasks/README.md) translates this plan into agent-ready bounded work. The graph is canonical for dispatch; this document remains rationale and design authority.
+**Squad execution:** [Machine-readable 77-task Wicked-first DAG, dispatcher and acceptance gates](../../tasks/README.md) translates this plan into agent-ready bounded work. The graph is canonical for dispatch; this document remains rationale and design authority.
 
 ## 1. Baseline and priority order
 
@@ -48,7 +48,7 @@ There is **no full-scene measurement yet** demonstrating that Wicked meets the f
 
 ### Stage 1 — Prove the asset factory on varied organisms
 
-**Execute:** six reference plants from [Flora](../flora.md): Splitcrown, Softbough, Jointreed, Royal frond, Basketfern, and bracket fungus on a log. Add Smalltrotter's skeletal/anatomical proxy with distinct juvenile and adult appearance. Generators may use Blender Python/Geometry Nodes, with optional external tools as adapters—not hidden manual prerequisites. Include neutral beauty and diagnostic renders, collision/contact proxies, and real topology/silhouette variety. Start with geometry and schema quality rather than a requirement to finish production-quality photorealism in one pass.
+**Execute:** six reference plants from [Flora](../flora.md): Splitcrown, Softbough, Jointreed, Royal frond, Basketfern, and bracket fungus on a log. Add Smalltrotter's skeletal/anatomical proxy with distinct juvenile and adult appearance. Generators may use Blender Python/Geometry Nodes, with PlantFactory adapters developed into agent-controlled native/plugin/Windows UI automation when necessary. No hidden manual prerequisites; PlantFactory access is not mandatory for the Blender-native G1 fallback. Include neutral beauty and diagnostic renders, collision/contact proxies, and real topology/silhouette variety. Start with geometry and schema quality rather than a requirement to finish production-quality photorealism in one pass.
 
 **Gate G1 — every reference asset passes a round-trip:** profile + stable seed -> editable source -> validated GLB/other documented interchange -> stage/variant comparison -> QA sheet -> publish receipt. Failing assets do not land in the published manifest. Human art review is an explicit gate; validators cannot prove naturalistic appearance.
 
