@@ -16,6 +16,14 @@ A plant may be ecologically elaborate while rendered with one simple distant mes
 
 All organisms/patches use environmental baseline fields from world generation and time-window summaries from RaukenSim. Their persistent records and relevant event cursors live in RaukenState.
 
+## Biological region activation ahead of rendering
+
+When **SimCore** activates a simulation chunk around Smalltrotter (including buffer beyond HeroView's bounded detached camera), FloraSim resolves the locally appropriate full botanical community from habitat distributions, stable seeds, RaukenState records and elapsed environmental history.
+
+This means all visually required plant instances/colonies have a biologically coherent source **before** the renderer requests the camera-visible chunk; it does **not** require independent ticking of every rendered stem. Trees and other durable specimens preserve identities/damage; low cover can be dense geometry derived from one ecological population patch.
+
+The renderer may ask for batches of the already-derived state without making individual plants poll the climate or grow merely because the frustum touched them. See [Spatial activation](spatial-activation.md).
+
 ## Lazy advancement
 
 - On a bulk spatial snapshot request, retrieve elapsed world-time and accumulated climate/disturbance history.

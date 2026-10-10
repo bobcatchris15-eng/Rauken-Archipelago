@@ -120,3 +120,7 @@ Build the six reference plants from [Flora](flora.md) and the sauropod anatomica
 - PresentMon: https://github.com/GameTechDev/PresentMon
 - RenderDoc: https://renderdoc.org/
 - Tracy: https://github.com/wolfpld/tracy
+
+## Camera and activation diagnostics
+
+Asset tests should support active biological chunks prepared before camera visibility, with stable tree-state reconstruction, lightweight creature rest/browse/gaze animations and a HeroView capture path showing body-relative steering, screen-space follow/pan and bounded near-hill camera flight. This is an experimental authoring/render benchmark, **not** a required playable vertical slice. See [Spatial activation](spatial-activation.md).

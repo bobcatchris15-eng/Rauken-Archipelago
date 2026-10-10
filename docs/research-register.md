@@ -86,3 +86,15 @@ These are starting leads to be checked for bibliographic accuracy, licensing and
 For each answered scientific question, record source link/DOI, exact supported claim, caveats, conflicting interpretations and how The Rauken extrapolates. For each technical experiment, record source revision, hardware, binary/settings, raw measurements and visual comparison. Never cite the existence of an unpublished benchmark as proof of performance.
 
 In future updates, append dated decisions with reasons, alternatives considered, test results and cross-domain impacts. This file should preserve *why* choices were made without taking ownership of each domain's final specification.
+
+## HeroView, fauna retention and spatial activation — 2026-10-09
+
+**Agreed direction:** Name the embodiment/presentation/control interface **HeroView**. Direct WASD is relative to the animal's body (W always forward from Smalltrotter), while an orbit camera maintains chosen composition and translates to follow her as she walks across frame. A **bounded** local detached camera may inspect a nearby ridge but never fly to another island. Camera position and movement authority are distinct; free-camera input can pick a **persistent destination** for HeroSim to execute.
+
+**Intent priority:** routine hunger/thirst do not casually override player commands; acute fear/pain/startle can briefly interrupt, with direct WASD carrying stronger authority than autonomous destination travel. HeroSim perceives through Smalltrotter's bodily senses, not from the player's detached camera.
+
+**Spatial activation:** SimCore prewarms FaunaSim and FloraSim regions beyond the hero's own sensory extent and the full reachable bounded camera envelope. Local animals and plants are instantiated from their regional simulation state before they are shown. Vegetation need not have a per-blade biological agent.
+
+**Wildlife memory policy:** FaunaSim represents mostly population cohorts. Local animals can behave naturally—resting, basking, watching, browsing, yawning—without simulated biography. **Only already-instantiated mature individuals of selected largest species** can acquire optional lasting records; no global giant-animal identity registry for unseen islands.
+
+**Provisional/tune:** camera radius and tether shape; activation buffers; exact physics controls; fear thresholds; retained adult budget. These are not fixed distances or performance claims.

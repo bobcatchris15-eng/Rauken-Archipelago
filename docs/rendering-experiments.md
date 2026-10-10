@@ -87,3 +87,9 @@ Score both *visual quality* and *frametime/headroom*. Prefer a clear practical w
 Important: Flax documentation notes that after programmatic foliage changes clusters should be rebuilt in batches. Plant bite events must not rebuild a huge actor on every action.
 
 See [Visual direction](visual-direction.md) for appearance requirements and [Asset toolkit](asset-toolkit.md) for reproducible content.
+
+## HeroView and simulation buffer benchmarks
+
+Test orbit-follow without automatic heading recentering, body-relative WASD at every camera heading, local free-camera flight to a soft/hard tether, returning to the animal, collision handling, and tether correction when the animal walks away.
+
+Critically, **SimCore simulation activation must buffer beyond the full local free-camera envelope**. Benchmark flora bulk instantiation, fauna cohort instantiation/retirement, and rendering together while flying the camera over an occluding hill. Animals should already be resting/browsing before revealed, not spawned by renderer visibility. Check CPU spikes, delayed geometry, repeated count conservation, and the ability to draw camera-visible creatures Smalltrotter has not perceived. See [Spatial activation](spatial-activation.md).

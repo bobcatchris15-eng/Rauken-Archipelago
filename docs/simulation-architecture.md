@@ -1,121 +1,114 @@
-# Simulation architecture — ownership, time and persistence
+# Simulation architecture — state, activation, perception and presentation
 
-**Status:** Proposed architecture, adopted naming; interfaces and rates remain open to implementation experiments.
+**Status:** Agreed logical boundaries; algorithms, distances and implementation framework remain provisional. These are **modules**, not independent network services.
 
-This document defines the boundaries between simulations. It does **not** prescribe separate processes, network services, databases or an ECS framework. Prefer in-process modules and explicit contracts until profiling justifies more machinery.
+## Named components
 
-## The named components
-
-| Component | Authoritative responsibility | What it explicitly does not own |
+| Component | Owns | Does not own |
 |---|---|---|
-| **SimCore** | Simulation scheduling, deterministic order, global world-time progression, acceleration/pause/catch-up, event delivery coordination | Weather, biological truth, rendering |
-| **RaukenState** | Persistent identities, spatial indexing, chunk/region records, saves, timestamps, compact history and coherent snapshot access | Running physiology or changing weather, universal messaging for every operation |
-| **RaukenSim** | Current environmental conditions, world-time-derived seasons and day/night, regional weather, surface moisture and temporary storm/flood states | Geological erosion, living organisms, simulation scheduler |
-| **FloraSim** | Persistent trees, shrubs, herbs, ferns, moss/fungal colonies, growth, biomass, phenology, damage, death and botanical populations | Rendering, universal weather calculation, animal hunger |
-| **FaunaSim** | Nonplayer animal individuals and populations, movement/decisions, active multirate physiological state and distant ecological approximations | Player intent and UI, plant growth, independent physiology formulas |
-| **HeroSim** | Player animal state, player-intention arbitration, high-fidelity sensory/physiological response, individual development and feedback | Separate player-only biological laws, weather, render implementation |
-| **BeastCore** | Shared animal anatomy, metabolic rules, digestion, injury, homeostasis, perception and behavioral primitives used by HeroSim and FaunaSim | Ownership of animals, standalone ticking simulator |
-| **InteractionsCore** | Validated cross-domain transactions, durable ecological transfers and relevant change events | AI decision making, rendering, per-frame collision processing, its own ecology simulation |
-| **Renderer / audio / physics** | Presentation, motion and local physical feedback using state snapshots, interactions and high-rate controls | Deciding rainfall, simulating plant age, saving biological authority |
+| **SimCore** | Shared timeline, variable time scale, scheduling, ordering, spatial **simulation chunk activation** | Weather, animal biology, camera |
+| **RaukenState** | Persisted world/region/plant records, regional fauna cohorts, rare retained large adults, saves and event history | A complete persistent biography for every animal; simulation itself |
+| **RaukenSim** | Weather, day/night, seasons, local wetness, temporary storm/flood conditions and environment history | Runtime erosion/geology, organisms |
+| **FloraSim** | All relevant botanical/fungal individuals and patches; growth, health, resources, death, lazy catch-up | Per-frame renderer polling |
+| **FaunaSim** | Local active wildlife drawn from population cohorts, behavior, physiology at suitable fidelity; *optional retention of already-instantiated mature giants* | Individual identities for never-instantiated wildlife, lifelong memories for ordinary animals |
+| **HeroSim** | Smalltrotter's bodily biology, sensory interpretation, player-intent execution, involuntary responses | Camera knowledge or camera movement |
+| **BeastCore** | Shared animal physiology, sensation, growth and behavior primitives used by HeroSim and FaunaSim | Its own ticking population |
+| **InteractionsCore** | Validated cross-domain resource/damage/state transfers and outcome events | A master AI decision layer |
+| **HeroView** | Player controls/focus, body-relative direct steering requests, destination picking, bounded camera, human-facing audiovisual embodiment | Biological truth, unrestricted spectator flight, injecting camera sight into HeroSim |
+| **Renderer/physics/audio** | Scene rendering, local physical contact/animation and audio implementation | Persistence/biological authority, weather decisions |
 
-**Ownership rule:** each mutable domain fact has exactly one authoritative simulator. RaukenState stores the fact and coordinates durable access, but does not invent it. BeastCore provides common rules without independently owning any living animal. InteractionsCore coordinates cross-owner changes, not all internal reads.
+**Ownership invariant:** one domain owns each mutable ecological fact. RaukenState stores agreed persistent representations without becoming a per-frame database bottleneck; InteractionsCore coordinates only significant cross-domain operations. Direct local reads and high-rate interactions should remain inexpensive.
 
-## Data and control flow
+## Conceptual data flow
 
 ```text
-          SIMCORE — timeline, update queues, event order
-                              |
-                   RAUKENSTATE — identity/save
-                   /          |           \
-       RAUKENSIM          FLORASIM       FAUNASIM
-       environment         plants         wildlife
-           |                                |
-           +---------------- INTERACTIONSCORE +
-           |                   |              |
-           +---------------- HERO SIM <-------+
-                              |
-                     Player intentions
-                    (BEASTCORE shared by
-                     HeroSim and FaunaSim)
+  Human  ->  HeroView (input focus, camera, destination picking)
+                      | player intention
+                      v
+                   HeroSim <---- BeastCore shared with FaunaSim
+                body + perception
+                 ^     ^      ^
+          RaukenSim FloraSim FaunaSim <--- SimCore simulation activation
+              \        |      /
+                   InteractionsCore
+                         |
+                    RaukenState
 
-    World/biological snapshots + changes ---> Renderer
-    Physical contacts/sensory inputs ------> relevant sims
+  World snapshots: RaukenState + domain sims -> scene streamer -> renderer
+  Subjective/body signals: HeroSim ---------------------------> HeroView
+  Visual/audio scene + body presentation ---------------------> human
 ```
 
-This is a **logical diagram**, not a requirement that all paths route through RaukenState or InteractionsCore. Local, frequent operations can use direct in-process interfaces. Rendering chunks and active simulation regions are different concepts.
+This is **not** a fixed synchronous API chain. HeroSim senses a world through Smalltrotter's own body, not through the camera. The renderer ingests world renderables from the streamer/domain snapshots without routing whole scene graphs through HeroSim.
 
-## Time semantics
+## Spatial lifecycle: three independent extents
 
-**SimCore owns the authoritative global timeline.** RaukenSim derives solar time, season and weather from it and stores environmental histories. Physics and immediately sensed events operate at normal realtime responsiveness even when world time is accelerated. SimCore can change how much simulated world time passes per wall-clock second, including fast-forward through rest or quiet intervals.
+1. **Active simulation:** SimCore prewarms and activates chunks around Smalltrotter, including a buffer beyond the **entire reachable envelope** of HeroView's nearby detached camera. FaunaSim begins local behaviors before the ridge is rendered; FloraSim bulk reconstructs the right plants/patches.
+2. **Hero perception:** BeastCore/HeroSim evaluate what Smalltrotter could perceive from her body (eyes/ears/smell/contact, occlusion, attention); no omniscient camera data.
+3. **Rendered scene:** HeroView's camera frustum and LOD choose what's drawn, including distant static scenery. The camera can show something she does not notice.
 
-Growth pacing is a **separately tunable species life-history transformation**, not arbitrary animation scaling or a HeroSim-only secret clock. The player should see meaningful juvenile development within an enjoyable session, but siblings and comparable animals must follow compatible rules. Test a combination of world-time acceleration, nonlinear early growth and conditional growth based on nutrition. Do not automatically scale every action, reaction, hunger response and footstep by the visual aging multiplier.
+**A simulation chunk is not the same as a render chunk.** A renderer chunk unloading cannot kill a local animal. Camera flight over a nearby hill shouldn't cause a new herd to spring into existence only because it is now visible. Camera tether and simulation-buffer distances are open tuning parameters; avoid whole-island active simulation when the hero is far away.
 
-Time contracts:
-- **High-rate immediate:** player locomotion/physics, contact, acute pain/startle and steering.
-- **Frequent animal state:** thermal discomfort, ongoing pain, attention, fatigue, hydration and gut processes at different frequencies and on relevant events.
-- **Slow ecology:** growth, reproduction, decay, phenology, population changes.
-- **Regional weather:** weather and storm events on its own intervals, queried by position or delivered as changes.
-- **Deferred catch-up:** inactive plants and distant fauna integrate elapsed simulation time and relevant events when required.
+[Spatial activation](spatial-activation.md) describes the activation/retirement lifecycle.
 
-Exact frequencies are **not fixed**. Event responsiveness and measured cost matter more than making a timer for every statistic.
+## What becomes instantiated
 
-## Environmental history and lazy evaluation
+**Flora:** On simulation activation, FloraSim resolves plant individuals and colonies from static suitability, deterministic seeds and persisted events, lazily advancing growth to current world time. Trees retain recognizable age, shape and damage across reloads. Low ground cover can be population patches with fully rendered blades but not separate biology objects.
 
-The environment is based on mostly fixed map geography: streams/springs, soils, baseline moisture, slopes and flood susceptibility are generated offline. RaukenSim updates weather, seasons, surface wetness and temporary water levels **without detailed groundwater transport or routine erosion**.
+**Fauna:** Before local activation, regions have habitat-based **population/age cohorts**, not individually simulated or named animals. On activation FaunaSim reserves cohort counts and instantiates appropriate local animals (including ones outside camera view); these live, rest, browse, observe and react. On retirement most return to aggregate populations. Only *previously instantiated* mature members of designated largest species **may** retain a compact persistent identity. No Dolores individual exists on Rainridge merely because a constrictor population exists there.
 
-When FloraSim evaluates an organism last updated at time T, it requests the appropriate RaukenSim interval summary (rain/temperature/drought/flood exposure) and applies InteractionsCore disturbance records (e.g., herbivory, storm damage). It updates the plant to current simulated time without reconstructing every intervening frame.
+Individual retention and simulation fidelity are different axes: an active small transient creature can have responsive behavior; a retained large adult can sleep as a tiny saved record. Cohort accounting prevents duplicate animals on reactivation. A short locality disturbance/cooldown may discourage conspicuous instant replacement without keeping per-animal biographies.
 
-RaukenState must retain enough summaries/events to support this. Compact history only after relevant owners are safely advanced/checkpointed; never discard unprocessed events because a render chunk unloaded.
+## HeroView: camera and authority
 
-## Simulated vs visible
+**Camera placement and movement authority are separate axes.**
 
-**Visibility never determines whether an organism exists or has biological effects.**
+- **Tethered orbit/follow:** orientation stays chosen, not compulsorily behind Smalltrotter. She can walk across the camera frame; only when compositional space is exhausted does the camera smoothly pan/translate to follow.
+- **Locally detached observation:** free local pan/orbit/flight within a **soft then hard tether around Smalltrotter**. Up over a nearby hill: yes. Across to another island: no. When she moves away, the allowed envelope follows smoothly; no teleport or abrupt forced rotation.
+- **Direct body-relative steering:** W is forward **from Smalltrotter's facing**, independent of camera orientation. A/D request anatomical turning; S asks for braking/backing as physically possible.
+- **Destination intent:** in camera-focused mode, pick nearby ground; HeroView sends a target to HeroSim. The animal finds her own route with local sensing and physical limits, not magical information about predators or paths observed only by the camera.
+- **No movement command:** Smalltrotter can browse, rest, investigate, watch or drink naturally.
 
-When a render chunk is requested:
-1. Streamer consults RaukenState for identities and location records.
-2. FloraSim advances relevant plant individuals/population patches to the requested world time in a **bulk** request.
-3. FaunaSim supplies any represented local animals or proxies; near-simulation activity is managed independently of visual chunk requests.
-4. Renderer receives organism snapshots, stable seeds, materials, environmental state and interaction anchors.
-5. Renderer instantiates/interpolates geometry and audio locally. It does not poll each tree for updates every frame.
-6. Subsequent visible changes are **events** or amortized updates: browsing, broken branches, flowering thresholds, major growth. Wind/wetness animation may respond to cached RaukenSim fields each render frame.
-7. Render unload discards visuals only, not organism state.
+**Player authority:** while holding WASD, routine hunger/thirst/curiosity do not redirect her. Severe pain/startle/imminent danger may cause brief involuntary behavior; forceful control loss is rare. A destination is a **persistent goal** not deleted by routine needs, but permits more hesitation/replanning/avoidance and can be abandoned under strong fear, injury or inability to traverse. Direct steering normally cancels an outstanding destination.
 
-Animal proximity can trigger simulation-fidelity promotion, but does not mean spawning organisms from nothing. Distant populations may use regional aggregates and resource budgets; reconciling those with known individuals must preserve identity and avoid double-counting.
+[HeroView](hero-view.md) contains the control/camera detail and acceptance cases.
 
-## InteractionsCore contract
+## Time and update rates
 
-Cross-domain interactions use intent → validate → reserve/commit → publish:
-- Feeding: BeastCore/HeroSim or FaunaSim selects accessible plant tissue, FloraSim validates remaining biomass, InteractionsCore transfers **only the successfully removed quantity** to the consumer. Repeated simultaneous bites cannot duplicate biomass.
-- Drinking: water-state access from RaukenSim; HeroSim/FaunaSim ingest water with salinity/depth/access checks. Not all visually wet surfaces are freshwater.
-- Storm injury: RaukenSim reports weather, FloraSim evaluates tree vulnerability, InteractionsCore records fallen-tree/resource transition, HeroSim/FaunaSim reacts to collision or obstruction.
-- Death/decay: deceased organism leaves persistent remains in RaukenState; its living owner no longer counts live biomass; ecological decomposition/foraging consumes the remains without double claims.
+SimCore owns global world-time progression (which may be accelerated through uneventful/rest periods). RaukenSim derives sun, seasons and weather from that timeline. Species-specific developmental pacing can make juvenile growth meaningfully noticeable without forcing animation/reflex speed to match accelerated years; HeroSim and FaunaSim use the same underlying BeastCore developmental laws.
 
-No network-style distributed transaction system is needed. An ordered in-process command and result with unique event IDs and deterministic reconciliation should suffice initially. High-rate bone contacts, lookups and shading never go through this transaction layer.
+- Direct physical response, collision, pain/startle: prompt real-time/event-driven.
+- Local animal orientation and movement: active high-rate as needed.
+- Thermal discomfort, attention and continuing pain: medium-rate.
+- Hunger, thirst, gut, fatigue, health: slower or event-integrated.
+- Growth, reproduction, botanical senescence: coarse/lazy.
+- Inactive environment: compact time-window weather summaries retained for FloraSim and cohort catch-up.
 
-## Cross-domain invariants
+Exact frequencies are unknown; don't demand one timer per internal variable.
 
-1. The same plant stays recognizable after unload/reload and after decades; growth/damage from a stable seed and persistent structural changes.
-2. Same animal physiology rules for player and wild animals, with different evaluation fidelity.
-3. A storm changes physiology, plant water stress and visual wetness from **one** authoritative environmental state.
-4. Concurrent consumers cannot each claim the same finite forage/resource.
-5. No offscreen reset of plants, animals, weather consequences or resources.
-6. Render visibility and simulation activation have independent budgets.
-7. Simulation fast-forward has a deterministic, bounded catch-up strategy and accounts for ecologically significant events.
-8. Normal year-to-year terrain stays recognizable; only exceptional temporary flood masks and rare authored disturbance alter local traversal.
-9. No hidden omniscience: sensing depends on sensory modality, distance, occlusion, wind and attention.
-10. Every system can be tested headlessly with fixed seeds, time ranges and event traces.
+## Environment and cross-domain changes
 
-## Interface sketch — concepts, not code
+The map generator establishes mostly fixed streams, springs, terrain, soil, drainage and plant moisture suitability. RaukenSim handles day/night, weather and temporary storm-driven water level changes with **no routine erosion or detailed groundwater transport**.
 
-- SimCore: advance, schedule, change time scale, pause, query simulation timestamp.
-- RaukenState: get spatial entity records, stable IDs, save/checkpoint, history cursor, region snapshots.
-- RaukenSim: sample environment at position/time, get interval summary, sample water depth/current/salinity, environmental change events.
-- FloraSim: advance plant batch, query plant resource, apply validated damage, get render snapshot.
-- FaunaSim: advance near/far agents, query animal perception/state, reconcile regional populations.
-- HeroSim: accept player intent, advance high-fidelity animal, report state/behavioral output.
-- BeastCore: integrate physiological quantities, evaluate sensors, derive drives/reflexes, compute developmental state.
-- InteractionsCore: execute typed, validated resource/damage/reproduction transitions and emit completion events.
+FloraSim catches up plant health/age from stable suitability, environmental interval summaries and discrete browsing/storm events. InteractionsCore validates finite transfers (food into stomach, biomass removed; rain/damage effects; carcasses/deadwood), preventing double consumption and duplicated live/dead resources.
 
-## Planning references
+The renderer can animate foliage wind and wetness each frame while biological state advances only on appropriate events/requests.
 
-[RaukenSim](rauken-sim.md) · [FloraSim](flora-sim.md) · [FaunaSim](fauna-sim.md) · [HeroSim](hero-sim.md) · [Ecology](ecology-and-hydrology.md) · [Gameplay](gameplay.md)
+## Invariants / quality checks
+
+1. Adult trees maintain stable shape and accumulated damage after arbitrary chunk cycling.
+2. An active animal is already resting/browsing before Smalltrotter or the bounded camera sees it; the renderer's visibility does not generate it.
+3. No remote island-wide individual wildlife registry. Long-term retained adults are eligible **only after actual local instantiation**.
+4. Retiring and reinstantiating cohorts does not multiply animals or erase finite forage use.
+5. HeroView may observe unseen predators; **HeroSim does not learn of them** until Smalltrotter's own senses detect them.
+6. From a front-facing orbit camera, W moves Smalltrotter toward camera; moving sideways across the view leads to camera translation, not forced heading recenter.
+7. A locally detached camera can inspect a nearby hill but is physically bounded from remote-island flight.
+8. Ordinary thirst/hunger do not hijack direct steering or an active destination. Strong fear/pain can interrupt, especially during autonomous travel.
+9. A comfortable, recently fed large predator may simply watch a juvenile sauropod and return to resting.
+10. A flood affects movement/plant conditions/rendering consistently, then recedes with familiar terrain intact.
+11. Changes to time scale keep developmental/physiological accounting consistent across HeroSim and FaunaSim.
+12. Test modules headlessly with fixed seeds, region cycling and interaction logs.
+
+## Related specifications
+
+[HeroView](hero-view.md) · [Spatial activation](spatial-activation.md) · [HeroSim](hero-sim.md) · [FaunaSim](fauna-sim.md) · [FloraSim](flora-sim.md) · [RaukenSim](rauken-sim.md) · [Gameplay](gameplay.md)

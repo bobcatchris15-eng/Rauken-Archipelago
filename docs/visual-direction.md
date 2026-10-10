@@ -66,3 +66,7 @@ High-resolution source masters are retained; game assets are optimized derivativ
 For every representative asset/scene, preserve: reference provenance, turntables in neutral and outdoor illumination, moving camera passes, near/mid/far comparisons, material diagnostic renders, and roughness/normal/alpha checks. A visual review must approve image quality *and movement*, even if quantitative benchmarks are good.
 
 The 30 FPS hardware target is a separate **engineering gate**, not a license to make assets visibly poor. See [Rendering experiments](rendering-experiments.md). Proposed compromises must be demonstrated in A/B images and timed captures.
+
+## HeroView framing and camera embodiment
+
+HeroView's orbit/follow camera retains its chosen orientation and lets Smalltrotter cross the composition, tracking her *position* smoothly rather than forcing a behind-the-animal camera. A bounded locally detached camera may rise above a nearby ridge, not fly to another island. Use careful collision/occlusion handling, avoid abrupt snapping at the tether, and let world/audiovisual presentation be independent of her actual sensory knowledge. Controls are body-relative (W always forward from the animal); the camera must not redefine her heading. See [HeroView](hero-view.md).

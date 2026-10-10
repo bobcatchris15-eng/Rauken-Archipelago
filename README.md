@@ -19,7 +19,13 @@ Start with the **[planning index](docs/README.md)** and **[simulation architectu
 - Visual ambition is near-photorealism, on a reference GTX 1080 8 GB plus first-generation Ryzen with a 30 FPS floor.
 - Flax and Wicked Engine are leading **candidates**, pending measured benchmarks.
 - All production should be agent-friendly, reproducible, inspectable and source-controlled.
-- Named boundaries: **SimCore** (time/scheduling), **RaukenState** (persistence), **RaukenSim** (environment), **FloraSim** (plants/fungi), **FaunaSim** (wildlife), **HeroSim** (player), **BeastCore** (shared animal biology) and **InteractionsCore** (validated cross-domain exchanges).
+- Named boundaries: **SimCore** (time/scheduling), **RaukenState** (persistence), **RaukenSim** (environment), **FloraSim** (plants/fungi), **FaunaSim** (wildlife), **HeroSim** (player), **BeastCore** (shared animal biology) and **InteractionsCore** (validated cross-domain exchanges), and **HeroView** (bounded camera and the human-facing embodiment controls).
 - Watercourses, soils and plant suitability are mainly map-generated. Runtime weather and floods change conditions temporarily; plant growth is lazy and animal physiology multirate.
 
 No content here should be treated as a finalized implementation choice without the explicit decisions noted in the individual specifications.
+
+## Camera and biological activation
+
+[HeroView](docs/hero-view.md) permits body-relative WASD and a separately orbiting/following camera, plus a **locally detached, tethered camera** for inspecting the next ridge and issuing persistent destination goals. It cannot scout arbitrary parts of the archipelago or grant Smalltrotter knowledge from the detached camera.
+
+[Spatial activation](docs/spatial-activation.md) requires FloraSim/FaunaSim chunks to prewarm beyond both Smalltrotter's perceptual region and the full camera tether. FaunaSim chiefly preserves habitat populations, instantiating local animals only where relevant; **only already-instantiated mature members of selected largest species** may have long-term individual records. Ordinary animals don't need biographies.

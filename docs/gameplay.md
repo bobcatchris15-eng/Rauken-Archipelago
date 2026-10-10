@@ -14,6 +14,14 @@
 
 No mandatory quests, inventories, technology trees, crafting, collectible checklists or map-reveal towers.
 
+## Embodied camera and movement authority
+
+**HeroView** separates **camera placement** from **movement intent**. In body-relative direct mode, W always means forward from Smalltrotter's facing even if the orbit camera is in front of her. The orbit/follow camera holds a chosen orientation and pans/translates when Smalltrotter moves across the frame; it is not compelled to chase her heading.
+
+A locally detached camera can fly **over a nearby hill** while Smalltrotter continues living, but stays within a **soft/hard tether** anchored to her; it cannot travel to another island. In camera-control input mode, ground selection requests a destination and HeroSim decides how to travel there, using only her senses for new hazards. Camera sightings do **not** grant her omniscience.
+
+Intent types: **direct body-relative steering**, **persistent destination**, **uncommanded autonomy**. Normal hunger/thirst cannot hijack WASD and should not discard a destination; severe fear/pain can interrupt more readily in destination travel than direct control. Direct movement normally cancels old destinations. See [HeroView](hero-view.md).
+
 ## Control contract
 
 **Explicit player controls:** movement direction and speed, camera/attention, deliberate interactions with other animals, voluntary rest/shelter, investigation and flight, optional social or breeding actions.
@@ -92,7 +100,7 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 - Favor meaningful days, seasonal shifts and generational lifespan rather than arcade timing.
 - **Fluid time:** visible juvenile growth should emerge within a reasonably short play session. SimCore can accelerate world time/rest and shared species developmental curves may compress early growth; exact pacing remains under test.
 - Real-time controls and acute sensory reactions cannot slow down just because world/developmental time advances faster. Comparable NPC juveniles must have compatible BeastCore growth rules.
-- World state and significant individual histories persist after a player's death; new lives do not inherit magical skills or knowledge.
+- World and botanical state, wildlife population cohorts and the hero's life remain coherent after death. **Most wildlife is not a durable named individual**; only eligible previously-instantiated mature giant animals may retain identity.
 - Consider starting a later life as a descendant only if birth and inheritance systems justify it.
 
 ## Initial usability tests
@@ -107,4 +115,4 @@ Cause/consequence chains matter: a mild leg injury can make reaching food costly
 
 ## Out of scope for this domain
 
-Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). Persistence and ownership belong in [Simulation architecture](simulation-architecture.md); specifics in [HeroSim](hero-sim.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md) and [FaunaSim](fauna-sim.md). Appearance belongs in [Visual direction](visual-direction.md).
+Specific plant/species designs belong in [Flora](flora.md) and [Creatures](creatures.md). Persistence and ownership belong in [Simulation architecture](simulation-architecture.md); specifics in [HeroSim](hero-sim.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md) and [FaunaSim](fauna-sim.md). Appearance belongs in [Visual direction](visual-direction.md); human-facing control/camera design belongs in [HeroView](hero-view.md).

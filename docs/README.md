@@ -11,8 +11,10 @@ These are **planning documents**, not implementation code. They are separated by
 | Architecture | [Simulation architecture](simulation-architecture.md) | Named systems, ownership, time, interactions and persistence |
 | Environment simulation | [RaukenSim](rauken-sim.md) | Weather, seasonal conditions, floods, environmental history |
 | Plant simulation | [FloraSim](flora-sim.md) | Persistent trees, shrubs, herbs, fungi; lazy growth and browsing |
-| Animal simulation | [FaunaSim](fauna-sim.md) | Wild animals, multirate physiology, offscreen populations |
-| Player animal | [HeroSim and BeastCore](hero-sim.md) | Intent and shared animal biology at high fidelity |
+| Animal simulation | [FaunaSim](fauna-sim.md) | Regional cohorts, transient locally instantiated animals, narrowly retained mature giants |
+| Player animal | [HeroSim and BeastCore](hero-sim.md) | Bodily condition, perception and player-intent execution |
+| Player interface | [HeroView](hero-view.md) | Body-relative WASD, orbit/follow, bounded detached camera and destination commands |
+| Spatial lifecycle | [Spatial activation](spatial-activation.md) | Simulation regions buffered beyond perception and camera visibility |
 | Ecology | [Ecology and hydrology](ecology-and-hydrology.md) | Cross-domain habitats and ecological processes |
 | Flora | [Flora](flora.md) | Plant/fungal organisms, anatomical families, foods and plant life histories |
 | Creatures | [Creatures](creatures.md) | Animal anatomy, growth, behavior and ecological niches |
@@ -24,7 +26,7 @@ These are **planning documents**, not implementation code. They are separated by
 ## Current status
 
 - **Established direction:** fictional Late Cretaceous-inspired archipelago; four main islands; dense, causally convincing landforms; continuous animal life rather than quest-led survival; environmental threats more common than predatory attacks; near-photorealistic rendering at 30 FPS minimum on the reference machine.
-- **Named architecture (decided):** **RaukenState**, **BeastCore**, **InteractionsCore**, alongside SimCore, RaukenSim, FloraSim, FaunaSim and HeroSim. Logical in-process modules, not mandatory separate services.
+- **Named architecture (decided):** **RaukenState**, **BeastCore**, **InteractionsCore**, alongside SimCore, RaukenSim, FloraSim, FaunaSim, HeroSim and **HeroView**. Logical in-process modules, not mandatory separate services.
 - **Provisional:** exact island dimensions, separation dates, species anatomy, metabolic values, time-compression tuning, storm/flood intensity, engine selection and vendor dependencies. Detailed groundwater transport and continuous erosion are explicitly out of runtime scope.
 - **Research required:** age-dependent sauropod integument (the quills are consciously speculative); Cretaceous botanical reconstruction; physiological parameter ranges; low-end-hardware renderer benchmarks.
 
@@ -33,11 +35,13 @@ These are **planning documents**, not implementation code. They are separated by
 1. Treat this index as the entrance; read [Vision](vision-and-principles.md) before modifying any domain.
 2. Keep **what exists** (world/species/ecology) separate from **how it looks** (visual) and **how it is implemented** (rendering/toolkit).
 3. Use [Simulation architecture](simulation-architecture.md) for canonical component names and authority; don't invent player-only biological rules.
-4. Keep render chunk visibility separate from biological activity and never tick plants just because they are rendered.
-5. Preserve concrete user preferences even when scientifically improbable; favor evocative geography where coherent causal relationships can still be maintained.
-6. Do not harden estimates into requirements without testing or an explicit design decision. Mark assumptions as *Proposed*, *To test*, *Unknown*, or *Decided*.
-7. Make work reproducible. Research claims require real citations in future completed specifications; don't invent taxonomic evidence.
-8. No gameplay implementation or vertical slice is currently requested by these documents. The renderer and asset toolkit documents describe **experiments** only.
+4. Keep simulation-chunk activation buffered beyond HeroView's reachable camera tether and HeroSim's perception; never tick plants or create/retire fauna solely because they're rendered.
+5. FaunaSim retains individuals long term only when **already instantiated** and mature members of designated largest species; ordinary population animals can turn over.
+6. HeroView can see things Smalltrotter can't perceive. Direct W is always body-forward, even with the camera looking at her face.
+7. Preserve concrete user preferences even when scientifically improbable; favor evocative geography where coherent causal relationships can still be maintained.
+8. Do not harden estimates into requirements without testing or an explicit design decision. Mark assumptions as *Proposed*, *To test*, *Unknown*, or *Decided*.
+9. Make work reproducible. Research claims require real citations in future completed specifications; don't invent taxonomic evidence.
+10. No gameplay implementation or vertical slice is currently requested by these documents. The renderer and asset toolkit documents describe **experiments** only.
 
 ## Proposed document maintenance
 

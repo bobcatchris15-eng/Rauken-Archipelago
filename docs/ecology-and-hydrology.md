@@ -63,7 +63,7 @@ Most terrain remains fixed. Major storms may cause discrete treefall, debris or 
 
 ## Scale and performance
 
-Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** uses active multirate nearby animals and coarse offscreen populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using RaukenSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **RaukenState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
+Separate *rendering* from *simulation* fidelity. **HeroSim** maintains full responsive physiology; **FaunaSim** instantiates local wildlife from regional cohorts at simulation-chunk activation, uses multirate responsive local behavior and only retains already-instantiated eligible mature giants; it otherwise uses coarse populations, all with shared **BeastCore** rules. **FloraSim** advances individual trees and population patches lazily using RaukenSim's stored environmental interval summaries and discrete events. **SimCore** coordinates global time and scheduling; **RaukenState** preserves identities and history. **InteractionsCore** validates cross-domain resource transfers and damage.
 
 Use event scheduling, low-frequency growth/accounting and deterministic spatial seeds. Separate render-chunk rebuild from ecological updates; batch many plant changes rather than one mesh rebuild per bite.
 
@@ -79,3 +79,7 @@ Don't equate offscreen simplification with resetting resources. Return visits sh
 - Instrument per-tick CPU, save/load cost, memory and local detail promotion/demotion.
 
 Cross-references: [Architecture](simulation-architecture.md), [RaukenSim](rauken-sim.md), [FloraSim](flora-sim.md), [FaunaSim](fauna-sim.md), [HeroSim](hero-sim.md), [World generation](world-generation.md).
+
+## Simulation chunks versus camera visibility
+
+FaunaSim and FloraSim prepare locally appropriate organisms in **simulation chunks extending beyond Smalltrotter's senses and the entire bounded HeroView camera envelope**. Organisms are not created by the render frustum. Long-term identity belongs to trees/hero and selectively to *already-instantiated* adult giant wildlife—not to every regional fauna cohort. See [Spatial activation](spatial-activation.md) and [HeroView](hero-view.md).
