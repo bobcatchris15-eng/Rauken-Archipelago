@@ -2,6 +2,24 @@
 
 **Purpose:** Keep scientific evidence separate from invented lore and distinguish approved creative directions from provisional implementation choices.
 
+## Display-first ecological fidelity — 2026-10-10 (supersedes heavyweight hidden-ecology contracts)
+
+**Decision:** The Stalthosian Archipelago is a **beautiful Potemkin village of the Cretaceous**. Prioritize extraordinary visual quality, lifelike movement/interaction, convincing local animal behavior, and consistency the player can observe. Internal ecology is intentionally shallow, cheap, approximated and often staged. Scientific realism can inspire presentation but is not a mechanical completeness requirement.
+
+**Fidelity hierarchy:**
+1. **Close-view appearance and contact:** terrain, flora/anatomy, animation, weather, physical interaction.
+2. **Immediate/nearby animal behavior:** convincing ongoing activities, perception and reactions, with animals prepared beyond the entire detached-camera tether so they do not appear at a camera turn.
+3. **Recognizable continuity:** surviving companions/dependent young, familiar damaged/fallen trees, important nests/carcasses and visible recent resource depletion.
+4. **Distant ecological internals:** cheap species densities, habitat/season variants, coarse time advances, random but plausible events and tiny persistent exception records.
+
+**Superseded requirements from the October 9 architecture review:** exact abstract/active/retained population ledgers and demographic conservation; exact cohort-to-plant resource debits; chronologically reconstructed rainfall/drought/flood interval histories; default immutable anatomical branch/segment addresses for all significant plants; detailed energy/gut/thermal physiology and numerical growth mass balance; deep region historical reconciliation. These are *optional techniques* if a simple approach visibly fails, not baseline implementation contracts.
+
+**Approved inexpensive defaults:** seed+habitat+season appearance, approximate regional animal abundance, minimal active/retained identity exclusions to prevent duplicates, a few behavioral/condition drives, simple species life-stage curves and one SimCore world clock, visible browsing masks/forage changes, predefined temporary water/flood masks, save-only consequential and recognizable exceptions. No closed nutrient, calorie, water or population budget required.
+
+**Guardrails remain hard:** direct control and camera/perception constraints; responsive collisions and genuine local interaction; coherent wildlife in the camera-reachable area before it is revealed; known animals cannot visibly duplicate or resurrect; familiar conspicuous damage must not reset; the same visible resource cannot be consumed twice simultaneously; the world remains continuous across lives. No new runtime modules are needed.
+
+**Evaluation:** demand an in-scene visual/behavioral/continuity improvement before adopting more complex ecology. Test cinematic quality, natural-feeling ordinary life, return visits, observed causality and frame-time/activation performance; not scientific numerical precision. This new decision takes precedence over dated detailed contracts preserved below as history.
+
 ## Accepted creative direction
 
 - **Name (superseding earlier Rauken-era direction):** **The Stalthosian Archipelago**, with **Stalthos** as a convenient informal regional shorthand and **Stalthosian** as adjective. Name is invented, loosely inspired by early Germanic/Old English foundation/stone vocabulary; do **not** present Stalthos as an attested historical word. Repository slug stays Rauken-Archipelago until explicitly renamed.
@@ -40,7 +58,7 @@ Adopt logical in-process modules: **SimCore** schedules, **StalthosState** persi
 
 Do not tick plants based on render visibility. Nearby animals need active multirate updates (immediate pain/startle; slower hunger/thirst/growth) while offscreen fauna may be aggregated. Choose time-pacing formulas after playable experiments, preserving comparable rules for player and NPC animals. This architecture does not mandate separate executables, network APIs or specific tick frequencies.
 
-## Adversarial architecture review refinements — 2026-10-09
+## Adversarial architecture review refinements — 2026-10-09 (historical; expensive hidden-ecology requirements superseded above)
 
 **No new runtime domains approved.** Preserve the established named component boundaries and ecology-first, presentation-driven scope. Tighten existing contracts rather than constructing a universal simulation framework.
 
