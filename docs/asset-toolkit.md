@@ -1,4 +1,4 @@
-# Rauken asset-production toolkit
+# Stalthos asset-production toolkit
 
 **Domain:** Agent-facing software inventory, offline generation, optimization, validation and reproducibility. **Status:** Production tooling plan — independent of engine and species design.
 
@@ -34,7 +34,7 @@ Do not confuse asset visualization software (VUE/PlantFactory) with a runtime ga
 
 ## Proposed command-line tool contract
 
-A self-contained 'Rauken Asset Toolkit' should eventually expose operations such as:
+A self-contained 'Stalthos Asset Toolkit' should eventually expose operations such as:
 - research_species
 - generate_plant
 - generate_plant_variants
@@ -82,7 +82,7 @@ Create branch-aware trees, true rachis/pinna ferns, segmented horsetails, stiff 
 
 A plant family should yield morphological variants with identifiable species traits; don't randomize so widely that forms stop resembling one lineage.
 
-The asset generator must reconstruct a tree from **FloraSim** and **RaukenState** state (stable ID, seed, age, growth, branch damage, foliage/fruit stage) without altering recognizable branches on chunk reload. The renderer receives state snapshots and InteractionsCore change events, never drives biological ticking.
+The asset generator must reconstruct a tree from **FloraSim** and **StalthosState** state (stable ID, seed, age, growth, branch damage, foliage/fruit stage) without altering recognizable branches on chunk reload. The renderer receives state snapshots and InteractionsCore change events, never drives biological ticking.
 
 ## Special creature production
 
