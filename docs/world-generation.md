@@ -41,6 +41,12 @@ Compose on four nested scales:
 
 A 30-meter rock gully is significant to a juvenile animal. Include natural alternatives and occasional difficult one-way passages without deliberate platformer obstacles.
 
+## Animal-scale traversability and direct-control test surfaces
+
+Provide actual navigable/collision surfaces and material properties suitable for competent species-specific locomotion: traction, support/softness, step clearance, usable turning space, sloped creek margins and water-to-land exits. Off-line broad connectivity is useful for **destination navigation and finding technical defects**, but a pathfinding rejection is never a hard barrier against direct player movement if the local physics allows an attempt.
+
+The default direct-steering locomotor controller handles ordinary footing and **small local obstacle corrections**. A larger bypass falls outside HeroView's central-third-wide *screen-space lateral detour allowance*, whereupon HeroSim stops the animal to inspect the obstacle until player direction changes or control releases. This screen-space policy is not a terrain-generation classification: don't sculpt all boulders into safe bypasses or guarantee passages for every life stage. Test a low rock, a branch, a tall boulder and an actual impassable ravine bank in both direct and destination intent modes.
+
 ## Benchmark landscape: Splitstone
 
 Build **one roughly 1×1 km traversable test patch** before deciding larger regional proportions. It should include:

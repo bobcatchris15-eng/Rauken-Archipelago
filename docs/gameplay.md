@@ -22,6 +22,14 @@ A locally detached camera can fly **over a nearby hill** while Smalltrotter cont
 
 Intent types: **direct body-relative steering**, **persistent destination**, **occasional player-invoked contextual response**, **uncommanded full autonomy**. Normal hunger/thirst cannot hijack WASD and should not discard a destination; severe fear/pain can interrupt more readily in destination travel than direct control. Direct movement normally cancels old destinations. See [HeroView](hero-view.md).
 
+## Direct-control obstacle behavior
+
+Direct input says **"try to go this way"**, not "navigate around everything until you can." The animal automatically handles foot placement, stability and modest local sidesteps. But an automatic route whose **lateral deviation leaves the camera's central-third-width steering corridor** is disallowed; this is a screen-space constraint on *self-chosen detours relative to the commanded course*, not a rule pinning a deliberately side-on moving animal to the middle of the picture.
+
+If a rock/log/cliff leaves no admissible local correction, stop advancing and let the animal **inspect the obstruction** while direct intention remains active. The player can steer differently or release control; release restores full HeroSim autonomy, including deciding to take a completely different route. Destination TravelTo is unrestricted by this direct-steering detour corridor, though still physically constrained. The motor controller does **not** override the player's chosen travel direction by plotting a major detour.
+
+The rule must work for all playable anatomies, not only quadrupedal Smalltrotter. See [HeroSim](hero-sim.md) and [HeroView](hero-view.md).
+
 ## Control contract
 
 **Explicit player controls:** movement direction and speed, camera/attention, optional destinations and deliberately invoked contextual intentions for investigation, social contact, threat, predation, nesting or withdrawal. The contextual response interface does **not** appear automatically around ordinary resources.

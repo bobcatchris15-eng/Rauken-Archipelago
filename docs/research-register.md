@@ -112,6 +112,14 @@ In future updates, append dated decisions with reasons, alternatives considered,
 
 **Provisional/tune:** camera radius and tether shape; activation buffers; exact physics controls; fear thresholds; retained adult budget. These are not fixed distances or performance claims.
 
+## Direct locomotor intent clarification — 2026-10-09
+
+**Decision:** HeroView's direct steering expresses desired body-relative movement, not step-by-step limb control or autonomous navigation. Shared BeastCore motor competence handles gait, balance, footing and small local avoidance. The maximum **automatic lateral route deviation** is bounded by a camera-projected **central-third-width steering corridor**; broad detours belong to the player's own turning or to explicit autonomous destination navigation.
+
+**If no local admissible route exists:** the Hero Beast stops at the obstruction and may look/sniff/inspect while the held direction remains. A changed steering input retries immediately; releasing direct steering restores full autonomous behavior, which can move off another way. No autopilot loop repeatedly routes around the obstacle during held WASD.
+
+**Compatibility interpretation:** constrain candidate *deviation from the projected intended path*, not the animal's absolute screen X position, otherwise the established broadside orbit/follow camera and across-screen movement would contradict the new rule. HeroView supplies the visual constraint without granting HeroSim sensory omniscience; BeastCore remains camera-agnostic. Test exact projection horizon/hysteresis and camera movement; no new navigation subsystem approved.
+
 ## Stalthosian name, Hero Beasts and life-history decisions — 2026-10-09 (supersedes earlier entries)
 
 **Naming.** The canonical fictional geographical name and working game title are **The Stalthosian Archipelago**; shorthand **Stalthos**. The project is an invented world; the name is invented, not a quoted historical Old English or Germanic word. Old Rauken-branded identifiers and the file stalthos-sim.md have been updated in planning text. The GitHub repository slug remains historical; changing the actual repo name was not requested.

@@ -29,6 +29,16 @@ The camera does **not** rotate behind the animal automatically. The Hero Beast m
 
 The player gives motor intentions, not keyframe or limb commands. HeroSim/BeastCore and local physics translate those requests into bodily action.
 
+## Direct-steering lateral corridor — central third
+
+**Local motor assistance must not quietly turn a held direction into an autonomous detour.** While direct control is held, HeroSim/BeastCore may propose nearby avoidance/footing adjustments. HeroView provides the camera projection needed to reject any *automatic lateral route deviation* that would extend outside a **central-third-width band** of the player's current framing. A substantially wider route is invalid under direct steering even if a destination pathfinder could find it.
+
+**Implementation interpretation:** the band constrains *departure from the projected player-commanded course* over a short, fixed-camera preview, not the animal's absolute screen X position. Otherwise an intentionally side-on left-to-right walk would become illegally blocked merely because it crosses the frame. Do not allow follow-camera recentering during candidate evaluation to continually shift the permitted band and legitimize a large detour. Define exact projection, preview horizon and hysteresis through tests; the width target is **one third of the screen laterally**.
+
+When all physical local candidates violate this allowance (or are simply impassable), HeroSim stops the animal at the obstruction. It can look, sniff, investigate or adjust posture without advancing sideways. It **waits for a changed steering command or release of direct control**; upon release ordinary HeroSim autonomy may turn or pick another route. This is not a mandatory camera-locked animation or permanent refusal.
+
+HeroView only supplies a *player-agency presentation constraint*, never wildlife/obstacle knowledge inaccessible to the animal's senses. BeastCore locomotion physics stays camera-independent. **TravelTo destination navigation may take broad detours** and is not constrained to the camera's middle third.
+
 ## Orbit/follow camera: a compositional soft tether
 
 - Default to watching the Hero Beast in a comfortable animal-centered third-person composition; freely orbit without changing its heading or movement semantics.
@@ -155,5 +165,9 @@ HeroView presentation and rendering may be housed in one module while APIs stay 
 12. Invoke contextual responses deliberately around another animal: the chooser slows the shared local world, emits a plausible intent and stays hidden at all other times.
 13. A serious alarm while detached orients camera and animal attention toward the same sensed point, then returns the camera smoothly to an animal-centered view; player camera input cancels recall.
 14. Ordinary Brackenback suspicion can produce posture alone, without repeatedly wrestling camera control away.
+15. A small root/stone is handled by competent foot placement or a small permitted screen-space avoidance step while W remains held.
+16. A major boulder needing a wide sidestep exceeds the central-third detour corridor; the animal stops and examines it, without unsolicited navigation around it. Changing A/D or releasing W restores meaningful control/autonomy.
+17. A broadside camera lets the player deliberately walk across the frame without interpreting ordinary forward travel as a forbidden detour; automatic camera translation does not falsely expand a selected local detour.
+18. Explicit TravelTo navigation can legitimately route well beyond the direct-steering corridor, subject to actual anatomy, senses and terrain.
 
 Related: [HeroSim](hero-sim.md), [Spatial activation](spatial-activation.md), [Simulation architecture](simulation-architecture.md), [Gameplay](gameplay.md).

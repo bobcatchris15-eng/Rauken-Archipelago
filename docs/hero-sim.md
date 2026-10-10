@@ -21,6 +21,20 @@ HeroView alone owns the **strictly player-invoked** slow-time contextual respons
 
 **TravelTo** remains a persistent player destination chosen through the bounded detached camera if desired. HeroSim routes using the Hero Beast's actual perceptual limitations, not hidden hazards or predators exposed to the player's camera. It may pause/replan/abandon under real constraints; routine physiological needs do not erase the goal.
 
+## Direct steering — bounded motor competence and obstruction
+
+**The player commands intended direction/pace, not steps or a route.** Species-specific BeastCore locomotion supplies gait selection, foot placement, balance, braking, wading/swimming transitions and small obstacle avoidance; physical contact determines what movement actually succeeds. HeroSim arbitrates voluntary intent and reflexes. The camera does not become a sense or navigation database for the animal.
+
+While direct body-relative steering is actively held, the locomotion system may **propose local adjustments**, not independently choose a new destination or lengthy detour. HeroView supplies a **screen-space lateral correction allowance**: the central third of the active camera composition is the practical width budget for automatic detouring. Evaluate candidate short-horizon routes against the *projected commanded course*, not as an absolute rule that the body must stay at the middle of the screen. This distinction preserves the already-agreed broadside camera composition in which the player deliberately walks the Hero Beast from left to right. Camera follow must not artificially increase the budget mid-decision.
+
+If a competent local solution would require leaving that narrow on-screen steering corridor, **reject the automatic route**. If no admissible path remains, stop translational movement at the physical obstacle and let the Hero Beast **inspect it**: look, orient head, sniff or probe where anatomically sensible, shift balance and remain responsive. Don't loop pathfinding, slide sideways through collisions, force a major detour or invent a permanent refusal state.
+
+The obstruction persists only while the same direct steering intention continues. **Changing the steering direction** immediately retries locomotion; **releasing direct steering** yields ordinary full HeroSim autonomy, which can investigate, turn away, choose a different route or remain nearby for its own reasons. Compatible head/mouth/social actions may continue throughout. Real pain/balance/startle reflexes may still momentarily affect control.
+
+**Division of labor:** BeastCore produces camera-agnostic feasible local motion candidates; HeroSim applies the current intent and the small screen-space deviation constraint received from HeroView; local physics commits the actual motion. Destination TravelTo is **not** subject to the central-third detour constraint and may select wide, physically valid routes.
+
+**Do not hardcode a world-meter sidestep limit as a substitute for this player-facing rule.** The screen-width criterion is a camera-space steering budget, and the projection/reference-path details need implementation playtesting.
+
 ## Concurrent body-region activities and behavioral individuality
 
 Do not serialize all actions into one exclusive activity state. Feet/body can continue under player-directed walking while head/neck/mouth and attention perform reachable low-cost behavior: Smalltrotter plucks shrubs while clumping along; Reedcrest calls to companions; Thistletail opportunistically takes a small morsel; Brackenback scans or snorts at suspicious scenery. Animations respect reach, gait, balance and body-part compatibility. Real feeding/damage transfers pass through InteractionsCore; visual chewing does not conjure calories.
