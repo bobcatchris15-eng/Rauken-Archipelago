@@ -1,0 +1,28 @@
+# Local coordinator journal (single coordinator; do not commit worker claims)
+.taskgraph-state.json
+.taskgraph-state.json.lock
+.taskgraph-state.json.*.tmp
+
+# Python caches and scratch outputs
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated task graph visualization, optional
+/tasks/*.dot
+
+# Toolchain scratch, render outputs, unpacked vendor installs
+/artifacts/
+/cache/
+/benchmarks/results/
+/benchmarks/captures/
+/engine-cache/
+/third_party_local/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
