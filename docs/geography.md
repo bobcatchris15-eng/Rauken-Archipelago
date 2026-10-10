@@ -57,6 +57,22 @@ These are **deliberately provisional** and may prove too small for all desired h
 - Endemic plants and animal lineages should reflect selection, turnover and dispersal—not cartoonishly frozen 'living fossils'.
 - Candidate landmarks: Great Needle, Hidden Basin, Old Table, Stillwater Inlet. Working geographic names only.
 
+## Landscape photographic reference palette — provisional, not a map recipe
+
+**Main Island** keeps its Wisconsin Driftless/Baraboo-to-Central-Sand-Plain transition as the geographical backbone. Additional preferred **visual inspiration**, which may overlap within broad habitat transitions rather than appear as literal separate biome tiles:
+- Catskills and upper Appalachians: forested escarpments, folded ridges, steep clove valleys and falls (Kaaterskill Clove; Delaware Water Gap).
+- Scottish Highlands: scenic bare rock/heath uplands above lower pinewoods, long glens and water-framed ridges (Glen Affric; Assynt/Torridon). Borrow silhouettes and openness without importing a glaciated modern climate wholesale.
+- Pine barrens: sandy soils, pitch-pine-like woodland and scrub thickets, occasional wetland hollows (New Jersey Pinelands). The fictional plant cast need not match modern species.
+- South Africa (multiple **different** landscapes): Cederberg sandstone buttresses and shrublands; Golden Gate Highlands' ochre cliffs; Tsitsikamma/Garden Route wet coastal forests, steep river gorges and coves; Waterberg/Marakele wooded uplands and bushveld. These are candidate reference families, **not mandatory geographic zones or a single South African biome**.
+
+**Rainridge:** confirmed visual influences include Olympic National Park's Hoh/Quinault/Queets temperate rainforests and Great Smoky Mountains' creek hollows, cove forests and misty elevation transitions, alongside Madeira/La Gomera ravines. Trees and understory may be fictional Cretaceous analogues.
+
+**Stone Island:** enrich the limestone terrain with Yucatán cenote and Costa Rican karst-jungle reference: open/partly roofed pools with hanging roots, shafts of light, forested sinkholes and dolines, wet cave mouths and stream-cut limestone passages (Ik Kil, Suytun/Dos Ojos, Barra Honda, Venado). **Do not force a uniformly barren dry plateau**; wooded karst can dominate, with exposed rock and drier ridges offering contrast. These are **staged geometry and water features**, not a mandate for an underground groundwater simulation. Distinguish it from Outer Reach's sharp exposed tsingy/badlands.
+
+**Outer Reach:** interior dry mineral badlands, tsingy-like pinnacles/blade karst, irregular hoodoos and resistant rock teeth, interspersed with sheltered greener basins; Madagascar's Tsingy de Bemaraha is a particularly strong analogue. Treat any still-unidentified Caucasus formation as provisional.
+
+All site references guide **visual form and composition** rather than obligating identical species, climate, lithology or exact geological processes. Final color/density/lighting direction remains open pending user-selected visual references.
+
 ## Marine geography and crossings
 
 - Sea is physical terrain, not a travel menu.
