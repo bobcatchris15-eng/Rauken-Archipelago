@@ -6,19 +6,26 @@
 
 HeroSim owns the player animal's immediate biological state and player-facing behavior. Its biological rules come from **BeastCore**, the same shared physiology/perception/anatomy library used by FaunaSim. It does not own weather, flora resources, or a separate world clock.
 
-## Body-relative direct control and destination goals
+## Hero Beast authority, autonomy and contextual intentions
 
-**HeroView** maps keyboard/controller/camera inputs to intentions; **HeroSim** makes Smalltrotter enact them in accordance with her body and BeastCore. W always requests forward relative to **her heading**, never camera-forward. A/D request anatomically plausible turning; the camera may orbit independently and follow position without rotating behind her.
+HeroSim is **species-neutral**: Smalltrotter is the visual flagship, not a universal four-legged locomotor or control assumption. The chosen species provides anatomy, senses, mobility, developmental stage, food/social affordances and parental strategy through BeastCore.
 
-A player can instead fly HeroView's **locally detached, hard-tethered** camera around nearby terrain and pick a destination. That yields a persistent `TravelTo` goal: HeroSim navigates, assesses terrain and local stimuli, and may pause/replan/resume or fail if unreachable. It does **not** inherit knowledge of unseen animals from camera flight. Direct movement normally cancels the destination. No command leaves room for ordinary browsing/resting/curiosity.
+**Voluntary authority from strongest to least:**
+1. **Direct body-relative steering.** W requests the animal's own forward, regardless of camera; turning/backing, acceleration and sprinting obey its anatomy. Direct steering takes priority over and normally cancels autonomous destinations.
+2. **Player-invoked contextual intentions** (e.g. inspect a specific object, greet a companion, interpose, threaten, stalk, select a nesting site) and persistent destination goals. HeroSim executes a plausible attempt with actual geometry, sensory evidence, contact, hazards and changing animal state; outcomes are never guaranteed.
+3. **Uncommanded full autonomy.** Without controlling input or outstanding player-directed goals, the animal may actually travel, forage, court, breed, care for young, rest, socialize, flee or die. It is not leashed to an idle-animation radius. Direct steering can immediately interrupt voluntary autonomous actions.
 
-**Control authority is mode-sensitive:** routine hunger/thirst should almost never take over direct WASD or erase a destination. Pain/startle/fear can briefly override direct motion only when significant; destination mode yields more to pauses, avoidance or withdrawal. Temperature/fatigue usually adjust physical performance rather than replace voluntary aims. See [HeroView](hero-view.md).
+**Autonomy remains active during direct steering.** Compatible browsing, chewing, attention, postural correction, scent investigation and vocal/social responses proceed without prompts. Normal hunger, thirst or curiosity do not wrest control of the feet from the player. Genuine severe pain, loss of balance or immediate danger can cause short involuntary reflexes; never turn these into prolonged cutscenes.
 
-## Player intention versus involuntary physiology
+HeroView alone owns the **strictly player-invoked** slow-time contextual response chooser. It offers a small set of perceived/species-appropriate intentions only when called; it never appears just because a shrub or animal is in range. SimCore coordinates world-consistent time dilation while choosing.
 
-Player expresses travel, gaze/attention, inspection, resting and deliberate interaction. The animal performs routine actions autonomously when allowed by physiology, perception, safety, reach and the player's current intent.
+**TravelTo** remains a persistent player destination chosen through the bounded detached camera if desired. HeroSim routes using the Hero Beast's actual perceptual limitations, not hidden hazards or predators exposed to the player's camera. It may pause/replan/abandon under real constraints; routine physiological needs do not erase the goal.
 
-Examples: approachable edible plant while hungry → orient/lower neck and browse; accessible freshwater while thirsty → drink; relaxed idle → grooming/weight adjustment. Interrupt when the player walks away, an obstacle blocks reach, or a sensory event demands immediate attention. Avoid hijacking the controls with unrequested long auto-navigation.
+## Concurrent body-region activities and behavioral individuality
+
+Do not serialize all actions into one exclusive activity state. Feet/body can continue under player-directed walking while head/neck/mouth and attention perform reachable low-cost behavior: Smalltrotter plucks shrubs while clumping along; Reedcrest calls to companions; Thistletail opportunistically takes a small morsel; Brackenback scans or snorts at suspicious scenery. Animations respect reach, gait, balance and body-part compatibility. Real feeding/damage transfers pass through InteractionsCore; visual chewing does not conjure calories.
+
+Social and alarm behavior derives from senses, present circumstance and species predisposition rather than a new generalized relationship-history simulator. Brackenback protects small distressed animals of any species (and sometimes defensively postures at innocuous rocks or bushes); Reedcrest maintains strong reciprocal peer attachments; Longstride attends its dependent young asymmetrically. All apply to wild animals as well as the player.
 
 ## BeastCore — shared internal model
 
@@ -53,12 +60,18 @@ A moderate world-time accelerator plus shared nonlinear juvenile developmental p
 
 ## Environment and interaction contracts
 
-- RaukenSim: sample current local conditions relevant to heat, rain, wind, water safety, shelter and flooding.
+- StalthosSim: sample current local conditions relevant to heat, rain, wind, water safety, shelter and flooding.
 - FloraSim: query reachable resources, finite plant biomass and ecological quality through validated feeding events.
 - FaunaSim: shared encounters, sensing, signals and physical contact; not privileged to reveal all unseen animals.
 - InteractionsCore: commit cross-domain transfers, injury effects and resource transitions.
-- RaukenState: preserve this animal's identity and lifecycle so saves/reloads and deaths remain coherent.
+- StalthosState: preserve this animal's identity and lifecycle so saves/reloads and deaths remain coherent.
 - HeroView/renderer/physics: HeroView owns human input focus and bounded camera, receives HeroSim bodily/sensory presentation; streamer supplies renderable world separately; none owns animal biology.
+
+## Hatching, breeding and death continuity
+
+A new Hero Beast hatches as a generic wild individual reserved from the chosen species' existing local population. Species-specific hatchling movement, adult attendance, early care, nesting location and maturation are real HeroSim/BeastCore behaviors, not scripted tutorial exceptions. An adult may court, mate, tend a nest, hatch young, and interact with them as the species warrants. The targeted nesting/hatching episode occupies about thirty minutes or less of focused player time via shared SimCore acceleration; dependent offspring (particularly Longstride) can persist and grow for much longer in ordinary play. No genetics or breeding-stat progression.
+
+Hero Beast death is an ordinary biological death and persists as an ecological outcome. A next playable hatchling begins in the same world, with no inherited special lineage or player knowledge. Previously instantiated companions, dependent young and other eligible individuals retain only justified compact identities under FaunaSim/StalthosState; when inactive they advance coarsely and may later die or decay back into regional cohorts. No death-triggered world reset.
 
 ## Visual/body development
 
@@ -66,6 +79,6 @@ Juvenile dwarf titanosaur: prominent irregular nape/upper-back bristles, small o
 
 ## Behavioral quality tests
 
-Two animals of same species and circumstances grow similarly even if one is player-controlled; player can interrupt feeding; pain instantly affects posture while healing remains slow; animal does not seek unperceived water through a ridge; head/neck browsing reaches actual available leaves; time acceleration doesn't turn reflexes into slow motion or deplete animals impossibly fast.
+Two animals of same species and circumstances grow similarly even if one is player-controlled; a wild parent and player parent display compatible species care; uncommanded HeroSim sustains natural life rather than idle animation; simultaneous walking and browsing works without menu prompts; player can interrupt feeding; pain instantly affects posture while healing remains slow; animal does not seek unperceived water through a ridge; head/neck browsing reaches actual available leaves; time acceleration doesn't turn reflexes into slow motion or deplete animals impossibly fast.
 
 Related [HeroView](hero-view.md), [Spatial activation](spatial-activation.md), [Gameplay](gameplay.md), [Creatures](creatures.md), [Simulation architecture](simulation-architecture.md).
