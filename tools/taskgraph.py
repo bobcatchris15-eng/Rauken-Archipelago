@@ -208,6 +208,8 @@ def ready(graph: dict, by_id: dict, state: dict, limit: int | None,
     available_slots = max(0, graph["conventions"].get("default_max_workers", 3) - len(claimed_jobs))
     if limit is not None:
         available_slots = min(available_slots, limit)
+    if available_slots == 0:
+        return []
     selection = []
     for item in sorted(by_id.values(), key=lambda x: (x["wave"], x["id"])):
         if item["id"] in unavailable or lane and item["lane"] != lane:
@@ -413,8 +415,7 @@ def main(argv=None) -> int:
                     "worker": state["claimed"][tid]["worker"],
                 }
                 del state["claimed"][tid]
-            load_state_while = validate_state_object(state, by_id)
-            del load_state_while
+            validate_state_object(state, by_id)
             write_json(args.state, state)
         print(json.dumps({"ok": True, "action": args.command, "task": tid, "state": str(args.state)}))
     return 0
