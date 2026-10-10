@@ -62,9 +62,9 @@ Counts are subject to visually equivalent screen coverage. Preserve a geometry-o
 
 **V8 Creatures:** skeletal GPU/CPU cost, foot IK, skin/osteoderm/quill render cost, reduced distant update rates, age morph changes.
 
-**V9 Ecology bridge:** plant consumption/growth and channel wetness changes rebuild only affected spatial patches; persistent IDs survive unload/reload. Chunk loading requests **FloraSim** bulk snapshots from persistent **RaukenState** identities; no per-rendered-plant biology polling.
+**V9 Ecology bridge:** plant consumption/growth and channel wetness changes rebuild only affected spatial patches; persistent IDs survive unload/reload. Chunk loading requests **FloraSim** bulk snapshots from persistent **StalthosState** identities; no per-rendered-plant biology polling.
 
-**V9b Simulation/visual decoupling:** **HeroSim/FaunaSim** biology continues at suitable active rates regardless of visibility, with shared **BeastCore** formulas. **InteractionsCore** changes update the affected visuals; weather/wetness rendering reads **RaukenSim** current state. Benchmark chunk unload/reload and catch-up spikes.
+**V9b Simulation/visual decoupling:** **HeroSim/FaunaSim** biology continues at suitable active rates regardless of visibility, with shared **BeastCore** formulas. **InteractionsCore** changes update the affected visuals; weather/wetness rendering reads **StalthosSim** current state. Benchmark chunk unload/reload and catch-up spikes.
 
 **V10 Streaming:** camera route across cell boundaries at varying speeds; monitor stalls, pops, resource residence and distant transition quality.
 
