@@ -38,6 +38,18 @@ The fauna's distinguishing value is its appearance, characteristic behavior, voi
 
 A forest can display dozens of botanical forms whose hidden 'biology' uses a few common growth/condition/cover rules. An animal can be compelling while basking or foraging without having a simulated lifelong biography. **Never trade away the convincing appearance of abundance merely to make the invisible ecology more rigorous.** See [Fauna actor catalog](fauna-actor-catalog.md) and [Plant visual catalog](plant-visual-catalog.md).
 
+## Confirmed display-and-continuity decisions — 2026-10-10
+
+**Vegetation contact is a visual priority.** Shrubs, tall ferns and small branches should visibly bend/part when an animal presses through, rather than simply clipping through its body. Start by targeting that effect using lightweight local deformation, simple collision proxies or shader-driven bending—not per-leaf rigid-body physics. If full-scene benchmarks later show it too expensive, it may be scaled back with explicit visual/performance evidence. Do not preemptively eliminate it.
+
+**Animal interaction is part of its performance.** Brackenback protecting a distressed smaller animal, posturing, inspecting a threat, displaying at another creature or responding to the player should look coherent and convincing. That does not create a requirement for private psychology, emergent social simulation, lifelong experience or deep plans. Animate and stage believable observable responses using shared behavior families and brief perceptual state.
+
+**Geography is composed, not historically solved.** Offline landscape generators can use drainage/geology as reference but are primarily tools for credible, beautiful and dramatic locations. No numerical reenactment of geological eras is required.
+
+**Memory of scenery is local and selective.** Going over a nearby hill and returning should reveal the same tree positions and local actors, not a freshly shuffled scene. Recently instantiated regions need a grace/continuity window. After a long dormant interval, unimportant scenery may be procedurally regenerated or rearranged, while prominent landmarks, saved damage and important individuals remain consistent. Test continuity by a player's likely revisits, not a requirement for permanent identity of every tree.
+
+**Reference images:** the desired overall photographic/artistically realistic look is not locked until the user selects suitable visual references.
+
 ## Design pillars
 
 1. **Lived landscape.** Sheltered mossy ravines, drowned valleys, mineral outcrops, resilient forests, floodplains and real landmarks. Recognizable places matter more than raw area.
