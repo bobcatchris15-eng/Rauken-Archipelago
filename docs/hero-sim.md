@@ -21,6 +21,20 @@ HeroView alone owns the **strictly player-invoked** slow-time contextual respons
 
 **TravelTo** remains a persistent player destination chosen through the bounded detached camera if desired. HeroSim routes using the Hero Beast's actual perceptual limitations, not hidden hazards or predators exposed to the player's camera. It may pause/replan/abandon under real constraints; routine physiological needs do not erase the goal.
 
+## One voluntary intention pipeline — not camera-operated AI
+
+HeroSim owns **one** voluntary intention/execution system. An intention may arise from the animal's needs, perception, social situation and ordinary autonomous behavior, or be **suggested by the human via HeroView** (e.g. go to a ground point, inspect, greet, defend or investigate). Once accepted, it becomes **the Hero Beast's current intention**: there is no second movement AI, scripted puppet behavior or conspicuous change of gait/attention because the player originated the suggestion.
+
+Retain minimal **provenance and authority metadata** (source, priority, optionally cancellation/status) to preserve player agency. A player-suggested goal ordinarily persists through hunger, thirst, curiosity and minor interruptions; strong pain/fear, blocked passage and genuine limitations can pause, replan or abandon it. When the goal finishes/fails or the player cancels it, the animal resumes full autonomous goal selection. Direct body-relative steering remains strongest voluntary input and normally cancels outstanding selected destinations. A *detached camera* alone is not a command and never pauses the Hero Beast's life.
+
+**Information boundary:** the player may inject a desired location the animal has never seen (the Malkovich premise), but **not** a mental map of optimal terrain, an unseen predator position, or an audio/visual observation available only to the detached camera. The animal discovers hazards and responds through its own senses and physics during execution.
+
+### Dual hearing of shared sound events
+
+FaunaSim, StalthosSim and world ambience provide spatial acoustic events. BeastCore/HeroSim evaluates them from **the Hero Beast's anatomical hearing position and species hearing model** to generate sensory perception, attention or alarm. HeroView/audio independently renders a listener at the **player camera** (especially in detached mode). A sound audible to the player may be completely inaudible to the animal; neither animal response nor HeroView's *animal-sensed alarm recall* is triggered by player-only camera audio.
+
+Only HeroSim can mark a sound as **sensed by the animal**. It may also supply restrained body/physiology presentation cues to HeroView, whose sound mix must preserve distance rather than treating the camera as physically inside the animal when detached. See [HeroView](hero-view.md).
+
 ## Direct steering — bounded motor competence and obstruction
 
 **The player commands intended direction/pace, not steps or a route.** Species-specific BeastCore locomotion supplies gait selection, foot placement, balance, braking, wading/swimming transitions and small obstacle avoidance; physical contact determines what movement actually succeeds. HeroSim arbitrates voluntary intent and reflexes. The camera does not become a sense or navigation database for the animal.

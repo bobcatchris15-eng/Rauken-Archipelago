@@ -136,6 +136,14 @@ In future updates, append dated decisions with reasons, alternatives considered,
 
 **Remain open to research/testing:** taxonomy, exact developmental/parental intervals, physical speed/mass, activation and identity budgets, camera alarm thresholds and animation/feeding compatibility, nested world-time scaling, terrain sizes, renderer. These are tuning/research topics rather than additional creative-direction approvals. No source evidence is asserted for invented species parenting.
 
+## Detached HeroView listening and owned intentions — 2026-10-10
+
+**Decision:** The detached camera carries the *player's ears* (camera-centered world audio), while BeastCore/HeroSim retains the Hero Beast's **anatomically located sensory hearing**. Both interpret shared positioned sound sources from fauna, weather/water and inexpensive habitat ambience. A predator call heard from the detached camera may not be heard or reacted to by the Hero Beast. Player-only audio never causes HeroSim alarm or an alarm-driven camera recall. Body/physiology cues can be mixed unobtrusively without ignoring distance.
+
+**Decision:** Camera detachment doesn't suspend/replace the animal's autonomy. A player-designated destination or contextual goal is **adopted as the animal's own voluntary intention** with elevated source/priority, using the same behavior, perception and locomotor execution as spontaneous goals. Completing, abandoning or cancelling returns control to autonomous goal selection. No separate scripted path-following motor controller or noticeable player-controlled animation change. A player may suggest an out-of-sight destination, but cannot transmit camera-only predator/wildlife knowledge.
+
+**Implementation boundary:** Add no new audio or cognition subsystem. Reuse local spatial sound events, camera audio listener, existing BeastCore sensing, and HeroSim's singular intention arbitration. Choose audio propagation fidelity, transition/crossfade timing and internal intent metadata through experiments; not a commitment to ray-traced acoustics.
+
 ## Provisional lightweight forest disturbance — 2026-10-09
 
 **Accepted provisionally, depth explicitly constrained.** A forest may change recognizably across successive Hero Beast lives through occasional individual treefall, damage/death, small canopy openings, coarse understory response and infrequent new tree recruitment. This supports the near-photorealistic environment and enduring sense of place; it is not approval for a full forest ecology simulator. Geological erosion and dynamic riverbed evolution remain out of scope.

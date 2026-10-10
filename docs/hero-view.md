@@ -87,9 +87,21 @@ Proposed tether behavior (tuning values, **not specifications**):
 
 Early tests may use a nominal ~100 m comfort range / ~150 m hard radius, but **these numbers are illustrative only**. Terrain, viewing scale, clip/LOD needs and player comfort determine the final shape and size of the envelope. The result should never permit crossing to another island simply because the camera has a high flight speed.
 
+## Detached audio — player ears and animal ears are independent
+
+**HeroView's primary spatial audio listener follows the active player camera**, including its locally detached position over a neighboring ridge. The detached camera carries the **human player's ears**, not the Hero Beast's. A call audible in the marsh from that camera may be inaudible from the animal's physical position. Ordinary orbit/follow uses the same camera-centered listener; smoothly reposition and crossfade audio on detachment, camera recall and orbit transitions to avoid discontinuous jumps.
+
+Sound-producing actions and environmental conditions have a shared **world-space acoustic source** (location, intensity/type, duration and, where relevant, material/environment context). FaunaSim supplies actual local vocalizations, movement, splashing and other sound events; StalthosSim/world presentation provides weather and water; habitats may supply **coarse ambient sound beds** without instantiating every tiny creature. The audio renderer uses the camera location and inexpensive distance, terrain obstruction and vegetation attenuation. Do not require full acoustic ray tracing or a second physical sound simulation.
+
+**HeroSim hears only from the animal's own body.** BeastCore evaluates hearing/sensory attention using the animal's ears, species capacities, occlusion and other conditions. Camera-available audio and observations **never** automatically insert sound events, threats or knowledge into HeroSim. HeroSim's sensed alarms can legitimately draw HeroView attention or recall a camera; an offscreen sound heard **only** by the detached player camera cannot trigger the animal's alert behavior or forced camera recall.
+
+Subdued physiological presentation (heavy breathing, distressed calling, locomotion effort) may remain available from HeroSim as a separate **body-status mix**, but preserve acoustic distance and listener perspective: do not play close-miked breathing at full volume from a camera across the valley. UI/accessibility cues, if added, must not modify the animal's actual auditory perception.
+
+**Acceptance:** The player hovers a camera over a ridge, hears Reedcrest calls clearly, and sees the Hero Beast continue browsing below because it cannot hear them. When the source becomes audible **to the animal**, HeroSim may orient or respond. Switching cameras changes the player's acoustic perspective without changing what the animal knows.
+
 ## Destination control
 
-In camera-control focus, ground selection can issue **TravelTo(target, arrival tolerance)** to HeroSim. The target is the player's requested outcome; HeroSim is responsible for a plausible route, speed, turning, footing, and physical constraints. Camera pointing can choose a destination **even if the Hero Beast cannot currently see it**; that instruction must **not** pass along omniscient knowledge of wildlife, hidden hazards or safe routes.
+In camera-control focus, ground selection can **suggest TravelTo(target, arrival tolerance)**. HeroSim adopts it as the **Hero Beast's own high-priority voluntary goal**, not a distinct external autopilot or remote puppeteering state. From then onward the animal chooses movement, footing, attention and compatible incidental actions exactly as it would for an internally generated travel intention. The goal's *source/priority/cancellation token* may differ, not the locomotion, animation or subjective biology. Camera pointing can choose a destination **even if the Hero Beast cannot currently see it**; the suggested target does **not** pass along omniscient knowledge of wildlife, hidden hazards or safe routes.
 
 - Prefer a reachable selected ground point (raycast / terrain selection / surface validation).
 - The Hero Beast follows its own local perception and navigation as obstacles arise.
@@ -98,7 +110,7 @@ In camera-control focus, ground selection can issue **TravelTo(target, arrival t
 - Mild startle may pause then resume. Serious fear/injury/impassable terrain may redirect or abandon. Avoid repeated attempts at an impossible route.
 - Direct animal control takes priority and **cancels** an outstanding destination unless the player explicitly asks to preserve it.
 
-**No commanded movement** means full HeroSim autonomy, not just idle micro-actions: the animal can roam, rest, forage, interact, breed, protect young or flee as conditions warrant.
+**No current player-suggested intention** means full HeroSim autonomy, not just idle micro-actions: the animal can roam, rest, forage, interact, breed, protect young or flee as conditions warrant. The camera's detachment alone changes **neither** its goals nor its autonomy. When a suggested destination completes, is abandoned or is cancelled, HeroSim returns to selecting goals ordinarily; it never freezes awaiting another instruction.
 
 ## Intent authority vs reflexes
 

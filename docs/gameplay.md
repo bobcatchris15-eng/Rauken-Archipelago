@@ -58,6 +58,12 @@ With neither active steering nor a maintained player intent, **HeroSim governs t
 
 When the player also leaves the camera alone, **HeroView gradually enters documentary composition**: gentle body-centered orbit/follow, coherent continuous physical camera motion and well-framed portrait, social or environmental shots. It need not spin constantly or cut to unrelated action; direct camera input immediately interrupts. Alarms can briefly focus attention without inventing sensed information. Documentary observation is the real simulation, not a risk-free spectator variant. A useful acceptance target is thirty minutes of engaging animal behavior with no player commands.
 
+## Detached observation, shared intentions and dual audio
+
+Camera detachment is **an observation choice, not a switch to puppet or idle mode**. The Hero Beast continues its own life and may move, forage, socialize or react independently. A point/destination/contextual action selected by the player becomes **the animal's own prioritized intention**; all subsequent locomotion and incidental behavior comes from the same HeroSim/BeastCore mechanisms as if it had wanted to do that naturally. The player can steer directly to override, and when the suggested goal completes/fails the animal resumes autonomous goal selection. The only privileged knowledge supplied is the requested destination/target itself, **not** how to avoid hidden dangers.
+
+**Audio follows the player's camera when detached.** The player may hear a herd or predator from over a ridge while the animal remains oblivious because its ears are elsewhere. When the call finally reaches the animal, HeroSim may react. Spatial sources are shared, but **player listening and animal hearing are separate**; alarm camera recall derives only from the animal's own sensory experience. Restrained body feedback remains possible without loud close-miked breathing across a valley.
+
 ## Reproduction, early care and successive lives
 
 - Reproduction is part of the game, not a peripheral optional statistic menu. Species-appropriate courtship, mating, nest preparation, laying, care/incubation and hatching are interactive or observable.

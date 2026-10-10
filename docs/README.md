@@ -13,7 +13,7 @@ These are **planning documents**, not implementation code. They are separated by
 | Plant simulation | [FloraSim](flora-sim.md) | Persistent trees, shrubs, herbs, fungi; lazy growth and browsing |
 | Animal simulation | [FaunaSim](fauna-sim.md) | Regional cohorts, transient locally instantiated animals, bounded retention of previously instantiated, relevant individuals |
 | Player animal | [HeroSim and BeastCore](hero-sim.md) | Bodily condition, perception and player-intent execution |
-| Player interface | [HeroView](hero-view.md) | Body-relative WASD, contextual intentions, documentary observation, bounded detached view, alarm recall and destinations |
+| Player interface | [HeroView](hero-view.md) | Body-relative WASD, contextual intentions adopted by HeroSim, bounded detached/documentary camera, independent camera-centered audio, alarm recall |
 | Spatial lifecycle | [Spatial activation](spatial-activation.md) | Simulation regions buffered beyond perception and camera visibility |
 | Ecology | [Ecology and hydrology](ecology-and-hydrology.md) | Cross-domain habitats and ecological processes |
 | Flora | [Flora](flora.md) | Plant/fungal organisms, anatomical families, foods and plant life histories |
@@ -38,7 +38,7 @@ These are **planning documents**, not implementation code. They are separated by
 3. Use [Simulation architecture](simulation-architecture.md) for canonical component names and authority; don't invent player-only biological rules.
 4. Keep simulation-chunk activation buffered beyond HeroView's reachable camera tether and HeroSim's perception; never tick plants or create/retire fauna solely because they're rendered. Catch-up is a **bounded, timestamped, version-safe** background workload.
 5. FaunaSim retains compact individual records only after actual instantiation, for bonded companions, dependent young, some notable giants or other bounded reasons. Dormant individuals can advance, return or eventually decay to cohorts without creating duplicate animals.
-6. HeroView can see things the Hero Beast cannot perceive. Direct W is body-forward independent of camera orientation; autonomous behavior and documentary composition never provide the animal with camera-derived knowledge.
+6. HeroView can **see and hear** things the Hero Beast cannot perceive. Direct W is body-forward independent of camera orientation; camera detachment does not suspend autonomy; player-suggested goals become high-priority HeroSim intentions **without passing camera-only sensory knowledge**.
 7. Preserve concrete user preferences even when scientifically improbable; favor evocative geography where coherent causal relationships can still be maintained.
 8. Do not harden estimates into requirements without testing or an explicit design decision. Mark assumptions as *Proposed*, *To test*, *Unknown*, or *Decided*.
 9. Make work reproducible. Research claims require real citations in future completed specifications; don't invent taxonomic evidence.

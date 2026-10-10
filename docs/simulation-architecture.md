@@ -41,6 +41,14 @@
 
 This is **not** a fixed synchronous API chain. HeroSim senses a world through the Hero Beast's own body, not through the camera. The renderer ingests world renderables from the streamer/domain snapshots without routing whole scene graphs through HeroSim.
 
+## Voluntary intentions and acoustic perspectives
+
+**One HeroSim intention system:** player suggestions (destination/contextual goals) are accepted as ordinary Hero Beast goals with **higher voluntary priority/provenance**, not executed by a separate camera-controlled locomotion or decision system. HeroSim handles actual route execution, movement and reflexes; BeastCore remains the shared physical/sensory competence. Once a suggested goal finishes or fails, HeroSim continues normal life. Merely detaching the HeroView camera does not change the animal's autonomy or preserve it in an idle state.
+
+**One set of spatial sound sources, two listeners:** HeroSim/BeastCore hears from the Hero Beast's ears and interprets species-specific perception. HeroView's primary audio listener hears from the player camera's physical position, including while detached. FaunaSim/StalthosSim/world ambience provide sounds without needing two independent sound-world simulations. Player-only camera audio must never modify HeroSim's sensory state or trigger its alarm-driven camera recall. Physiological feedback can be mixed subtly without pretending the listener is beside the animal. Coarse habitat ambience avoids instantiating invisible individual insects just to make environmental sound.
+
+**The only allowed camera-to-animal exception remains an intention's destination or deliberately selected contextual target**, not associated secret terrain/wildlife facts. The camera and the animal may witness or hear different things; those discrepancies are part of the intended documentary experience.
+
 ## Spatial lifecycle: three independent extents
 
 1. **Active simulation:** SimCore prewarms and activates chunks around the Hero Beast, including a buffer beyond the **entire reachable envelope** of HeroView's nearby detached camera. FaunaSim begins local behaviors before the ridge is rendered; FloraSim bulk reconstructs the right plants/patches.

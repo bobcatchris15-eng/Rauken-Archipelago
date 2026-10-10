@@ -67,6 +67,12 @@ For every representative asset/scene, preserve: reference provenance, turntables
 
 The 30 FPS hardware target is a separate **engineering gate**, not a license to make assets visibly poor. See [Rendering experiments](rendering-experiments.md). Proposed compromises must be demonstrated in A/B images and timed captures.
 
+## Sound and perspective
+
+The environment should have meaningful **spatial acoustic identity**: distinguish stream sound, distant weather, footsteps, rustling plants, animal calls and occasional natural silences. Use positioned sources and coarse habitat ambience rather than requiring a simulated agent for every insect.
+
+HeroView's spatial-audio listener follows the camera, including bounded detached observation over a hill. HeroSim's animal hearing remains anchored to the actual head/body. A hidden call can therefore be *heard by the player* but not by the animal, which continues natural behavior until its own senses register it. Keep camera transitions/crossfades smooth; physiological feedback may be subtly layered without sounding physically near a distant camera. Do not use the player's audio perspective to trigger HeroSim alarms or supernatural knowledge.
+
 ## HeroView framing and camera embodiment
 
 HeroView's orbit/follow camera retains its chosen orientation and lets Smalltrotter cross the composition, tracking her *position* smoothly rather than forcing a behind-the-animal camera. A bounded locally detached camera may rise above a nearby ridge, not fly to another island. Use careful collision/occlusion handling, avoid abrupt snapping at the tether, and let world/audiovisual presentation be independent of her actual sensory knowledge. Controls are body-relative (W always forward from the animal); the camera must not redefine her heading. See [HeroView](hero-view.md).
