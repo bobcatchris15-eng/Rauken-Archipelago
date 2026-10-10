@@ -31,7 +31,7 @@ The design-to-execution bridge starts with a Windows-first, engine-neutral asset
 
 These are **proposed implementation specifications**. They do not mean an engine has been selected, agents have been dispatched, benchmark results exist, or a playable vertical slice is authorized.
 
-**Agent execution graph:** [Toolkit task graph and dispatcher](../tasks/README.md) provides 68 dependency-gated jobs, machine-readable ownership/acceptance contracts, an offline readiness/claim queue, packet generation and review checkpoints. Use this—not a broad 'build it' prompt—when coordinating flash-type coding agents.
+**Agent execution graph:** [Toolkit task graph and dispatcher](../tasks/README.md) provides 75 Wicked-first dependency-gated jobs, machine-readable ownership/acceptance contracts, an offline readiness/claim queue, packet generation and review checkpoints. Use this—not a broad 'build it' prompt—when coordinating flash-type coding agents.
 
 ## Project-wide simulation depth rule
 
