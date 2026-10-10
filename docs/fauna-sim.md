@@ -16,6 +16,12 @@ Implementation should support adding a fictional species primarily through **dat
 
 The food web may be coarse: insects and small prey can be aggregated resource pools, background predation can be density tendencies, and plant pressure a visual cover parameter. Realistic-looking local interactions and **conspicuous continuity** still matter: animals must already be present before the camera reveals them, witnessed kills/deaths shouldn't vanish or duplicate, and directly browsed foliage visibly changes. **Do not gate adding species on achieving statistical trophic equilibrium.**
 
+## Wildlife performances, not hidden psychology
+
+**Decided:** the fidelity requirement for ordinary wildlife is a convincing observable performance, **including direct interactions with the player**. Species-specific protective or territorial posturing, courtship displays, startle responses, warnings, investigation, shared alarm, chasing and retreating can be executed as short context-sensitive activity patterns with locally sensed cues. Brackenback protecting a nearby distressed small animal is a core example, not a call for a general ethics or relationship engine.
+
+Reuse locomotion, activity, attention and sensory templates; author recognizable species-specific posture, timing, sound and body language. Short-term continuity prevents visible resets mid-encounter. Unobserved individual cognition, personal development and deep social learning are not required. Upgrade only when an observable encounter fails.
+
 ## Three representations and bounded individual retention
 
 | State | Meaning | Persistence |
