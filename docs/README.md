@@ -31,6 +31,8 @@ The design-to-execution bridge starts with a Windows-first, engine-neutral asset
 
 These are **proposed implementation specifications**. They do not mean an engine has been selected, agents have been dispatched, benchmark results exist, or a playable vertical slice is authorized.
 
+**Agent execution graph:** [Toolkit task graph and dispatcher](../tasks/README.md) provides 68 dependency-gated jobs, machine-readable ownership/acceptance contracts, an offline readiness/claim queue, packet generation and review checkpoints. Use this—not a broad 'build it' prompt—when coordinating flash-type coding agents.
+
 ## Project-wide simulation depth rule
 
 **Display fidelity beats internal fidelity.** The archipelago is a visually ambitious natural-history illusion with shallow, inexpensive ecological internals. Use the simplest plausible proxy/heuristic that produces convincing observable behavior; preserve only the conspicuous consequences and continuity that a player can actually notice. No exact population energy ledger, hydrological reconstruction, weather chronology, full nutrient cycle or complex individual physiology is required by default. Existing detailed algorithms in domain documents are proposals **subordinate to this rule**.
