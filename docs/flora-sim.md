@@ -14,11 +14,11 @@ A plant may be ecologically elaborate while rendered with one simple distant mes
 
 **Population/colony patches:** grasses, reeds, horsetails, small herbs, mosses and fungi where organism-level tracking would be wasteful. Stable patch ID, species mix, coverage, density, age/size distribution, available edible biomass, health, cohort change and last-evaluated time.
 
-All organisms/patches use environmental baseline fields from world generation and time-window summaries from StalthosSim. **Where state differs from its deterministic baseline**, compact records and relevant event/checkpoint information live in StalthosState. Do not store generated meshes or an endless replay log for every tree.
+Organisms/patches use environmental baseline fields from world generation and **coarse current season/condition signals** from StalthosSim. **Where state differs from its deterministic baseline**, compact records and relevant event/checkpoint information live in StalthosState. Do not store generated meshes or an endless replay log for every tree.
 
 ## Biological region activation ahead of rendering
 
-When **SimCore** activates a simulation chunk around Smalltrotter (including buffer beyond HeroView's bounded detached camera), FloraSim resolves the locally appropriate full botanical community from habitat distributions, stable seeds, StalthosState records and elapsed environmental history.
+When **SimCore** activates a simulation chunk around Smalltrotter (including buffer beyond HeroView's bounded detached camera), FloraSim builds plausible local botanical appearance from habitat distributions, stable seeds, coarse seasonal condition and any player-visible saved exceptions.
 
 This means all visually required plant instances/colonies have a biologically coherent source **before** the renderer requests the camera-visible chunk; it does **not** require independent ticking of every rendered stem. Trees and other durable specimens preserve identities/damage; low cover can be dense geometry derived from one ecological population patch.
 
@@ -26,25 +26,22 @@ The renderer may ask for batches of the already-derived state without making ind
 
 ## Lazy advancement
 
-- On a bulk spatial snapshot request, retrieve elapsed world-time and accumulated climate/disturbance history.
-- Advance growth, reproduction, leaf turnover, resources and mortality by appropriate analytic/coarse-step rules, with relevant discrete events applied in timestamp order.
-- Do not tick every plant every frame or re-query every plant on render updates.
-- On browsing/branchfall/burning/flooding, update the affected organisms promptly via validated InteractionsCore event/transaction.
-- A visibly changing plant sends specific state deltas to the renderer; ordinary tiny biomass changes may accumulate until they matter visually.
-- Unloading/changing LOD discards graphics only, not botanical state.
+Normal flora advancement is **cheap scene reconstruction**, not replaying complete plant biology.
 
-Plants must not re-randomize shape during a chunk reload: stable seeds and saved structural changes preserve identity. In particular, a tree with a broken branch keeps the missing branch as it grows around that loss.
+- Rebuild most plant appearance from habitat, fixed identity/seed, current season and elapsed-time growth/recovery approximations.
+- Use a small cover/food-availability value for browsed patches. A recently eaten shrub can show missing shoots or lower foliage density; it recovers gradually enough to look credible.
+- Save specific exceptions for conspicuous dead/uprooted trees, broken landmark branches or visibly altered plants; seed generation must honor these exceptions.
+- Updated close vegetation can trigger a **localized graphical change**. Do not rebuild the entire forest actor for each bite or give every branch a growth timer.
+- Unloaded chunks can simply advance by a bounded approximate function of elapsed time; old climate history is not required.
 
+Fidelity improves only when a cheaper representation demonstrably fails under observation.
 ## Stable anatomical addressing for significant plants
 
-**Persistent organism ID is not enough** when a particular branch is bitten or broken. For durable trees, conspicuous shrubs and other structurally important plants, use **stable anatomical addresses**: organism ID + immutable segment/branch ID + tissue/resource category. Branch IDs must be generated deterministically or assigned durably; never use mutable array positions, which shift as growth adds branches.
+**Default to visual patches, not per-branch biological ledgers.** Most browsing can reduce foliage density, change a small localized mask or swap a pruned variant. Exact eaten-leaf identity, individual nutrient units and durable anatomical addresses are unnecessary.
 
-FloraSim owns the structural graph/compact generative parameterization and amounts of accessible tissue. StalthosState persists stable seed, last-evaluated time, current structure, scars/pruning/tombstones and material state as needed. The **asset generator** reconstructs the same physical segment at the same location/pose from that biological record.
+For a **conspicuous, persistent structural change**—a familiar tree's broken limb, a distinct shrub repeatedly stripped in the player's view—optionally assign stable branch/segment identifiers or a compact procedural damage mask. An organism ID + seed + coarse damage data often suffices; use per-segment addressing only if an explicit close-view test proves necessary. New growth must not resurrect a saved broken landmark limb, but ordinary leaves may be regenerated cheaply.
 
-An interaction is a typed, idempotent command (target/address, tissue type, requested quantity, actor and operation ID). InteractionsCore validates location/reach and available tissue with the appropriate owners, commits the **actual granted** biomass/injury exactly once and returns the outcome to animal digestion/behavior. FloraSim retains the **resulting structural state** and segment/resource version, not an ever-growing diary of bites; future regrowth may replace foliage but must not mysteriously restore a severed limb.
-
-Do **not** give every leaf, fern frond or grass blade a persistent ID. Dense cover may use patch IDs, coarse browsing masks and aggregate resource budgets. Tree topology resolution is species/visual-significance dependent, not universally maximal.
-
+InteractionsCore prevents an immediate visible interaction from being applied twice, checks approximate physical reach and reduces the relevant local visible resource amount. A complex typed transaction journal and full mass/chemical accounting are not default requirements. No persistent IDs for leaves, blades, fronds or ordinary branches.
 ## Provisional forest disturbance and lightweight recovery — scope ceiling
 
 **Provisionally accepted because it changes the visible forest, not because the project needs a full forest ecology simulator.** The first implementation should use the existing FloraSim tree identity/branching-seed model, patch state, lazy catch-up and StalthosSim weather events; **do not introduce another runtime simulation domain**.
@@ -52,7 +49,7 @@ Do **not** give every leaf, fern frond or grass blade a persistent ID. Dense cov
 - **Occasional consequential changes:** storms, branchfall, individual tree death/uprooting and localized canopy openings. Record which established trees are lost/damaged and preserve recognizable standing deadwood, fallen trunks and persistent gaps where relevant. A deterministic seed must **not resurrect** a tree suppressed by a saved death/fall override.
 - **Coarse patch response:** affected understory/ground cover may become denser, sparser or compositionally different as shade/exposure changes. Approximate the canopy gap using existing patch/environment summaries, **not** per-leaf lighting, soil or full competition solves.
 - **Simple replacement:** when a patch has available space and broadly suitable conditions, permit occasional new saplings/trees to establish with stable identities and deterministic meshes. No explicit seed-by-seed dispersal, individual seedling survival simulation or ranked competition among thousands of saplings.
-- **Lazy/checkpointed history:** update patches and important trees when needed; periodically persist resulting canopy/cover state plus exceptional individual overrides so old disturbances need not be replayed from the beginning of the world. Keep regeneration and reappearance physically credible on return, but avoid detailed ecological chronologies.
+- **Cheap reconstruction:** use current season, coarse elapsed-time recovery and persisted significant tree/canopy overrides. No mandatory replay or checkpointing of fine-grained ecological history.
 
 **Deferred unless a real in-engine visual/gameplay deficiency justifies them:** comprehensive succession-stage models, detailed plant competition or seed banks, mechanistic wildfire ignition/spread/recovery, full forestry dynamics and terrain erosion. A rare burned/damaged patch may eventually be represented as a coarse disturbance *if justified*, but wildfire propagation is **not** an approved system here. Keep geological terrain, rivercourses and ordinary topography stable.
 
@@ -60,21 +57,17 @@ Do **not** give every leaf, fern frond or grass blade a persistent ID. Dense cov
 
 ## Ordered growth and bounded catch-up
 
-FloraSim consumes StalthosSim's **chronologically ordered regional intervals** and exceptional events, integrating drought/flood/heat effects in sequence rather than using seasonal means alone. Each individual or patch maintains a last-evaluated timestamp and state version to support deterministic resumable advancement.
+**Do not replay chronological drought/heat/rain histories.** On revisiting an inactive region, advance patches and notable plants via elapsed time, seasonal profile, simple condition modifiers and saved lasting exceptions. If a tree fell in an observed storm, store the resulting fallen/dead state; no tree-by-tree weather-integral replay is needed.
 
-For an old inactive chunk, calculate inexpensive patch-level summaries first, then advance significant plant individuals in **budgeted batches** ahead of camera observation. No renderer movement may force unbounded synchronous replay. Catch-up jobs can be subdivided with a cursor; late results are discarded or reconciled if the plant version advanced due to a newer bite or storm. High-detail geometry only builds after the state it represents is valid at the requested time.
-
-A lower-detail presentation is acceptable if detail isn't ready; a **factually contradictory** stale representation is not. Preserve committed visible damage/depletion via structural deltas or temporarily omit unreconciled high-detail detail rather than resurrecting destroyed vegetation. Test the visual result under rapid ridge-overlook camera movement and years of deferred growth.
-
+Keep generation and plant-state preparation ahead of a potential camera reveal. Budget geometry builds and preserve version safety for **concurrently edited noticeable plants**, but do not require every patch to maintain a journal cursor and historical reconciliation pipeline. When detail is unready, use a cheaper consistent visual representation that still respects visible damage, rather than showing a restored destroyed tree.
 ## Food and interaction model
 
-Each edible part has anatomical location/reach, current biomass, water, fiber/chemical defenses and nutritional properties. BeastCore provides consumer physiology via HeroSim/FaunaSim, FloraSim validates resource quantity, InteractionsCore commits transfer once and returns true intake to animal owners. Feeding removes visible tissue where appropriate.
+The player or a nearby visible animal may reach actual foliage, nip a shrub and visibly reduce its amount. FloraSim needs simple edible suitability/quality tags, approximate accessible resource amount or patch density, and local reach/interaction anchors. BeastCore receives a plausible feeding result; no exact food chemistry, digestion yield or species-specific energy-conservation transfer is mandated.
 
-Animal populations offscreen may have bulk browsing budgets applied to cohorts and selected persistent individuals. Their ecological use persists through lazy advancement.
-
+Remote animals may exert **coarse pressure** on an entire forage patch or regional cover value, sampled only when needed. Do not generate an unseen log of specific bites or settle exact hidden biomass transactions.
 ## Death, fungi and detritus
 
-When a tree dies, FloraSim ends the living plant record and emits a structural/detrital transition. StalthosState persists deadwood or other remains. FloraSim may continue modeling fungal colonization, wood decay and nutrient/soil organic effects at coarse interval; FaunaSim detritivores/scavengers consume shared resources via InteractionsCore. Avoid per-microbe simulation or double-counting live and dead biomass.
+When a prominent tree dies, persist its standing-dead/fallen state and place convincing deadwood/litter visuals. A few timed stages can vary fungi, wood decay and ground cover; optional detritivore activity may be staged from habitat cues. No nutrient/soil recycling conservation, microbial model or remote detritus ledger is required.
 
 ## Rendering contract
 
